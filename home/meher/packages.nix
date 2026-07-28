@@ -8,6 +8,8 @@
     kitty
     pkgs.overskride
     pkgs.zed-editor
-    nixd
+
+    #nix development tools
+    nil nixd
   ];
 }
