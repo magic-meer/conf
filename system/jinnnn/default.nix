@@ -10,4 +10,10 @@
     ./packages.nix
     ./users.nix
   ];
+
+  #Enabling flakes and nix command
+  nix.settings.experimental-features = [
+	"nix-command"
+	"flakes"
+  ];
 }
