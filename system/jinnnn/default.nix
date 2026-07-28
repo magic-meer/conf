@@ -4,7 +4,7 @@
     ./hardware_configuration.nix
     ./locale.nix
     ./networking.nix
-    ./pakcages.nix
+    ./packages.nix
     ./users.nix
   ];
 }

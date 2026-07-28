@@ -14,4 +14,5 @@
       LC_PAPER = "ur_PK";
       LC_TELEPHONE = "ur_PK";
       LC_TIME = "ur_PK";
+    };
 }
