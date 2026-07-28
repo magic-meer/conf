@@ -40,6 +40,7 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = { inherit inputs; };
             home-manager.users.${userName} = import ./home/${userName};
+            home-manager.backupFileExtension = "home.backup"
           }
         ];
       };
