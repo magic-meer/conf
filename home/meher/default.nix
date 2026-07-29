@@ -9,6 +9,7 @@
     ./zed.nix
     ./zen-browser.nix
     ./kitty.nix
+    ./shell.nix
   ];
 
   home = {
