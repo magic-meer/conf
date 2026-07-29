@@ -1,13 +1,14 @@
 {
-  userName,
   ...
-}: {
+}:
+{
   imports = [
     ./packages.nix
     ./git.nix
     ./fish.nix
     ./zed.nix
     ./zen-browser.nix
+    ./kitty.nix
   ];
 
   home = {
