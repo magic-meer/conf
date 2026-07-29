@@ -11,5 +11,7 @@
     gita = "git add .";
     gitc = "git commit -m";
     gits = "git status";
+    vi = "nvim";
+    vim = "nvim";
   };
 }
