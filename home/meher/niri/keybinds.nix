@@ -3,7 +3,7 @@
 }: {
   programs.niri.settings.binds = {
     # Hotkey overlay
-    "Mod+Shift+Slash".action.show-hotkey-overlay = null;
+    "Mod+Shift+Slash".action.show-hotkey-overlay = [];
 
     # Launcher
     "Mod+D".action.spawn = "fuzzel";
@@ -19,105 +19,105 @@
 
     # Overview
     "Mod+O" = {
-      action.toggle-overview = null;
+      action.toggle-overview = [];
       repeat = false;
     };
 
     # Close window
     "Mod+Q" = {
-      action.close-window = null;
+      action.close-window = [];
       repeat = false;
     };
 
     # Window focus
-    "Mod+Left".action.focus-column-left = null;
-    "Mod+Down".action.focus-window-down = null;
-    "Mod+Up".action.focus-window-up = null;
-    "Mod+Right".action.focus-column-right = null;
-    "Mod+H".action.focus-column-left = null;
-    "Mod+J".action.focus-window-down = null;
-    "Mod+K".action.focus-window-up = null;
-    "Mod+L".action.focus-column-right = null;
+    "Mod+Left".action.focus-column-left = [];
+    "Mod+Down".action.focus-window-down = [];
+    "Mod+Up".action.focus-window-up = [];
+    "Mod+Right".action.focus-column-right = [];
+    "Mod+H".action.focus-column-left = [];
+    "Mod+J".action.focus-window-down = [];
+    "Mod+K".action.focus-window-up = [];
+    "Mod+L".action.focus-column-right = [];
 
     # Move windows
-    "Mod+Ctrl+Left".action.move-column-left = null;
-    "Mod+Ctrl+Down".action.move-window-down = null;
-    "Mod+Ctrl+Up".action.move-window-up = null;
-    "Mod+Ctrl+Right".action.move-column-right = null;
-    "Mod+Ctrl+H".action.move-column-left = null;
-    "Mod+Ctrl+J".action.move-window-down = null;
-    "Mod+Ctrl+K".action.move-window-up = null;
-    "Mod+Ctrl+L".action.move-column-right = null;
+    "Mod+Ctrl+Left".action.move-column-left = [];
+    "Mod+Ctrl+Down".action.move-window-down = [];
+    "Mod+Ctrl+Up".action.move-window-up = [];
+    "Mod+Ctrl+Right".action.move-column-right = [];
+    "Mod+Ctrl+H".action.move-column-left = [];
+    "Mod+Ctrl+J".action.move-window-down = [];
+    "Mod+Ctrl+K".action.move-window-up = [];
+    "Mod+Ctrl+L".action.move-column-right = [];
 
     # Column first/last
-    "Mod+Home".action.focus-column-first = null;
-    "Mod+End".action.focus-column-last = null;
-    "Mod+Ctrl+Home".action.move-column-to-first = null;
-    "Mod+Ctrl+End".action.move-column-to-last = null;
+    "Mod+Home".action.focus-column-first = [];
+    "Mod+End".action.focus-column-last = [];
+    "Mod+Ctrl+Home".action.move-column-to-first = [];
+    "Mod+Ctrl+End".action.move-column-to-last = [];
 
     # Monitor focus
-    "Mod+Shift+Left".action.focus-monitor-left = null;
-    "Mod+Shift+Down".action.focus-monitor-down = null;
-    "Mod+Shift+Up".action.focus-monitor-up = null;
-    "Mod+Shift+Right".action.focus-monitor-right = null;
-    "Mod+Shift+H".action.focus-monitor-left = null;
-    "Mod+Shift+J".action.focus-monitor-down = null;
-    "Mod+Shift+K".action.focus-monitor-up = null;
-    "Mod+Shift+L".action.focus-monitor-right = null;
+    "Mod+Shift+Left".action.focus-monitor-left = [];
+    "Mod+Shift+Down".action.focus-monitor-down = [];
+    "Mod+Shift+Up".action.focus-monitor-up = [];
+    "Mod+Shift+Right".action.focus-monitor-right = [];
+    "Mod+Shift+H".action.focus-monitor-left = [];
+    "Mod+Shift+J".action.focus-monitor-down = [];
+    "Mod+Shift+K".action.focus-monitor-up = [];
+    "Mod+Shift+L".action.focus-monitor-right = [];
 
     # Move column to monitor
-    "Mod+Shift+Ctrl+Left".action.move-column-to-monitor-left = null;
-    "Mod+Shift+Ctrl+Down".action.move-column-to-monitor-down = null;
-    "Mod+Shift+Ctrl+Up".action.move-column-to-monitor-up = null;
-    "Mod+Shift+Ctrl+Right".action.move-column-to-monitor-right = null;
-    "Mod+Shift+Ctrl+H".action.move-column-to-monitor-left = null;
-    "Mod+Shift+Ctrl+J".action.move-column-to-monitor-down = null;
-    "Mod+Shift+Ctrl+K".action.move-column-to-monitor-up = null;
-    "Mod+Shift+Ctrl+L".action.move-column-to-monitor-right = null;
+    "Mod+Shift+Ctrl+Left".action.move-column-to-monitor-left = [];
+    "Mod+Shift+Ctrl+Down".action.move-column-to-monitor-down = [];
+    "Mod+Shift+Ctrl+Up".action.move-column-to-monitor-up = [];
+    "Mod+Shift+Ctrl+Right".action.move-column-to-monitor-right = [];
+    "Mod+Shift+Ctrl+H".action.move-column-to-monitor-left = [];
+    "Mod+Shift+Ctrl+J".action.move-column-to-monitor-down = [];
+    "Mod+Shift+Ctrl+K".action.move-column-to-monitor-up = [];
+    "Mod+Shift+Ctrl+L".action.move-column-to-monitor-right = [];
 
     # Workspace navigation (previous/next)
-    "Mod+Page_Down".action.focus-workspace-down = null;
-    "Mod+Page_Up".action.focus-workspace-up = null;
-    "Mod+U".action.focus-workspace-down = null;
-    "Mod+I".action.focus-workspace-up = null;
-    "Mod+Ctrl+Page_Down".action.move-column-to-workspace-down = null;
-    "Mod+Ctrl+Page_Up".action.move-column-to-workspace-up = null;
-    "Mod+Ctrl+U".action.move-column-to-workspace-down = null;
-    "Mod+Ctrl+I".action.move-column-to-workspace-up = null;
+    "Mod+Page_Down".action.focus-workspace-down = [];
+    "Mod+Page_Up".action.focus-workspace-up = [];
+    "Mod+U".action.focus-workspace-down = [];
+    "Mod+I".action.focus-workspace-up = [];
+    "Mod+Ctrl+Page_Down".action.move-column-to-workspace-down = [];
+    "Mod+Ctrl+Page_Up".action.move-column-to-workspace-up = [];
+    "Mod+Ctrl+U".action.move-column-to-workspace-down = [];
+    "Mod+Ctrl+I".action.move-column-to-workspace-up = [];
 
     # Move workspace between monitors
-    "Mod+Shift+Page_Down".action.move-workspace-down = null;
-    "Mod+Shift+Page_Up".action.move-workspace-up = null;
-    "Mod+Shift+U".action.move-workspace-down = null;
-    "Mod+Shift+I".action.move-workspace-up = null;
+    "Mod+Shift+Page_Down".action.move-workspace-down = [];
+    "Mod+Shift+Page_Up".action.move-workspace-up = [];
+    "Mod+Shift+U".action.move-workspace-down = [];
+    "Mod+Shift+I".action.move-workspace-up = [];
 
     # Scroll wheel workspace switching
     "Mod+WheelScrollDown" = {
-      action.focus-workspace-down = null;
+      action.focus-workspace-down = [];
       cooldown-ms = 150;
     };
     "Mod+WheelScrollUp" = {
-      action.focus-workspace-up = null;
+      action.focus-workspace-up = [];
       cooldown-ms = 150;
     };
     "Mod+Ctrl+WheelScrollDown" = {
-      action.move-column-to-workspace-down = null;
+      action.move-column-to-workspace-down = [];
       cooldown-ms = 150;
     };
     "Mod+Ctrl+WheelScrollUp" = {
-      action.move-column-to-workspace-up = null;
+      action.move-column-to-workspace-up = [];
       cooldown-ms = 150;
     };
 
-    "Mod+WheelScrollRight".action.focus-column-right = null;
-    "Mod+WheelScrollLeft".action.focus-column-left = null;
-    "Mod+Ctrl+WheelScrollRight".action.move-column-right = null;
-    "Mod+Ctrl+WheelScrollLeft".action.move-column-left = null;
+    "Mod+WheelScrollRight".action.focus-column-right = [];
+    "Mod+WheelScrollLeft".action.focus-column-left = [];
+    "Mod+Ctrl+WheelScrollRight".action.move-column-right = [];
+    "Mod+Ctrl+WheelScrollLeft".action.move-column-left = [];
 
-    "Mod+Shift+WheelScrollDown".action.focus-column-right = null;
-    "Mod+Shift+WheelScrollUp".action.focus-column-left = null;
-    "Mod+Ctrl+Shift+WheelScrollDown".action.move-column-right = null;
-    "Mod+Ctrl+Shift+WheelScrollUp".action.move-column-left = null;
+    "Mod+Shift+WheelScrollDown".action.focus-column-right = [];
+    "Mod+Shift+WheelScrollUp".action.focus-column-left = [];
+    "Mod+Ctrl+Shift+WheelScrollDown".action.move-column-right = [];
+    "Mod+Ctrl+Shift+WheelScrollUp".action.move-column-left = [];
 
     # Workspace by number
     "Mod+1".action.focus-workspace = 1;
@@ -141,26 +141,26 @@
     "Mod+Ctrl+9".action.move-column-to-workspace = 9;
 
     # Consume/expel window
-    "Mod+BracketLeft".action.consume-or-expel-window-left = null;
-    "Mod+BracketRight".action.consume-or-expel-window-right = null;
-    "Mod+Comma".action.consume-window-into-column = null;
-    "Mod+Period".action.expel-window-from-column = null;
+    "Mod+BracketLeft".action.consume-or-expel-window-left = [];
+    "Mod+BracketRight".action.consume-or-expel-window-right = [];
+    "Mod+Comma".action.consume-window-into-column = [];
+    "Mod+Period".action.expel-window-from-column = [];
 
     # Column width presets
-    "Mod+R".action.switch-preset-column-width = null;
-    "Mod+Shift+R".action.switch-preset-column-width-back = null;
-    "Mod+Ctrl+Shift+R".action.switch-preset-window-height = null;
-    "Mod+Ctrl+R".action.reset-window-height = null;
+    "Mod+R".action.switch-preset-column-width = [];
+    "Mod+Shift+R".action.switch-preset-column-width-back = [];
+    "Mod+Ctrl+Shift+R".action.switch-preset-window-height = [];
+    "Mod+Ctrl+R".action.reset-window-height = [];
 
     # Fullscreen / maximize
-    "Mod+F".action.maximize-column = null;
-    "Mod+Shift+F".action.fullscreen-window = null;
-    "Mod+M".action.maximize-window-to-edges = null;
-    "Mod+Ctrl+F".action.expand-column-to-available-width = null;
+    "Mod+F".action.maximize-column = [];
+    "Mod+Shift+F".action.fullscreen-window = [];
+    "Mod+M".action.maximize-window-to-edges = [];
+    "Mod+Ctrl+F".action.expand-column-to-available-width = [];
 
     # Center column
-    "Mod+C".action.center-column = null;
-    "Mod+Ctrl+C".action.center-visible-columns = null;
+    "Mod+C".action.center-column = [];
+    "Mod+Ctrl+C".action.center-visible-columns = [];
 
     # Width/height adjustment
     "Mod+Minus".action.set-column-width = "-10%";
@@ -169,27 +169,27 @@
     "Mod+Shift+Equal".action.set-window-height = "+10%";
 
     # Floating
-    "Mod+V".action.toggle-window-floating = null;
-    "Mod+Shift+V".action.switch-focus-between-floating-and-tiling = null;
+    "Mod+V".action.toggle-window-floating = [];
+    "Mod+Shift+V".action.switch-focus-between-floating-and-tiling = [];
 
     # Tabbed display
-    "Mod+W".action.toggle-column-tabbed-display = null;
+    "Mod+W".action.toggle-column-tabbed-display = [];
 
     # Screenshots
-    "Print".action.screenshot = null;
-    "Ctrl+Print".action.screenshot-screen = null;
-    "Alt+Print".action.screenshot-window = null;
+    "Print".action.screenshot = [];
+    "Ctrl+Print".action.screenshot-screen = [];
+    "Alt+Print".action.screenshot-window = [];
 
     # Quit
-    "Mod+Shift+E".action.quit = null;
-    "Ctrl+Alt+Delete".action.quit = null;
+    "Mod+Shift+E".action.quit = [];
+    "Ctrl+Alt+Delete".action.quit = [];
 
     # Power off monitors
-    "Mod+Shift+P".action.power-off-monitors = null;
+    "Mod+Shift+P".action.power-off-monitors = [];
 
     # Keyboard shortcuts inhibit toggle (escape hatch)
     "Mod+Escape" = {
-      action.toggle-keyboard-shortcuts-inhibit = null;
+      action.toggle-keyboard-shortcuts-inhibit = [];
       allow-inhibiting = false;
     };
 
