@@ -20,7 +20,7 @@
 
     plugins.telescope.enable = true;
     plugins.which-key.enable = true;
-    plugins.autopairs.enable = true;
+    plugins.nvim-autopairs.enable = true;
     plugins.gitsigns.enable = true;
     plugins.bufferline.enable = true;
     plugins.nvim-tree.enable = true;
