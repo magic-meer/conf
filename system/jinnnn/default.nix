@@ -16,4 +16,11 @@
 	"nix-command"
 	"flakes"
   ];
+
+  # Auto-cleanup old generations after 15 days
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 15d";
+  };
 }

@@ -23,7 +23,7 @@
 
     lsp.servers.nixd = {
       enable = true;
-      settings = {
+      config = {
         nixd = {
           nixpkgs.expr = "import <nixpkgs> { }";
           formatting.command = [ "nixfmt" ];
