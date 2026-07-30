@@ -6,10 +6,8 @@
     rofi
     waybar
     kitty
-    pkgs.overskride
-    pkgs.zed-editor
-
-    #nix development tools
-    nil nixd
+    overskride
+    zed-editor
+    opencode
   ];
 }

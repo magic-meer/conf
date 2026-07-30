@@ -7,7 +7,7 @@
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
-    neovim
+    vim
     git
     tree
     bat

@@ -10,6 +10,7 @@
     ./zen-browser.nix
     ./kitty.nix
     ./shell.nix
+    ./nixvim
   ];
 
   home = {

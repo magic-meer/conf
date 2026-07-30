@@ -1,0 +1,42 @@
+{ config, ... }: {
+  programs.nixvim = {
+    plugins.lualine = {
+      enable = true;
+      settings.options = {
+        theme = "auto";
+        section_separators = "";
+        component_separators = "";
+      };
+    };
+
+    plugins.transparent.enable = true;
+
+    plugins.treesitter = {
+      enable = true;
+      highlight.enable = true;
+      indent.enable = true;
+      folding.enable = true;
+    };
+
+    plugins.telescope.enable = true;
+    plugins.which-key.enable = true;
+    plugins.autopairs.enable = true;
+    plugins.gitsigns.enable = true;
+    plugins.bufferline.enable = true;
+    plugins.nvim-tree.enable = true;
+
+    lsp.servers.nixd = {
+      enable = true;
+      settings = {
+        nixd = {
+          nixpkgs.expr = "import <nixpkgs> { }";
+          formatting.command = [ "nixfmt" ];
+          options = {
+            nixos.expr = ''(builtins.getFlake (toString ./.)).nixosConfigurations.jinnnn.options'';
+            home_manager.expr = ''(builtins.getFlake (toString ./.)).homeConfigurations."meher".options'';
+          };
+        };
+      };
+    };
+  };
+}

@@ -2,15 +2,31 @@
   description = "Yet another dumb things of mine";
 
   inputs = {
+
+    #  nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    # Stable fallback
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+
+    niri.url = "github:sodiboo/niri-flake";
+
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixvim = {
+      url = "github:nix-community/nixvim/nixos-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    opencode.url = "github:GutMutCode/opencode-nix";
+
   };
 
   outputs = {
@@ -18,6 +34,8 @@
     nixpkgs,
     home-manager,
     zen-browser,
+    niri,
+    opencode,
     ...
   }@inputs:
     let
@@ -35,6 +53,7 @@
         modules = [
           ./system/${systemName}/default.nix
           home-manager.nixosModules.home-manager
+	  # nixpkgs.overlays = [ opencode.overlays.default ];
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;

@@ -1,0 +1,1 @@
+../nixvim/keybinds.nix
