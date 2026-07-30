@@ -9,7 +9,7 @@
     ./layout.nix
     ./appearance.nix
     ./keybinds.nix
-    ./startup.nix
+    ./statup.nix
   ];
 
   programs.niri = {

@@ -1,9 +1,7 @@
 {
   ...
 }: {
-  programs.niri.settings = {
-    spawn-at-startup = [
-     { command = "waybar" }
-    ];
-  };
+  programs.niri.settings.spawn-at-startup = [
+    { argv = ["waybar"]; }
+  ];
 }
