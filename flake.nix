@@ -50,10 +50,11 @@
           inherit inputs userName systemName;
         };
 
+	  nixpkgs.overlays = [ opencode.overlays.default ];
+
         modules = [
           ./system/${systemName}/default.nix
           home-manager.nixosModules.home-manager
-	  # nixpkgs.overlays = [ opencode.overlays.default ];
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
