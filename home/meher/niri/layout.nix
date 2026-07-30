@@ -3,7 +3,7 @@
 }: {
   programs.niri.settings = {
     layout = {
-      gaps = 8;
+      gaps = 4;
 
       center-focused-column = "on-overflow";
 
