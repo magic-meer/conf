@@ -155,7 +155,7 @@
     # Fullscreen / maximize
     "Mod+F".action.maximize-column = [];
     "Mod+Shift+F".action.fullscreen-window = [];
-    "Mod+M".action.maximize-window-to-edges = [];
+    "Mod+M".action.toggle-windowed-fullscreen = [];
     "Mod+Ctrl+F".action.expand-column-to-available-width = [];
 
     # Center column

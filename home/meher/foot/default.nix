@@ -9,7 +9,6 @@ let
   generateIni = sections:
     lib.concatStringsSep "\n\n" (lib.mapAttrsToList (sectionName: values:
       let
-        sectionHeader = lib.optionalString (sectionName != "main") "[${sectionName}]\n";
         kvps = lib.mapAttrsToList (key: value:
           if lib.isList value then
             "${key}=${lib.concatStringsSep " " (map toString value)}"
@@ -21,8 +20,7 @@ let
             "${key}=${toString value}"
         ) values;
       in
-      (lib.optionalString (sectionHeader != "") sectionHeader)
-      + lib.concatStringsSep "\n" kvps
+      "[${sectionName}]\n" + lib.concatStringsSep "\n" kvps
     ) (lib.filterAttrs (_: v: v != {}) sections));
 
   keybinds = import ./keybinds.nix;
@@ -57,7 +55,7 @@ let
       border-width = 0;
     };
     "colors-dark" = {
-      alpha = "0.85";
+      alpha = "0.35";
       blur = true;
     };
   };

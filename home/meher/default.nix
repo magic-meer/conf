@@ -11,7 +11,8 @@
     ./kitty.nix
     ./shell.nix
     ./nixvim
-      ./niri
+    ./niri
+    ./foot
   ];
 
   home = {

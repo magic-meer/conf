@@ -2,12 +2,13 @@
    pkgs,
    ...
 }: {
-   home.packages = with pkgs; [
-      fuzzel
-      waybar
-      foot
-      overskride
-      zed-editor
-      opencode
-   ];
+home.packages = with pkgs; [
+       fuzzel
+       waybar
+       foot
+       overskride
+       zed-editor
+       opencode
+       awww
+    ];
 }
