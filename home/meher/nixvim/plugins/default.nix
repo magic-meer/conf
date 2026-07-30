@@ -2,14 +2,7 @@
   programs.nixvim = {
     nixpkgs.config.allowUnfree = true;
 
-    plugins.lualine = {
-      enable = true;
-      config.options = {
-        theme = "auto";
-        section_separators = "";
-        component_separators = "";
-      };
-    };
+    plugins.lualine.enable = true;
 
     plugins.transparent.enable = true;
 
