@@ -50,7 +50,7 @@
           inherit inputs userName systemName;
         };
 
-	  nixpkgs.overlays = [ opencode.overlays.default ];
+	  # nixpkgs.overlays = [ opencode.overlays.default ];
 
         modules = [
           ./system/${systemName}/default.nix
