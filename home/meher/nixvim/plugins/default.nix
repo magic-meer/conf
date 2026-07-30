@@ -1,8 +1,10 @@
 { config, ... }: {
   programs.nixvim = {
+    nixpkgs.config.allowUnfree = true;
+
     plugins.lualine = {
       enable = true;
-      settings.options = {
+      config.options = {
         theme = "auto";
         section_separators = "";
         component_separators = "";
@@ -24,6 +26,7 @@
     plugins.gitsigns.enable = true;
     plugins.bufferline.enable = true;
     plugins.nvim-tree.enable = true;
+    plugins.web-devicons.enable = true;
 
     lsp.servers.nixd = {
       enable = true;
