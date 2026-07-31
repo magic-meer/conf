@@ -13,6 +13,7 @@
     ./nixvim
     ./niri
     ./foot
+    ./fuzzel.nix
   ];
 
   home = {
