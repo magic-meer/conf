@@ -27,10 +27,16 @@ let
   };
 
   background-effect = children: kdl.node "background-effect" [ ] children;
-  blur-behind = background-effect [ (kdl.leaf "blur" true) ];
+  blur-behind = background-effect [
+    (kdl.leaf "blur" true)
+    (kdl.leaf "xray" false)
+  ];
 
   rules = [
-    (kdl.node "window-rule" [ ] [ blur-behind ])
+    (kdl.node "window-rule" [ ] [
+      blur-behind
+      (kdl.leaf "draw-border-with-background" false)
+    ])
     (kdl.node "layer-rule" [ ] [
       (kdl.node "match" { layer = "overlay"; } [ ])
       blur-behind

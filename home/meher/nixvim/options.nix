@@ -2,7 +2,7 @@
    programs.nixvim.opts = {
       #line numbers
       number = true;
-      relativeNumber = true;
+      relativenumber = true;
 
       #more colors
       enabletermguicolors = true;
