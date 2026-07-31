@@ -5,7 +5,7 @@
       relativenumber = true;
 
       #more colors
-      enabletermguicolors = true;
+      termguicolors = true;
 
       #better completion
       completeopt = [
