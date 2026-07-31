@@ -10,6 +10,7 @@
     ./appearance.nix
     ./keybinds.nix
     ./statup.nix
+    ./window-rules.nix
   ];
 
   # programs.niri = {
