@@ -25,6 +25,7 @@
     ./neoscroll.nix
     ./smear-cursor.nix
     ./mini.nix
+    ./legendary.nix
 
     # alternatives for plugins not available in nixvim
     ./mkdnflow.nix

@@ -4,10 +4,12 @@
 
     settings = {
       win = {
-        # single column, anchored to the bottom-right corner
+        # anchored to the bottom-right corner.
+        # NOTE: width is the window width in columns; with the default
+        # layout.width.min = 20 the popup always renders a single column.
         col.__raw = "math.huge";
         row.__raw = "math.huge";
-        width = 1;
+        width = 40;
       };
     };
   };

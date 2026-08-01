@@ -110,5 +110,11 @@
       action = "<cmd>Neotree toggle<CR>";
       options.desc = "Toggle file tree";
     }
+    {
+      mode = "n";
+      key = "<leader>?";
+      action = "<cmd>Legendary<CR>";
+      options.desc = "Keymap cheatsheet";
+    }
   ];
 }
