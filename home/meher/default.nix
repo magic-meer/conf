@@ -14,6 +14,8 @@
     ./kitty
     ./fuzzel.nix
     ./gtk.nix
+    ./waybar
+    ./swaync
   ];
 
   home = {

@@ -9,5 +9,8 @@ home.packages = with pkgs; [
        zed-editor
        opencode
        awww
+       swaynotificationcenter
+       brightnessctl
+       power-profiles-daemon
     ];
 }

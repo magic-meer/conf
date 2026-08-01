@@ -24,4 +24,7 @@
 
   programs.fish.enable = true;
   programs.niri.enable = true;
+
+  # for the waybar power profile module
+  services.power-profiles-daemon.enable = true;
 }

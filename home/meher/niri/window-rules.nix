@@ -32,13 +32,24 @@ let
     (kdl.leaf "xray" false)
   ];
 
+  # rounded window corners; clip-to-geometry applies the radius to the
+  # actual window surface instead of just the decorations
+  corners = kdl.leaf "geometry-corner-radius" 12.0;
+
   rules = [
     (kdl.node "window-rule" [ ] [
+      corners
+      (kdl.leaf "clip-to-geometry" true)
       blur-behind
       (kdl.leaf "draw-border-with-background" false)
     ])
     (kdl.node "layer-rule" [ ] [
       (kdl.node "match" { layer = "overlay"; } [ ])
+      blur-behind
+    ])
+    # waybar sits on the "top" layer, so blur its cards explicitly
+    (kdl.node "layer-rule" [ ] [
+      (kdl.node "match" { namespace = "^waybar$"; } [ ])
       blur-behind
     ])
   ];

@@ -46,7 +46,8 @@
          cursor_trail_start_threshold = 2;
          cursor_trail_color = "#7aa2f7";
 
-         confirm_on_window_close = 0;
+         # kitty 0.47 renamed confirm_on_window_close to confirm_os_window_close
+         confirm_os_window_close = 0;
          enable_audio_bell = false;
       };
    };
