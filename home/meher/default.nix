@@ -14,6 +14,7 @@
     ./niri
     ./foot
     ./fuzzel.nix
+    ./gtk.nix
   ];
 
   home = {
