@@ -37,6 +37,13 @@
     ./flash.nix
     ./undotree.nix
     ./toggleterm.nix
+
+    # python IDE
+    ./lz-n.nix
+    ./python-lsp.nix
+    ./venv-selector.nix
+    ./dap.nix
+    ./iron.nix
   ];
 
   programs.nixvim = {
