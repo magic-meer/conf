@@ -27,5 +27,57 @@
       theme = "Adwaita";
       size = 24;
     };
+
+    # foot has no built-in animations, so window-level ones live here
+    animations = {
+      window-open = {
+        kind = {
+          easing = {
+            "duration-ms" = 250;
+            curve = "ease-out-expo";
+          };
+        };
+      };
+      window-close = {
+        kind = {
+          easing = {
+            "duration-ms" = 200;
+            curve = "ease-out-cubic";
+          };
+        };
+      };
+      window-movement = {
+        kind = {
+          easing = {
+            "duration-ms" = 200;
+            curve = "ease-out-cubic";
+          };
+        };
+      };
+      window-resize = {
+        kind = {
+          easing = {
+            "duration-ms" = 200;
+            curve = "ease-out-cubic";
+          };
+        };
+      };
+      workspace-switch = {
+        kind = {
+          easing = {
+            "duration-ms" = 250;
+            curve = "ease-out-cubic";
+          };
+        };
+      };
+      horizontal-view-movement = {
+        kind = {
+          easing = {
+            "duration-ms" = 250;
+            curve = "ease-out-cubic";
+          };
+        };
+      };
+    };
   };
 }
