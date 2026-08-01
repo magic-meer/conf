@@ -1,1 +1,0 @@
-../foot/keybinds.nix

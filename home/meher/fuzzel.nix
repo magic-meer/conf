@@ -8,7 +8,7 @@
     settings = {
       main = {
         layer = "overlay";
-        terminal = "foot";
+        terminal = "kitty";
         font = "JetBrainsMono Nerd Font:size=12";
         width = "40%";
       };

@@ -28,7 +28,7 @@
       size = 24;
     };
 
-    # foot has no built-in animations, so window-level ones live here
+    # kitty handles terminal-side looks; window-level animations live here
     animations = {
       window-open = {
         kind = {

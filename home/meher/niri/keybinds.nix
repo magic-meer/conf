@@ -9,7 +9,7 @@
     "Mod+D".action.spawn = "fuzzel";
 
     # Terminal
-    "Mod+T".action.spawn = "foot";
+    "Mod+T".action.spawn = "kitty";
 
     # Lock screen
     "Super+Alt+L" = {

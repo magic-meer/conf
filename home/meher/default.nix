@@ -8,11 +8,7 @@
     ./fish.nix
     ./zed.nix
     ./zen-browser.nix
-    ./kitty.nix
-    ./shell.nix
-    ./nixvim
-    ./niri
-    ./foot
+    ./kitty
     ./fuzzel.nix
     ./gtk.nix
   ];
