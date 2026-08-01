@@ -24,6 +24,7 @@
     ./which-key.nix
     ./neoscroll.nix
     ./smear-cursor.nix
+    ./mini.nix
 
     # alternatives for plugins not available in nixvim
     ./mkdnflow.nix

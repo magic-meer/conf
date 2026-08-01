@@ -39,6 +39,13 @@
          background_blur = 5;
          dynamic_background_opacity = true;
 
+         # cursor trail animation (ms the cursor must stay put before a
+         # trail follows it on the next jump; 0 = off)
+         cursor_trail = 200;
+         cursor_trail_decay = "0.1 0.4";
+         cursor_trail_start_threshold = 2;
+         cursor_trail_color = "#7aa2f7";
+
          confirm_on_window_close = 0;
          enable_audio_bell = false;
       };

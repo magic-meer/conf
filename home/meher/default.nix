@@ -8,6 +8,9 @@
     ./fish.nix
     ./zed.nix
     ./zen-browser.nix
+    ./shell.nix
+    ./nixvim
+    ./niri
     ./kitty
     ./fuzzel.nix
     ./gtk.nix
