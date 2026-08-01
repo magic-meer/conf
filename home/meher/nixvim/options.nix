@@ -14,8 +14,8 @@
          "noinsert"
       ];
 
-      #idk what this is but it does not work
-      # signcolumn = true;
+      #always reserve the sign column so git/sign marks don't shift the code
+      signcolumn = "yes";
 
       #mouse
       mouse = "a";

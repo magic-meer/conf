@@ -10,6 +10,8 @@
         col.__raw = "math.huge";
         row.__raw = "math.huge";
         width = 40;
+        # border colors come from the colorscheme's WhichKeyBorder highlight
+        border = "rounded";
       };
     };
   };

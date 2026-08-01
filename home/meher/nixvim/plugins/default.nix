@@ -30,7 +30,6 @@
     # alternatives for plugins not available in nixvim
     ./mkdnflow.nix
     ./fzf-lua.nix
-    ./oil.nix
     ./neoclip.nix
     ./harpoon.nix
     ./codesnap.nix

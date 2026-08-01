@@ -22,12 +22,18 @@
             row = "top";
             col = "right";
           };
+          # border colors follow the colorscheme's FloatBorder highlight
+          border = "rounded";
         };
         # confirmation popups (e.g. `:q` with unsaved changes) appear top-center
         cmdline_popup = {
           position = {
             row = "10%";
             col = "50%";
+          };
+          border = {
+            style = "rounded";
+            padding = [ 1 2 ];
           };
         };
       };

@@ -1,7 +1,11 @@
 { ... }: {
   # ALTERNATIVE for fzf-lsp (LSP symbols through fzf instead of telescope)
   # telescope keeps <leader>ff/fg/fb/fh; fzf-lua takes the LSP pickers
-  programs.nixvim.plugins.fzf-lua.enable = true;
+  # border colors come from the colorscheme's FloatBorder/FzfLuaBorder highlights
+  programs.nixvim.plugins.fzf-lua = {
+    enable = true;
+    settings.winopts.border = "rounded";
+  };
 
   programs.nixvim.keymaps = [
     {
