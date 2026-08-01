@@ -14,8 +14,8 @@
          "noinsert"
       ];
 
-      #always single column
-      singlecolumn = true;
+      #idk what this is but it does not work
+      # signcolumn = true;
 
       #mouse
       mouse = "a";

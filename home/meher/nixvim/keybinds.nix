@@ -71,8 +71,8 @@
     {
       mode = "n";
       key = "<leader>ca";
-      action.__raw = "function() vim.lsp.buf.code_action() end";
-      options.desc = "Code actions";
+      action.__raw = "function() require('actions-preview').code_actions() end";
+      options.desc = "Code actions (preview)";
     }
     {
       mode = "n";
@@ -107,7 +107,7 @@
     {
       mode = "n";
       key = "<leader>e";
-      action = "<cmd>NvimTreeToggle<CR>";
+      action = "<cmd>Neotree toggle<CR>";
       options.desc = "Toggle file tree";
     }
   ];
