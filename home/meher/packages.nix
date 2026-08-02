@@ -12,6 +12,10 @@ home.packages = with pkgs; [
         swaynotificationcenter
         brightnessctl
         power-profiles-daemon
-        python3
-     ];
+         python3
+         zip
+         unzip
+         kdePackages.okular
+         kdePackages.calligra
+       ];
 }

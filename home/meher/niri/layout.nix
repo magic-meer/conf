@@ -40,7 +40,6 @@
 
       keyboard.xkb = {
         layout = "us";
-        options = "ctrl:nocaps";
       };
 
       touchpad = {

@@ -6,6 +6,7 @@
     ./boot.nix
     ./fonts.nix
     ./hardware_configuration.nix
+    ./kanata.nix
     ./locale.nix
     ./networking.nix
     ./packages.nix
