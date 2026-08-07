@@ -67,6 +67,9 @@
     # plugins.nvim-tree.enable = true;
     plugins.web-devicons.enable = true;
 
+    # Quickshell (qml component host) needs the Qt language server
+    lsp.servers.qmlls.enable = true;
+
     lsp.servers.nixd = {
       enable = true;
       config = {
