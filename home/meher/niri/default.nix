@@ -11,6 +11,7 @@
     ./keybinds.nix
     ./statup.nix
     ./window-rules.nix
+    ./xwayland.nix
   ];
 
   # programs.niri = {

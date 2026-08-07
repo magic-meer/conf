@@ -21,7 +21,7 @@
         enable = true;
         position = "left";
         width = 4;
-        active = { color = "#83a598"; };
+        active = { color = "#9a9a9a"; };
         inactive = { color = "#504945"; };
       };
 
@@ -34,6 +34,8 @@
     };
 
     input = {
+      mod-key = "Super";
+
       focus-follows-mouse = {
         enable = true;
       };

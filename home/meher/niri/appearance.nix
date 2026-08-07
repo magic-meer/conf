@@ -5,16 +5,16 @@
     layout = {
       focus-ring = {
         enable = true;
-        width = 4;
-        active = { color = "#83a598"; };
-        inactive = { color = "#504945"; };
+        width = 2;
+        active = { color = "#9a9a9a"; };
+        inactive = { color = "#555555"; };
       };
 
       border = {
         enable = true;
-        width = 2;
-        active = { color = "#d3869b"; };
-        inactive = { color = "#3c3836"; };
+        width = 1;
+        active = { color = "#9a9a9a"; };
+        inactive = { color = "#555555"; };
         urgent = { color = "#fb4934"; };
       };
 

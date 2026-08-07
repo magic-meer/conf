@@ -5,14 +5,17 @@
     # Hotkey overlay
     "Mod+Shift+Slash".action.show-hotkey-overlay = [];
 
-    # Launcher
+    # Launcher (Mod+Space re-press exits fuzzel, acting as a toggle)
     "Mod+D".action.spawn = "fuzzel";
+    "Mod+Space".action.spawn-sh = "pkill -x fuzzel || fuzzel";
 
-    # Terminal
-    "Mod+T".action.spawn = "kitty";
+    # Terminal / browser / file manager (from env vars, with defaults)
+    "Mod+T".action.spawn-sh = "\${TERMINAL:-kitty}";
+    "Mod+B".action.spawn-sh = "\${BROWSER:-zen}";
+    "Mod+E".action.spawn-sh = "\${TERMINAL:-kitty} -e \${FILE_MANAGER:-superfile}";
 
     # Lock screen
-    "Super+Alt+L" = {
+    "Mod+Shift+L" = {
       action.spawn = "swaylock";
       allow-when-locked = true;
     };
@@ -29,7 +32,7 @@
       repeat = false;
     };
 
-    # Window focus
+    # Window focus (vim-style h/j/k/l)
     "Mod+Left".action.focus-column-left = [];
     "Mod+Down".action.focus-window-down = [];
     "Mod+Up".action.focus-window-up = [];
@@ -39,7 +42,7 @@
     "Mod+K".action.focus-window-up = [];
     "Mod+L".action.focus-column-right = [];
 
-    # Move windows
+    # Move windows (mirrors the focus keys)
     "Mod+Ctrl+Left".action.move-column-left = [];
     "Mod+Ctrl+Down".action.move-window-down = [];
     "Mod+Ctrl+Up".action.move-window-up = [];
@@ -63,7 +66,6 @@
     "Mod+Shift+H".action.focus-monitor-left = [];
     "Mod+Shift+J".action.focus-monitor-down = [];
     "Mod+Shift+K".action.focus-monitor-up = [];
-    "Mod+Shift+L".action.focus-monitor-right = [];
 
     # Move column to monitor
     "Mod+Shift+Ctrl+Left".action.move-column-to-monitor-left = [];
@@ -153,7 +155,8 @@
     "Mod+Ctrl+R".action.reset-window-height = [];
 
     # Fullscreen / maximize
-    "Mod+F".action.maximize-column = [];
+    "Mod+G".action.maximize-column = [];
+    "Mod+F".action.toggle-window-floating = [];
     "Mod+Shift+F".action.fullscreen-window = [];
     "Mod+M".action.toggle-windowed-fullscreen = [];
     "Mod+Ctrl+F".action.expand-column-to-available-width = [];
