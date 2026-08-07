@@ -11,6 +11,7 @@
     ./networking.nix
     ./packages.nix
     ./users.nix
+    ./windscribe.nix
   ];
 
   #Enabling flakes and nix command

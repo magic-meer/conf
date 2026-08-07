@@ -27,6 +27,11 @@
 
     opencode.url = "github:GutMutCode/opencode-nix";
 
+    windscribe-nixos = {
+      url = "github:Varmisanth/windscribe-nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs = {
@@ -36,6 +41,7 @@
     zen-browser,
     niri,
     opencode,
+    windscribe-nixos,
     ...
   }@inputs:
     let
@@ -53,6 +59,7 @@
 	  # nixpkgs.overlays = [ opencode.overlays.default ];
 
         modules = [
+          windscribe-nixos.nixosModules.windscribe
           ./system/${systemName}/default.nix
           home-manager.nixosModules.home-manager
           {
