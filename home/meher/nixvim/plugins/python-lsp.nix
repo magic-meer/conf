@@ -4,7 +4,7 @@
     lsp.servers = {
       pyright = {
         enable = true;
-        settings.python.analysis = {
+        config.python.analysis = {
           typeCheckingMode = "basic";
           autoImportCompletions = true;
           autoSearchPaths = true;
@@ -18,7 +18,7 @@
       };
       ruff = {
         enable = true;
-        settings = {
+        config = {
           format.preview = true;
           lint.preview = true;
         };
