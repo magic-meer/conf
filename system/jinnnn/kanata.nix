@@ -16,7 +16,7 @@
           )
 
           (defalias
-            spc-ctrl (tap-hold 200 200 spc lctl)
+            spc-ctrl (tap-hold-press 200 200 spc lctl)
           )
 
           (defchordsv2
