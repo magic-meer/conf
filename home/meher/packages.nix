@@ -5,6 +5,8 @@
 home.packages = with pkgs; [
        fuzzel
        waybar
+       superfile
+       swaylock
        overskride
        zed-editor
        opencode
@@ -17,5 +19,8 @@ home.packages = with pkgs; [
          unzip
          kdePackages.okular
          kdePackages.calligra
+         jdk
+         steam-run
+         quickshell
        ];
 }
