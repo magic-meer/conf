@@ -22,5 +22,6 @@ home.packages = with pkgs; [
          jdk
          steam-run
          quickshell
+         gimp
        ];
 }
