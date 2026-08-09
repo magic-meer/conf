@@ -94,14 +94,6 @@
       options.desc = "Next tab";
     }
 
-    # ---- formatting: single key + :format (LSP per filetype) ----
-    {
-      mode = "n";
-      key = "<leader>f";
-      action = "<cmd>Format<CR>";
-      options.desc = "Format file";
-    }
-
     # ---- LSP ----
     {
       mode = "n";
