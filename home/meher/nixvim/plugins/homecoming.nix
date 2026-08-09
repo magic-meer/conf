@@ -38,7 +38,7 @@ in {
                   vim.cmd("startinsert")
                 end,
               },
-              { label = "Exit Nixvim", action = "exitnixvim" },
+              { label = "Exit Nixvim", action = "ExitNixvim" },
             },
           },
         },

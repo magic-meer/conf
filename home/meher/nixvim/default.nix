@@ -9,6 +9,7 @@
       ./options.nix
       ./keybinds.nix
       ./commands.nix
+      ./wildmenu.nix
       ./plugins
       ./lsp
    ];

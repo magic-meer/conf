@@ -80,16 +80,16 @@
       options.desc = "Close all other windows";
     }
 
-    # ---- tabs: only two keys <leader>+shift+h/l ----
+    # ---- tabs: ctrl+h/l ----
     {
       mode = "n";
-      key = "<leader><S-h>";
+      key = "<C-h>";
       action = "<cmd>tabprevious<CR>";
       options.desc = "Previous tab";
     }
     {
       mode = "n";
-      key = "<leader><S-l>";
+      key = "<C-l>";
       action = "<cmd>tabnext<CR>";
       options.desc = "Next tab";
     }
@@ -98,7 +98,7 @@
     {
       mode = "n";
       key = "<leader>f";
-      action = "<cmd>format<CR>";
+      action = "<cmd>Format<CR>";
       options.desc = "Format file";
     }
 
@@ -126,6 +126,14 @@
       key = "<leader>rn";
       action.__raw = "function() vim.lsp.buf.rename() end";
       options.desc = "Rename symbol";
+    }
+
+    # ---- command palette ----
+    {
+      mode = "n";
+      key = "<leader>c";
+      action = "<cmd>FzfLua commands<CR>";
+      options.desc = "Fuzzy command search";
     }
 
     # ---- telescope ----
