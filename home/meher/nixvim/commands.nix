@@ -41,5 +41,33 @@
         end
       end,
     })
+
+    -- neo-tree extras: D = move to trash (gio), I = file info
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "neo-tree",
+      callback = function()
+        vim.keymap.set("n", "D", function()
+          local state = require("neo-tree.sources.common.views").get_state("filesystem")
+          local node = state.tree:get_node()
+          if not node or node.type == "message" then
+            return
+          end
+          vim.fn.system("gio trash " .. vim.fn.shellescape(node.path))
+          require("neo-tree.sources.filesystem").refresh(state)
+        end, { buffer = 0, silent = true, desc = "Move to trash" })
+
+        vim.keymap.set("n", "I", function()
+          local state = require("neo-tree.sources.common.views").get_state("filesystem")
+          local node = state.tree:get_node()
+          if not node or node.type == "message" then
+            return
+          end
+          local info = vim.fn.system(
+            "stat -c '%n|%s bytes|%y' " .. vim.fn.shellescape(node.path)
+          )
+          vim.notify(info, vim.log.levels.INFO, { title = "File info" })
+        end, { buffer = 0, silent = true, desc = "File info" })
+      end,
+    })
   '';
 }
