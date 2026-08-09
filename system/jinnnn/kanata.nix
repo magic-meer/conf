@@ -8,15 +8,15 @@
 
         config = ''
           (defsrc
-            esc  caps  spc  lalt  lmet  ralt  rmet  f  j
+            esc  caps  lalt  lmet  rmet  ralt  f  j
           )
 
           (deflayer base
-            caps  esc  @spc-ctrl  lmet  lalt  rmet  ralt  f  j
+            esc  @caps-esc-ctrl  lmet  lalt  ralt  rmet  f  j
           )
 
           (defalias
-            spc-ctrl (tap-hold-press 200 200 spc lctl)
+            caps-esc-ctrl (tap-hold-press 200 200 esc lctl)
           )
 
           (defchordsv2
