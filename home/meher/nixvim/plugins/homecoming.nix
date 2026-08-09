@@ -18,32 +18,10 @@ in {
   programs.nixvim = {
     extraPlugins = [ homecoming ];
 
+    # homecoming ships a sensible default config (header, Actions/Resources
+    # sections, footer) — no overrides needed
     extraConfigLua = ''
-      require("homecoming-nvim").setup({
-        header = "  󰊠  ",
-        header_centered = true,
-        item_prefix_char = "  ",
-        sections = {
-          {
-            title = "Actions",
-            items = {
-              { label = "Find File", action = "Telescope find_files" },
-              { label = "Recent Files", action = "Telescope oldfiles" },
-              { label = "New File", action = "enew" },
-              {
-                label = "Open Terminal",
-                action = function()
-                  vim.cmd("enew")
-                  vim.cmd("terminal")
-                  vim.cmd("startinsert")
-                end,
-              },
-              { label = "Exit Nixvim", action = "ExitNixvim" },
-            },
-          },
-        },
-        footer = "vim is my home",
-      })
+      require("homecoming-nvim").setup()
     '';
   };
 }
