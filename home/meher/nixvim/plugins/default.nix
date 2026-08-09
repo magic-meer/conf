@@ -1,4 +1,4 @@
-{ config, ... }: {
+{ ... }: {
   imports = [
     ./lsp-status.nix
     ./nvim-lightbulb.nix
@@ -19,13 +19,19 @@
     ./twilight.nix
     ./vimade.nix
     ./clipboard-image.nix
-    ./alpha.nix
+    ./homecoming.nix
     ./noice.nix
     ./which-key.nix
-    ./neoscroll.nix
+    ./luxmotion.nix
     ./smear-cursor.nix
     ./mini.nix
     ./legendary.nix
+    ./transparent.nix
+    ./treesitter.nix
+    ./autopairs.nix
+    ./gitsigns.nix
+    ./bufferline.nix
+    ./web-devicons.nix
 
     # alternatives for plugins not available in nixvim
     ./mkdnflow.nix
@@ -38,50 +44,12 @@
     ./undotree.nix
     ./toggleterm.nix
 
-    # python IDE
+    # python tooling
     ./lz-n.nix
-    ./python-lsp.nix
     ./venv-selector.nix
     ./dap.nix
     ./iron.nix
   ];
 
-  programs.nixvim = {
-    nixpkgs.config.allowUnfree = true;
-
-    plugins.lualine.enable = true;
-
-    plugins.transparent.enable = true;
-
-    plugins.treesitter = {
-      enable = true;
-      highlight.enable = true;
-      indent.enable = true;
-      folding.enable = false;
-    };
-
-    plugins.nvim-autopairs.enable = true;
-    plugins.gitsigns.enable = true;
-    plugins.bufferline.enable = true;
-    # DISABLED: collides with neo-tree (both file explorers) — neo-tree wins
-    # plugins.nvim-tree.enable = true;
-    plugins.web-devicons.enable = true;
-
-    # Quickshell (qml component host) needs the Qt language server
-    lsp.servers.qmlls.enable = true;
-
-    lsp.servers.nixd = {
-      enable = true;
-      config = {
-        nixd = {
-          nixpkgs.expr = "import <nixpkgs> { }";
-          formatting.command = [ "nixfmt" ];
-          options = {
-            nixos.expr = ''(builtins.getFlake (toString ./.)).nixosConfigurations.jinnnn.options'';
-            home_manager.expr = ''(builtins.getFlake (toString ./.)).homeConfigurations."meher".options'';
-          };
-        };
-      };
-    };
-  };
+  programs.nixvim.nixpkgs.config.allowUnfree = true;
 }

@@ -12,6 +12,30 @@
           console = "integratedTerminal";
         }
       ];
+
+      # Glowing dot breakpoint (like vscode) with the line highlighted
+      signs.dapBreakpoint = {
+        text = "●";
+        texthl = "DapBreakpoint";
+        linehl = "DapBreakpointLine";
+      };
+      signs.dapBreakpointCondition = {
+        text = "●";
+        texthl = "DapBreakpointCondition";
+        linehl = "DapBreakpointLine";
+      };
+      signs.dapBreakpointRejected = {
+        text = "●";
+        texthl = "DapBreakpointRejected";
+        linehl = "DapBreakpointLine";
+      };
+
+      extensionConfigLua = ''
+        vim.api.nvim_set_hl(0, "DapBreakpoint", { fg = "#f7768e" })
+        vim.api.nvim_set_hl(0, "DapBreakpointCondition", { fg = "#f7768e" })
+        vim.api.nvim_set_hl(0, "DapBreakpointRejected", { fg = "#565f89" })
+        vim.api.nvim_set_hl(0, "DapBreakpointLine", { bg = "#f7768e33" })
+      '';
       lazyLoad = {
         enable = true;
         settings = {

@@ -4,10 +4,4 @@
     enable = true;
     settings.decay = 1200;
   };
-
-  # Show LSP progress in the statusline
-  programs.nixvim.plugins.lualine.settings.sections.lualine_c = [
-    "lsp_progress"
-    "filename"
-  ];
 }
