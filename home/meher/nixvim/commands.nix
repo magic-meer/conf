@@ -14,9 +14,10 @@
         vim.cmd("qa")
       end, {})
 
-      -- :q and friends never exit nvim — they close the current buffer and
-      -- homecoming reopens when the last file is closed
-      for _, quit in ipairs({ "q", "qa", "qall", "wq", "wqa", "x", "xit", "q!", "qa!", "qall!" }) do
+      -- :q / :wq / :x close the current buffer instead of quitting nvim; the
+      -- dashboard reopens when the last file is gone. Bang-quits (q!, wq!,
+      -- qa!, qall) and :ExitNixvim are the real ways out.
+      for _, quit in ipairs({ "q", "qw", "wq", "quit", "x", "xit" }) do
         vim.keymap.set("c", quit .. "<CR>", "HomecomingCloseCurrBuf<CR>", { noremap = true })
       end
 

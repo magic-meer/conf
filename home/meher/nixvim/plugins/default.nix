@@ -14,7 +14,6 @@
     ./luasnip.nix
     ./telescope.nix
     ./neo-tree.nix
-    ./project-nvim.nix
     ./colorizer.nix
     ./twilight.nix
     ./vimade.nix
