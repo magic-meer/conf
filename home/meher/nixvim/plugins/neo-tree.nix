@@ -8,12 +8,18 @@
         position = "right";
         mappings = {
           # superfile-style tree
-          l = "open_tabnew";           # open: enter folders, files → new tab
           h = "close_node";            # collapse / go up
-          "<enter>" = "open_tabnew";   # same as l
-          "<S-l>" = "open_tabnew";     # shift-variant also opens (new tab)
-          "<S-enter>" = "open_tabnew";
-          "<C-v>" = "open_vsplit";     # the dedicated key for split open
+
+          # open in a NEW TAB and go there
+          l = "open_tabnew";
+          "<enter>" = "open_tabnew";
+          o = "open_tabnew";
+
+          # open in a SPLIT (focus moves to it) — the shift variants
+          "<S-l>" = "open_vsplit";
+          "<S-enter>" = "open_vsplit";
+          "<S-o>" = "open_vsplit";
+
           "." = "toggle_hidden";       # show / hide hidden files
           r = "rename";                # rename file/folder
           a = "add";                   # create new file
@@ -22,8 +28,9 @@
           y = "copy";                  # copy to neo-tree clipboard (own buffer)
           x = "cut";                   # cut to neo-tree clipboard (own buffer)
           p = "paste_from_clipboard";  # paste
-          # "d" = move to trash, "u" = undo trash, "I" = file info are buffer
-          # keymaps in commands.nix — they need lua callbacks
+          # "t" = open in a background tab, "<S-t>" = open in a background
+          # split, "d" = trash, "u" = undo, "I" = info — buffer keymaps in
+          # commands.nix (they need lua callbacks)
         };
       };
       filesystem.follow_current_file.enabled = true;

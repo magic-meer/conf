@@ -72,6 +72,41 @@
           return require("neo-tree.sources.common.views").get_state("filesystem")
         end
 
+        local function current_node()
+          local state = current_state()
+          local node = state.tree:get_node()
+          if not node or node.type == "message" then
+            return nil, state
+          end
+          return node, state
+        end
+
+        -- "t" / "<S-t>": open without stealing focus. Folders just expand.
+        local function open_quiet(cmd)
+          local node, state = current_node()
+          if not node then
+            return
+          end
+          if node.type == "directory" then
+            require("neo-tree.sources.filesystem").toggle_directory(state, node)
+            return
+          end
+          local orig_tab = vim.api.nvim_get_current_tabpage()
+          vim.cmd(cmd .. " " .. vim.fn.fnameescape(node.path))
+          vim.api.nvim_set_current_tabpage(orig_tab)
+          if cmd == "vsplit" then
+            vim.cmd("wincmd p")
+          end
+        end
+
+        vim.keymap.set("n", "t", function()
+          open_quiet("tabnew")
+        end, { buffer = 0, silent = true, desc = "Open in background tab" })
+
+        vim.keymap.set("n", "<S-t>", function()
+          open_quiet("vsplit")
+        end, { buffer = 0, silent = true, desc = "Open in background split" })
+
         vim.keymap.set("n", "d", function()
           local state = current_state()
           local node = state.tree:get_node()
