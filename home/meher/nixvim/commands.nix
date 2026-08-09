@@ -42,22 +42,84 @@
       end,
     })
 
-    -- neo-tree extras: D = move to trash (gio), I = file info
+    -- neo-tree extras: "d" = move to trash with undo history ("u"), "I" = file info
+    local trash_dir = vim.fn.expand("~/.local/share/Trash")
+    local trash_undo_stack = {}
+
+    local function trashed_name_for(orig)
+      local args = {
+        "grep", "-l", "OriginalPath=" .. orig, trash_dir .. "/info/*",
+      }
+      local hits = vim.fn.systemlist(args)
+      if #hits == 0 then
+        return nil
+      end
+      local newest, name = 0, nil
+      for _, info_file in ipairs(hits) do
+        local mtime = vim.fn.getftime(info_file)
+        if mtime > newest then
+          newest = mtime
+          name = vim.fn.fnamemodify(info_file, ":t:r")
+        end
+      end
+      return name
+    end
+
     vim.api.nvim_create_autocmd("FileType", {
       pattern = "neo-tree",
       callback = function()
-        vim.keymap.set("n", "D", function()
-          local state = require("neo-tree.sources.common.views").get_state("filesystem")
+        local function current_state()
+          return require("neo-tree.sources.common.views").get_state("filesystem")
+        end
+
+        vim.keymap.set("n", "d", function()
+          local state = current_state()
           local node = state.tree:get_node()
           if not node or node.type == "message" then
             return
           end
-          vim.fn.system("gio trash " .. vim.fn.shellescape(node.path))
+          local path = node.path
+          local res = vim.fn.system({ "gio", "trash", path })
+          if vim.v.shell_error ~= 0 then
+            vim.notify("gio trash failed: " .. res, vim.log.levels.ERROR)
+            return
+          end
+          local name = trashed_name_for(path)
+          if name then
+            table.insert(trash_undo_stack, {
+              orig = path,
+              trashed = trash_dir .. "/files/" .. name,
+            })
+          end
           require("neo-tree.sources.filesystem").refresh(state)
         end, { buffer = 0, silent = true, desc = "Move to trash" })
 
+        vim.keymap.set("n", "u", function()
+          local entry = table.remove(trash_undo_stack)
+          if not entry then
+            vim.notify("Nothing to undo", vim.log.levels.WARN)
+            return
+          end
+          local parent = vim.fn.fnamemodify(entry.orig, ":h")
+          vim.fn.system({ "mkdir", "-p", parent })
+          local res = vim.fn.system({ "mv", entry.trashed, entry.orig })
+          if vim.v.shell_error ~= 0 then
+            vim.notify("Undo failed: " .. res, vim.log.levels.ERROR)
+            table.insert(trash_undo_stack, 1, entry)
+            return
+          end
+          local info_file = trash_dir
+            .. "/info/"
+            .. vim.fn.fnamemodify(entry.trashed, ":t")
+            .. ".trashinfo"
+          vim.fn.system({ "rm", "-f", info_file })
+          local state = current_state()
+          require("neo-tree.sources.filesystem").refresh(state)
+          vim.notify("Restored from trash: " .. vim.fn.fnamemodify(entry.orig, ":t"))
+        end, { buffer = 0, silent = true, desc = "Undo move to trash" })
+
         vim.keymap.set("n", "I", function()
-          local state = require("neo-tree.sources.common.views").get_state("filesystem")
+          local state = current_state()
           local node = state.tree:get_node()
           if not node or node.type == "message" then
             return
