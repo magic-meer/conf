@@ -2,14 +2,14 @@
   inputs,
   ...
 }: {
-  
+
   imports = [
     inputs.niri.homeModules.config
 
     ./layout.nix
     ./appearance.nix
     ./keybinds.nix
-    ./statup.nix
+    ./startup.nix
     ./window-rules.nix
     ./xwayland.nix
   ];

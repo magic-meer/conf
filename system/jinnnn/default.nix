@@ -4,6 +4,7 @@
 
   imports = [
     ./boot.nix
+    ./docker.nix
     ./fonts.nix
     ./hardware_configuration.nix
     ./kanata.nix
