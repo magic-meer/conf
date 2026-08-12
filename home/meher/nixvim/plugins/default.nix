@@ -3,6 +3,7 @@
       imports = [
          ./actions-preview.nix
 	 ./blink-indent.nix
+	 ./blink-cmp.nix
       ];
    };
 }
