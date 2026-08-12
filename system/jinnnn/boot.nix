@@ -29,22 +29,22 @@ in {
   # and resets the console font.
   boot.initrd.availableKernelModules = lib.mkAfter [ "amdgpu" ];
 
-  boot.plymouth = {
-    enable = true;
-    # Custom "script"-based theme: black background, centered logo from
-    # /etc/plymouth/logo.png, tagline text below. The default "bgrt" theme
-    # never renders the logo on machines without a firmware BGRT.
-    theme = "jinnnn";
-    themePackages = [ splashTheme ];
-    logo = ./boot-splash.png;
-  };
+  # boot.plymouth = {
+  #   enable = true;
+  #   # Custom "script"-based theme: black background, centered logo from
+  #   # /etc/plymouth/logo.png, tagline text below. The default "bgrt" theme
+  #   # never renders the logo on machines without a firmware BGRT.
+  #   theme = "jinnnn";
+  #   themePackages = [ splashTheme ];
+  #   logo = ./boot-splash.png;
+  # };
 
-  boot.consoleLogLevel = 3;
-  boot.initrd.verbose = false;
-  boot.kernelParams = [
-    # No "quiet": show the systemd boot logs on the black console before the
-    # Plymouth splash takes over.
-    "systemd.show_status=yes"
-    "udev.log_level=3"
-  ];
+  # boot.consoleLogLevel = 3;
+  # boot.initrd.verbose = false;
+  # boot.kernelParams = [
+  #   # No "quiet": show the systemd boot logs on the black console before the
+  #   # Plymouth splash takes over.
+  #   "systemd.show_status=yes"
+  #   "udev.log_level=3"
+  # ];
 }

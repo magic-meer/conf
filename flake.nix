@@ -3,21 +3,21 @@
 
   inputs = {
 
-    #  nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # Stable fallback
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-26.05";
 
     niri.url = "github:sodiboo/niri-flake";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-26.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-26.05";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     zen-browser = {
@@ -38,6 +38,7 @@
     self,
     nixpkgs,
     home-manager,
+    nixvim,
     zen-browser,
     niri,
     opencode,
@@ -60,6 +61,7 @@
 
         modules = [
           windscribe-nixos.nixosModules.windscribe
+	  nixvim.nixosModules.nixvim
           ./system/${systemName}/default.nix
           home-manager.nixosModules.home-manager
           {

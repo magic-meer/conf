@@ -4,14 +4,13 @@
 }: {
    
    imports = [
-      inputs.nixvim.homeModules.nixvim
-      ./colorscheme.nix
-      ./options.nix
-      ./keybinds.nix
-      ./commands.nix
-      ./wildmenu.nix
+      # ./colorscheme.nix
+      # ./options.nix
+      # ./keybinds.nix
+      # ./commands.nix
+      # ./wildmenu.nix
       ./plugins
-      ./lsp
+      # ./lsp
    ];
 
    programs.nixvim = {
