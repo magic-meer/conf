@@ -1,0 +1,5 @@
+{ ... }: {
+   blink-pairs = {
+      enable = ture;
+   };
+}
