@@ -1,5 +1,5 @@
 { ... }: {
-   plugins.blink-pairs = {
+   plugins.bufferline = {
       enable = true;
    };
 }

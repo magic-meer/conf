@@ -1,5 +1,5 @@
 { ... }: {
-   blink-indent = {
+   plugins.blink-indent = {
       enable = true;
    };
 }

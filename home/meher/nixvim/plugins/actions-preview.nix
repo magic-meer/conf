@@ -1,5 +1,5 @@
 { lib, ... }: {
-   actions-preview = {
+   plugins.actions-preview = {
       enable = true;
 
       settings = {
