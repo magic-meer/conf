@@ -1,0 +1,5 @@
+{ ... }: {
+   blink-indent = {
+      enable = true;
+   };
+}

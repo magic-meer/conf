@@ -1,5 +1,5 @@
-{ ... }: {
-   plugins.actions-preview = {
+{ lib, ... }: {
+   actions-preview = {
       enable = true;
 
       settings = {
@@ -20,8 +20,9 @@
            prompt_position = "top";
            width = 0.8;
          };
-         layout_strategy = "vertical";
-         sorting_strategy = "ascending";
-      };
-   }
+layout_strategy = "vertical";
+          sorting_strategy = "ascending";
+       };
+    };
+};
 }
