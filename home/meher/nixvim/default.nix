@@ -5,7 +5,7 @@
    
    imports = [
       # ./colorscheme.nix
-      # ./options.nix
+      ./options.nix
       # ./keybinds.nix
       # ./commands.nix
       # ./wildmenu.nix
