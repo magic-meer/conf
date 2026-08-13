@@ -5,7 +5,7 @@
       relativenumber = true;
 
       #tabs
-      tabstop = 3;
+     tabstop = 3;
       shiftwidth = 3;
       softtabstop = 3;
       expandtab = true;
@@ -32,7 +32,7 @@
 
       #split
       splitbelow = true;
-      split right = true;
+      splitright = true;
 
       #sign column
       signcolumn = "yes";
