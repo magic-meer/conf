@@ -61,16 +61,20 @@
 
         modules = [
           windscribe-nixos.nixosModules.windscribe
-	  nixvim.nixosModules.nixvim
           ./system/${systemName}/default.nix
           home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs; };
-            home-manager.users.${userName} = import ./home/${userName};
-            home-manager.backupFileExtension = "home.backup";
-          }
+	    home-manager = {
+	      useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs = { inherit inputs; };
+              users.${userName} = import ./home/${userName};
+              backupFileExtension = "home.backup";
+	      sharedModules = [
+	      	inputs.nixvim.homeModules.nixvim
+	      ];
+            };
+	  }
         ];
       };
     };

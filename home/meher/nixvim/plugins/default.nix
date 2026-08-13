@@ -11,7 +11,9 @@
          ./chadtree.nix
          ./transparent.nix
          ./fugit2.nix
-
+         ./gitsigns.nix
+         ./web-devicons.nix
+         ./hardtime.nix
       ];
    };
 }

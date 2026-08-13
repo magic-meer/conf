@@ -1,5 +1,5 @@
 { ... }: {
-   plugins.fugit2 = {
+   plugins.gitsigns = {
       enable = true;
    };
 }

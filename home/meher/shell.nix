@@ -14,5 +14,8 @@
     vi = "nvim";
     vim = "nvim";
       hibernate = "systemctl hibernate";
+      mouse-fix = "sudo modprobe -r i2c_hid_acpi && sudo modprobe i2c_hid_acpi";
+      spf = "superfile";
+      ff = "fastfetch";
   };
 }
