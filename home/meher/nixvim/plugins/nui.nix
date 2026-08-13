@@ -1,7 +1,7 @@
 {
    ...
 }: {
-   programs.nui = {
+   plugins.nui = {
       enable = true;
    };
 }
