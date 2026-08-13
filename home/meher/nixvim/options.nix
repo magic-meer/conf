@@ -24,6 +24,24 @@
       linebreak = true;
       breakindent = true;
 
-      #scro
+      #scroll
+      sidescrolloff = 8;
+
+      #cursor line
+      cursorline = true;
+
+      #split
+      splitbelow = true;
+      split right = true;
+
+      #sign column
+      signcolumn = "yes";
+
+      #misc
+
+      undofile = true;
+      termguicolors = true;
+      wildmenu = true;
+      showcmd = true;
    };
 }
