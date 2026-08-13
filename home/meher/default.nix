@@ -3,6 +3,9 @@
 }:
 {
   imports = [
+  	iinputs.nixvim.homeModules.nixvim
+    inputs.agenix.homeManagerModules.default
+
     ./packages.nix
     ./git.nix
     ./fish.nix

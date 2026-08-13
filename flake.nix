@@ -2,7 +2,6 @@
   description = "Yet another dumb things of mine";
 
   inputs = {
-
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # Stable fallback
@@ -32,6 +31,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.darwin.follows = "";
+    };
   };
 
   outputs = {
@@ -39,6 +43,7 @@
     nixpkgs,
     home-manager,
     nixvim,
+    agenix,
     zen-browser,
     niri,
     opencode,
@@ -57,24 +62,23 @@
           inherit inputs userName systemName;
         };
 
-	  # nixpkgs.overlays = [ opencode.overlays.default ];
+        # nixpkgs.overlays = [ opencode.overlays.default ];
 
         modules = [
           windscribe-nixos.nixosModules.windscribe
           ./system/${systemName}/default.nix
           home-manager.nixosModules.home-manager
+          agenix.nixosModules.default
+
           {
-	    home-manager = {
-	      useGlobalPkgs = true;
+            home-manager = {
+              useGlobalPkgs = true;
               useUserPackages = true;
-              extraSpecialArgs = { inherit inputs; };
+              extraSpecialArgs = {inherit inputs;};
               users.${userName} = import ./home/${userName};
               backupFileExtension = "home.backup";
-	      sharedModules = [
-	      	inputs.nixvim.homeModules.nixvim
-	      ];
             };
-	  }
+          }
         ];
       };
     };
