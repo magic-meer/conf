@@ -1,0 +1,5 @@
+{ ... }: {
+   plugins.precognition = {
+      enable = true;
+   };
+}

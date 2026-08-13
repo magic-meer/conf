@@ -1,0 +1,5 @@
+{ ... }: {
+   plugins.rainbow = {
+      enable = true;
+   };
+}

@@ -1,0 +1,5 @@
+{ ... }: {
+   plugins.showkeys = {
+      enable = true;
+   };
+}

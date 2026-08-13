@@ -1,0 +1,7 @@
+{
+   ...
+}: {
+   programs.nui = {
+      enable = true;
+   };
+}

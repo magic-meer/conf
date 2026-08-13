@@ -23,5 +23,6 @@ home.packages = with pkgs; [
          steam-run
          quickshell
          gimp
+         ripgrep
        ];
 }
