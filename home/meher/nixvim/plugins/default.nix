@@ -29,6 +29,7 @@
          ./notify.nix
          ./nui.nix
          ./opencode.nix
+         ./dashboard.nix
       ];
    };
 }
