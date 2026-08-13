@@ -9,7 +9,9 @@
          ./bufferline.nix
          ./ccc.nix
          ./chadtree.nix
-         ./trasparent.nix
+         ./transparent.nix
+         ./fugit2.nix
+
       ];
    };
 }
