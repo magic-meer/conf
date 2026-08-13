@@ -1,14 +1,14 @@
 { ... }: {
-   programs.nixvim.options = {
+   programs.nixvim.opts = {
       #numbers
       number = true;
-      relativenmer = true;
+      relativenumber = true;
 
       #tabs
       tabstop = 3;
       shiftwidth = 3;
       softtabstop = 3;
-      expandtab = 3;
+      expandtab = true;
 
       #indent
       autoindent = true;
@@ -20,7 +20,7 @@
       incsearch = true;
 
       #wrap
-      wrap =false;
+      wrap = false;
       linebreak = true;
       breakindent = true;
 
