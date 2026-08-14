@@ -15,6 +15,11 @@
     ./windscribe.nix
   ];
 
+   #secrets
+   age.secrets = {
+      meher-default-pass.file = ../../secrets/meher-default-pass.age;
+   };
+
   #Enabling flakes and nix command
   nix.settings.experimental-features = [
 	"nix-command"

@@ -1,10 +1,12 @@
 {
   pkgs,
+   config,
   userName,
   ...
 }: {
   users.users.${userName} = {
     isNormalUser = true;
+      hashedPasswordFile = config.age.secrets.meher-default-pass;
     description = "Meher Ali";
     extraGroups = [
       "wheel"

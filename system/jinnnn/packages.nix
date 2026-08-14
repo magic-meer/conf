@@ -1,4 +1,5 @@
 {
+   inputs,
   pkgs,
   ...
 }: {
@@ -20,6 +21,7 @@
     lm_sensors
     file
     psmisc
+      inputs.agenix.packages.${pkgs.system}.default
   ];
 
   programs.fish.enable = true;

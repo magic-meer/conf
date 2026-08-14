@@ -1,9 +1,10 @@
 {
+  inputs,
   ...
 }:
 {
   imports = [
-  	iinputs.nixvim.homeModules.nixvim
+  	inputs.nixvim.homeModules.nixvim
     inputs.agenix.homeManagerModules.default
 
     ./packages.nix
