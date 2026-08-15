@@ -6,7 +6,7 @@
 }: {
   users.users.${userName} = {
     isNormalUser = true;
-      hashedPasswordFile = config.age.secrets.meher-default-pass;
+      hashedPasswordFile = config.age.secrets.meher-default-pass.path;
     description = "Meher Ali";
     extraGroups = [
       "wheel"

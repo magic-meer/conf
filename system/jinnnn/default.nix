@@ -13,15 +13,20 @@
     ./packages.nix
     ./users.nix
     ./windscribe.nix
+      ./openssh.nix
+      ./syncthing.nix
   ];
 
    #secrets
-   age.secrets = {
-      meher-default-pass.file = ../../secrets/meher-default-pass.age;
+   age = {
+      identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+      secrets = {
+            meher-default-pass.file = ../../secrets/meher-default-pass.age;
+         };
    };
 
   #Enabling flakes and nix command
-  nix.settings.experimental-features = [
+	 nix.settings.experimental-features = [
 	"nix-command"
 	"flakes"
   ];

@@ -25,6 +25,10 @@
     ./quickshell
   ];
 
+  age = {
+    identityPaths = [ "~/.ssh/id_ed25519" ];
+  };
+
   home = {
     # username = userName;
     username = "meher";
