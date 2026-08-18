@@ -8,7 +8,7 @@
          ./blink-ripgrep.nix
          ./bufferline.nix
          ./ccc.nix
-         ./chadtree.nix
+         ./neo-tree.nix  # ./chadtree.nix
          ./transparent.nix
          ./fugit2.nix
          ./gitsigns.nix
@@ -25,7 +25,7 @@
          ./precognition.nix   
          ./lualine.nix
          ./neoscroll.nix
-         ./nix.nix
+         # ./nix.nix
          ./notify.nix
          ./nui.nix
          ./opencode.nix

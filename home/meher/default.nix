@@ -23,6 +23,8 @@
     ./swaync
     ./tlauncher
     ./quickshell
+      # ./stylix.nix
+      ./ghostty.nix
   ];
 
   age = {

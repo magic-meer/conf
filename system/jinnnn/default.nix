@@ -15,6 +15,7 @@
     ./windscribe.nix
       ./openssh.nix
       ./syncthing.nix
+      ./stylix.nix
   ];
 
    #secrets
@@ -22,6 +23,12 @@
       identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
       secrets = {
             meher-default-pass.file = ../../secrets/meher-default-pass.age;
+            syncthing-pass = {
+               file = ../../secrets/syncthing-pass.age;
+               owner = "meher";
+               group = "users";
+               mode = "0400";
+            };
          };
    };
 

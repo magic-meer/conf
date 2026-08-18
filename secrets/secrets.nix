@@ -5,5 +5,6 @@ let
 in {
    "github-token.age".publicKeys = [ meher ];
    "meher-default-pass.age".publicKeys = [ meher jinnnn ];
+   "syncthing-pass.age".publicKeys = [ meher jinnnn ];
 }
 

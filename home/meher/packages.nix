@@ -24,5 +24,8 @@ home.packages = with pkgs; [
          quickshell
          gimp
          ripgrep
+         ghostty
+         pavucontrol
+         nixd
        ];
 }

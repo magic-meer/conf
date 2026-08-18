@@ -4,17 +4,50 @@
     packages = [ pkgs.terminus_font ];
   };
 
+  # System fonts available for applications.
+  # nafees (Nastaliq/Urdu) is included for fontconfig language-based mapping.
+  # noto-fonts and nerd-fonts are included for general use.
   fonts.packages = with pkgs; [
-    terminus_font
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.fira-code
     nafees
-    scheherazade-new
+    noto-fonts
+    nerd-fonts.jetbrains-mono
   ];
 
-  # systemd-vconsole-setup applies the font at sysinit, but the amdgpu DRM
-  # driver's console takeover happens afterwards and resets every VT back to
-  # the kernel default font. Re-apply the font on all VTs once the GPU is up.
+  # fontconfig: map Arabic script (lang=ar) to nafees Nastaliq font.
+  # This uses mode="prepend" to force nafees to the front of the
+  # font family list for Arabic-script text runs, regardless of what other
+  # fonts cover the glyphs. Per urdu-font-problem.md, mode="prepend" with
+  # lang="ar" is the correct approach (not fallback reordering).
+  # Note: "nafees" is the family name of the nafees Urdu font from CRULP.
+  fonts.fontconfig = {
+    enable = true;
+    localConf = ''
+      <?xml version="1.0"?>
+      <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
+      <fontconfig>
+        <match>
+          <test name="lang" compare="contains"><string>ar</string></test>
+          <test qual="any" name="family"><string>sans-serif</string></test>
+          <edit name="family" mode="prepend"><string>Nafees</string></edit>
+        </match>
+        <match>
+          <test name="lang" compare="contains"><string>ar</string></test>
+          <test qual="any" name="family"><string>serif</string></test>
+          <edit name="family" mode="prepend"><string>Nafees</string></edit>
+        </match>
+        <match>
+          <test name="lang" compare="contains"><string>ar</string></test>
+          <test qual="any" name="family"><string>monospace</string></test>
+          <edit name="family" mode="prepend"><string>Nafees</string></edit>
+        </match>
+      </fontconfig>
+    '';
+  };
+
+  # console-font: re-applies ter-132b after DRM GPU driver takeover on all VTs.
+  # The initial sysinit application is omitted because the GPU driver's console
+  # takeover resets the font back to the kernel default. The oneshot service runs
+  # after the DRM device is ready, ensuring the font persists.
   systemd.services.console-font = {
     description = "Re-apply console font after DRM takeover";
     wantedBy = [ "multi-user.target" ];

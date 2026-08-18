@@ -14,6 +14,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+      stylix = {
+         url = "github:nix-community/stylix";
+         inputs.nixpkgs.follows = "nixpkgs";
+      };
+
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -48,6 +53,7 @@
     niri,
     opencode,
     windscribe-nixos,
+      stylix,
     ...
   }@inputs:
     let
@@ -69,6 +75,7 @@
           ./system/${systemName}/default.nix
           home-manager.nixosModules.home-manager
           agenix.nixosModules.default
+               stylix.nixosModules.stylix
 
           {
             home-manager = {

@@ -20,10 +20,10 @@ let
   };
 
   blur = {
-    passes = 2;
-    offset = 2;
-    noise = 0.02;
-    saturation = 1.2;
+    passes = 4;
+    offset = 3;
+    noise = 0;
+    saturation = 1;
   };
 
   background-effect = children: kdl.node "background-effect" [ ] children;

@@ -9,7 +9,7 @@
 
       preset-column-widths = [
         { proportion = 1. / 3.; }
-        { proportion = 0.5; }
+        { proportion = 0.7; }
         { proportion = 2. / 3.; }
       ];
 
@@ -21,8 +21,6 @@
         enable = true;
         position = "left";
         width = 4;
-        active = { color = "#9a9a9a"; };
-        inactive = { color = "#504945"; };
       };
 
       struts = {

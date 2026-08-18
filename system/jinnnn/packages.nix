@@ -21,6 +21,7 @@
     lm_sensors
     file
     psmisc
+      nautilus
       inputs.agenix.packages.${pkgs.system}.default
   ];
 
