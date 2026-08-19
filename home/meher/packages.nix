@@ -27,5 +27,6 @@ home.packages = with pkgs; [
          ghostty
          pavucontrol
          nixd
+         starship
        ];
 }

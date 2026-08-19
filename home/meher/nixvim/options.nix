@@ -1,4 +1,5 @@
 { ... }: {
+   programs.nixvim.globals.mapleader = " ";
    programs.nixvim.opts = {
       #numbers
       number = true;
