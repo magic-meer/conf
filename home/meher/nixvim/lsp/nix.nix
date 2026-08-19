@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   plugins.lsp.servers.nixd = {
     enable = true;
@@ -22,11 +22,11 @@
 
         options = {
           nixos = {
-            expr = '(builtins.getFlake (toString ./.)).nixosConfigurations.<hostname>.options';
+            expr = ''(builtins.getFlake (toString ./.)).nixosConfigurations.<hostname>.options'';
           };
 
           home-manager = {
-            expr = '(builtins.getFlake (toString ./.)).homeConfigurations."<username>@<hostname>".options';
+            expr = ''(builtins.getFlake (toString ./.)).homeConfigurations."<username>@<hostname>".options'';
           };
         };
       };

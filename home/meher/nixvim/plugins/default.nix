@@ -22,7 +22,7 @@
          ./telescope.nix
          ./showkeys.nix
          ./rainbow.nix
-         ./precognition.nix   
+         # ./precognition.nix   
          ./lualine.nix
          ./neoscroll.nix
          # ./nix.nix
