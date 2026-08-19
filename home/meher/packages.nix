@@ -28,5 +28,6 @@ home.packages = with pkgs; [
          pavucontrol
          nixd
          starship
+         qmlls
        ];
 }
