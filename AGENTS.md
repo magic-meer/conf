@@ -6,6 +6,12 @@
 sudo nixos-rebuild switch --flake ~/nixconfig#jinnnn
 ```
 
+## Rules
+
+- Never user "rm" command to delete files, user trash instead of if that not available rename them to have .deleted extenstion.
+- Never do "git restore" when there are uncommitted changes.
+- Never use command like "nix profile" etc that add something to the system imperatively.
+
 ## Structure
 
 - `system/jinnnn/` — NixOS modules (boot, hardware, locale, networking, packages, users)
