@@ -1,9 +1,67 @@
+# nixconfig - NixOS Configuration
+
 <sub><font color="red"><b>WARNING: This is a personal NixOS config not meant for copying. Copying may cause unexpected issues or broken configurations.</b></font></sub>
 
-My very own nixos configurations
+---
 
-the system contains device spercific config, rn there is only "jinnnn", the main machine that i use (this one)
-the home dir contains user specific configs, rn there is only "meher", me, no other user exists on this machines so its just me
+## Description
 
-we follow a modular config structure, wehre each app is configured in its own file under home/meher/ and if has a big config , we further modularize that into a dir, these all user packages must be declared in the home/meher/packages.nix and no other place.
-the home/meher/keybind/ is a central place that contains soft sym links to all keybind files for all apps which's keybings are declared this is to easlily find and configure all the keybinds.
+My very own NixOS configuration for the `jinnnn` host (x86_64-linux). Contains device-specific system configuration and user home-manager configuration for `meher`.
+
+## Structure
+
+### System Configuration (`system/jinnnn/`)
+
+- Boot, hardware, locale, networking, packages, and user modules
+- Auto-generated via `nixos-generate-config`
+
+### Home Manager (`home/meher/`)
+
+User-specific configuration organized by application:
+
+| Directory | Description |
+|---|---|
+| `assets/` | Static assets |
+| `default.nix` | Entry point for home-manager |
+| `fish.nix` | Fish shell configuration |
+| `keybinds/` | Central symlinks to all app keybind files |
+| `kitty/` | Kitty terminal config |
+| `niri/` | Niri window manager config |
+| `nixvim/` | NixVim configuration |
+| `packages.nix` | **All user packages must be declared here and nowhere else** |
+| `quickshell/` | Quick shell configuration |
+| `shell.nix` | Shell.nix entry point |
+| `starship.nix` | Starship prompt config |
+| `stylix.nix` | Stylix (theme) config |
+| `swaync/` | SwayNC notification config |
+| `tlauncher/` | TLauncher config |
+| `waybar/` | Waybar config |
+| `zed.nix` | ZED editor config |
+| `ghostty.nix` | Ghostty terminal config |
+| `git.nix` | Git configuration |
+| `gtk.nix` | GTK theming |
+| `swaylock.nix` | Sway lock config |
+| `waybar/` | Waybar bar config |
+
+### Keybinds
+
+- `home/meher/keybinds/` - Central directory of symlinks to per-app keybind files
+
+## rebuild
+
+```bash
+sudo nixos-rebuild switch --flake ~/nixconfig#jinnnn
+```
+
+## Inputs
+
+- `nixpkgs` - Nixos unstable / stable
+- `home-manager` - nix-community home-manager
+- `niri`, `nixvim`, `zen-browser`, `opencode`, `windscribe-nixos`, `agenix`, `stylix`
+
+## Notes
+
+- ⚠️ **Do not copy this config blindly** - it is tailored to my specific hardware and workflow
+- System `stateVersion` and home `stateVersion` both pinned to `"26.05"`
+- Single host (`jinnnn`), single user (`meher`)
+- Shell: fish (user default), aliases defined in `home/meher/shell.nix`
