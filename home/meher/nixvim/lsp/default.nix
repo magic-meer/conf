@@ -1,5 +1,5 @@
 { ... }: {
-   imports = [
+   programs.nixvim.imports = [
       ./nix.nix
       ./qml.nix
    ];

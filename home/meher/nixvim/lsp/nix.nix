@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  programs.nixvim.plugins.lsp.servers.nixd = {
+  plugins.lsp.servers.nixd = {
     enable = true;
     package = pkgs.nixd;
 

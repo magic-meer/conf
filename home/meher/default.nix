@@ -25,6 +25,7 @@
     ./quickshell
       # ./stylix.nix
       ./ghostty.nix
+      ./starship.nix
   ];
 
   age = {

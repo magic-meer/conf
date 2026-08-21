@@ -1,3 +1,5 @@
+<sub><font color="red"><b>WARNING: This is a personal NixOS config not meant for copying. Copying may cause unexpected issues or broken configurations.</b></font></sub>
+
 My very own nixos configurations
 
 the system contains device spercific config, rn there is only "jinnnn", the main machine that i use (this one)

@@ -11,7 +11,7 @@
          scrollbar = "never";
          window-decoration = "none";
          window-padding-x = 10;
-         window-padding-y = 10;
+         window-padding-y = 5;
          confirm-close-surface = false;
    };
    };
