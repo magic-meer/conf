@@ -6,7 +6,7 @@
       enableFishIntegration = true;
 
    settings = {
-      background-opacity = 0.1;
+      background-opacity = 0;
       background-blur = true;
          scrollbar = "never";
          window-decoration = "none";
