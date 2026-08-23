@@ -20,7 +20,7 @@ let
   };
 
   blur = {
-    passes = 4;
+    passes = 6;
     offset = 3;
     noise = 0;
     saturation = 1;
