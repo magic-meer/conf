@@ -6,18 +6,19 @@
   imports = [
   	inputs.nixvim.homeModules.nixvim
     inputs.agenix.homeManagerModules.default
+      inputs.zen-browser.homeModules.beta
 
     ./packages.nix
     ./git.nix
     ./fish.nix
     ./zed.nix
-    ./zen-browser.nix
+    ./zen-browser
     ./shell.nix
     ./nixvim
     ./niri
-    ./kitty
+    # ./kitty
     ./fuzzel.nix
-    ./gtk.nix
+    # ./gtk.nix
     ./swaylock.nix
     ./waybar
     ./swaync
@@ -41,8 +42,8 @@
     stateVersion = "26.05";
 
     sessionVariables = {
-      TERMINAL = "kitty";
-      BROWSER = "zen";
+      TERMINAL = "ghostty";
+      BROWSER = "zen-beta";
       FILE_MANAGER = "superfile";
       DISPLAY = ":0";
     };
