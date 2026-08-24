@@ -2,9 +2,6 @@
    inputs,
    pkgs,
    ... }: {
-   
-   cliampPackage = (inputs.cliamp).packages.${pkgs.stdenv.hostPlatform.system}.default;
-   
    home.packages = [
       pkgs.fuzzel
       pkgs.waybar
@@ -31,6 +28,7 @@
       pkgs.pavucontrol
       pkgs.nixd
       pkgs.starship
-      cliampPackage
+      # qmlls
+      pkgs.cliamp
    ];
 }

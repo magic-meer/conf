@@ -43,14 +43,8 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.darwin.follows = "";
-    };
-
-      cliamp = {
-         url = "github:bjarneo/cliamp";
-         inputs.nixpkgs.follows = "nixpkgs";
-
-      };
    };
+};
 
 
   outputs = {
