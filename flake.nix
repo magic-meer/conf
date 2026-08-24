@@ -44,6 +44,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.darwin.follows = "";
     };
+
+      inputs.cliamp.url = "github:bjarneo/cliamp";
   };
 
   outputs = {
@@ -57,6 +59,7 @@
     opencode,
     windscribe-nixos,
       stylix,
+      cliamp,
     ...
   }@inputs:
     let
