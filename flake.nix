@@ -58,7 +58,6 @@
     opencode,
     windscribe-nixos,
       stylix,
-      cliamp,
     ...
   }@inputs:
     let
