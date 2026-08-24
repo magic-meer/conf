@@ -45,8 +45,13 @@
       inputs.darwin.follows = "";
     };
 
-      cliamp.url = "github:bjarneo/cliamp";
-  };
+      cliamp = {
+         url = "github:bjarneo/cliamp";
+         inputs.nixpkgs.follows = "nixpkgs";
+
+      };
+   };
+
 
   outputs = {
     self,
