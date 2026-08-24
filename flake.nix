@@ -45,7 +45,7 @@
       inputs.darwin.follows = "";
     };
 
-      inputs.cliamp.url = "github:bjarneo/cliamp";
+      cliamp.url = "github:bjarneo/cliamp";
   };
 
   outputs = {
