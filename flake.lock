@@ -91,26 +91,6 @@
         "type": "github"
       }
     },
-    "cliamp": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1787513051,
-        "narHash": "sha256-1m/o/WUUSVMG4OFwA0Tckedil+3xeSOI7HTn/H7XVXw=",
-        "owner": "bjarneo",
-        "repo": "cliamp",
-        "rev": "ef8d75a2805d061920c4add0b1d6a46edea9f202",
-        "type": "github"
-      },
-      "original": {
-        "owner": "bjarneo",
-        "repo": "cliamp",
-        "type": "github"
-      }
-    },
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
@@ -463,7 +443,6 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
-        "cliamp": "cliamp",
         "home-manager": "home-manager_2",
         "niri": "niri",
         "nixpkgs": "nixpkgs_2",
