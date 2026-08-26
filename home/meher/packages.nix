@@ -30,5 +30,6 @@
       pkgs.starship
       # qmlls
       pkgs.cliamp
+      pkgs.keepassxc
    ];
 }
