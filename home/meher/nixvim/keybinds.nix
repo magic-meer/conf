@@ -7,7 +7,7 @@
         mode = mode;
         key = key;
         action = action;
-        desc = desc;
+        options = { desc = desc; };
       };
 
     # Convenience wrappers for common modes
