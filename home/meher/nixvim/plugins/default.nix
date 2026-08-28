@@ -30,7 +30,7 @@
          ./nui.nix
          ./opencode.nix
          ./dashboard.nix
-         ./lua-status.nix
+         ./lsp-status.nix
          ./luasnip.nix
       ];
    };
