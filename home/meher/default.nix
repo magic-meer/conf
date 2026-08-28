@@ -1,6 +1,6 @@
 { inputs, pkgs, ... }: {
 imports = [
-    # inputs.nixvim.homeModules.nixvim  # Temporarily disabled due to keymaps format issue
+    inputs.nixvim.homeModules.nixvim  # Temporarily disabled due to keymaps format issue
     inputs.agenix.homeManagerModules.default
     inputs.zen-browser.homeModules.beta
 
@@ -10,7 +10,7 @@ imports = [
     ./zed.nix
     ./zen-browser
     ./shell.nix
-    # ./nixvim
+    ./nixvim
     ./niri
     # ./kitty
     ./fuzzel.nix
