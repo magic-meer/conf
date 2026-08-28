@@ -1,6 +1,7 @@
 { ... }: {
   programs.zen-browser.profiles.default = {
     id = 0;
+    path = "tumg9xef.Default Profile";
     isDefault = true;
     pinsForce = true;
     pinsForceAction = "remove";

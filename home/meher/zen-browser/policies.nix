@@ -47,12 +47,9 @@
       };
 
       # Vimium C
-      "vimium-c@gdh1995" = {
+      "vimium-c@gdh1995.cn" = {
         install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-c/latest.xpi";
         installation_mode = "force_installed";
-        managed_storage = {
-          blacklist = [ "monkeytype.com" ];
-        };
       };
 
       # Zen Internet
