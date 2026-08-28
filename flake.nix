@@ -49,6 +49,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.darwin.follows = "";
    };
+
+   nix-cursors.url = "github:LilleAila/nix-cursors";
 };
 
 
@@ -64,6 +66,7 @@
     opencode,
     windscribe-nixos,
       stylix,
+    nix-cursors,
     ...
   }@inputs:
     let

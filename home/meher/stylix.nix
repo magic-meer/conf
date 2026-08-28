@@ -1,4 +1,23 @@
-{ ... }: {
+{ config, pkgs, inputs, ... }:
+let
+   c = config.lib.stylix.colors;
+   cursorColors = {
+      body = "#${c.base06}";
+      outline = "#${c.base01}";
+      accent = "#${c.base0D}";
+   };
+in {
+   home.pointerCursor = {
+      package = inputs.nix-cursors.packages.${pkgs.system}.bibata-modern-cursor.override {
+         background_color = cursorColors.body;
+         outline_color = cursorColors.outline;
+         accent_color = cursorColors.accent;
+      };
+      name = "Bibata-Modern-Custom";
+      size = 24;
+      gtk.enable = true;
+      x11.enable = true;
+   };
    stylix = {
       targets = {
          gtk = {
