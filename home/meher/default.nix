@@ -1,12 +1,8 @@
-{
-  inputs,
-  ...
-}:
-{
-  imports = [
-  	inputs.nixvim.homeModules.nixvim
+{ inputs, pkgs, ... }: {
+imports = [
+    # inputs.nixvim.homeModules.nixvim  # Temporarily disabled due to keymaps format issue
     inputs.agenix.homeManagerModules.default
-      inputs.zen-browser.homeModules.beta
+    inputs.zen-browser.homeModules.beta
 
     ./packages.nix
     ./git.nix
@@ -14,7 +10,7 @@
     ./zed.nix
     ./zen-browser
     ./shell.nix
-    ./nixvim
+    # ./nixvim
     ./niri
     # ./kitty
     ./fuzzel.nix
@@ -24,10 +20,21 @@
     ./swaync
     ./tlauncher
     ./quickshell
-      # ./stylix.nix
-      ./ghostty.nix
-      ./starship.nix
+    ./stylix.nix
+    ./ghostty.nix
+    ./starship.nix
   ];
+
+  programs.keepassxc = {
+    enable = true;
+    package = pkgs.keepassxc;
+    settings = {
+      Browser = {
+        Enabled = true;
+        UpdateBinaryPath = false;
+      };
+    };
+  };
 
   age = {
     identityPaths = [ "~/.ssh/id_ed25519" ];
@@ -46,6 +53,11 @@
       BROWSER = "zen-beta";
       FILE_MANAGER = "superfile";
       DISPLAY = ":0";
+
+      # Qt transparency and theming
+      QT_QPA_PLATFORMTHEME = "gnome";
+      QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+      QT_AUTO_SCREEN_SCALE_FACTOR = "1";
     };
 
     sessionPath = [ "$HOME/.local/bin" ];
