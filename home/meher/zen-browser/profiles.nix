@@ -22,7 +22,8 @@
       "642854b5-88b4-4c40-b256-e035532109df"  # Transparent Zen
       "bc25808c-a012-4c0d-ad9a-aa86be616019"  # sleekborder
       "f7c71d9a-bce2-420f-ae44-a64bd92975ab"  # betterunloadedtabs
-      "72f8f48d-86b9-4487-acea-eb4977b18f21"  # betterctrltab menu / floating status bar
+      "72f8f48d-86b9-4487-acea-eb4977b18f21"  # betterctrltab menu
+      "906c6915-5677-48ff-9bfc-096a02a72379"  # floating status bar
       "5941aefd-67b0-453d-9b62-9071a31cbb0d"  # smaller compact mode
       "c8d9e6e6-e702-4e15-8972-3596e57cf398"  # zen back forward
       "f4866f39-cfd6-4498-ab92-54213b8279dc"  # AnimationPlus
@@ -46,7 +47,8 @@
       "642854b5-88b4-4c40-b256-e035532109df"  # Transparent Zen
       "bc25808c-a012-4c0d-ad9a-aa86be616019"  # sleekborder
       "f7c71d9a-bce2-420f-ae44-a64bd92975ab"  # betterunloadedtabs
-      "72f8f48d-86b9-4487-acea-eb4977b18f21"  # betterctrltab menu / floating status bar
+      "72f8f48d-86b9-4487-acea-eb4977b18f21"  # betterctrltab menu
+      "906c6915-5677-48ff-9bfc-096a02a72379"  # floating status bar
       "5941aefd-67b0-453d-9b62-9071a31cbb0d"  # smaller compact mode
       "c8d9e6e6-e702-4e15-8972-3596e57cf398"  # zen back forward
       "f4866f39-cfd6-4498-ab92-54213b8279dc"  # AnimationPlus
