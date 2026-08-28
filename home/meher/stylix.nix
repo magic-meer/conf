@@ -8,6 +8,7 @@ let
    };
 in {
    home.pointerCursor = {
+      enable = true;
       package = inputs.nix-cursors.packages.${pkgs.system}.bibata-modern-cursor.override {
          background_color = cursorColors.body;
          outline_color = cursorColors.outline;
@@ -130,10 +131,10 @@ in {
               }
             '';
          };
-         qt = {
-            enable = true;
-            platform = "gnome";
-         };
+          qt = {
+             enable = true;
+             platform = "adwaita";
+          };
       };
    };
 }
