@@ -31,5 +31,6 @@
       # qmlls
       pkgs.cliamp
       pkgs.keepassxc
+      pkgs.btop
    ];
 }

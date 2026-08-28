@@ -23,6 +23,7 @@ imports = [
     ./stylix.nix
     ./ghostty.nix
     ./starship.nix
+    ./btop.nix
   ];
 
   programs.keepassxc = {
