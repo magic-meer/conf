@@ -4,14 +4,14 @@
 }: {
    
 imports = [
-       # ./colorscheme.nix
-       ./options.nix
-       # ./keybinds.nix
-       # ./commands.nix
-       # ./wildmenu.nix
-       ./plugins
-       ./lsp
-    ];
+        # ./colorscheme.nix
+        ./options.nix
+        ./keybinds.nix
+        # ./commands.nix
+        # ./wildmenu.nix
+        ./plugins
+        ./lsp
+      ];
 
    programs.nixvim = {
       enable = true;

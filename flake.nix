@@ -32,6 +32,11 @@
          };
     };
 
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     opencode.url = "github:GutMutCode/opencode-nix";
 
     windscribe-nixos = {
@@ -54,6 +59,7 @@
     nixvim,
     agenix,
     zen-browser,
+    firefox-addons,
     niri,
     opencode,
     windscribe-nixos,

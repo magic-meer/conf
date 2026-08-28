@@ -1,5 +1,6 @@
 { ... }: {
    programs.nixvim.globals.mapleader = " ";
+  programs.nixvim.globals.maplocalleader = "\\";
    programs.nixvim.opts = {
       #numbers
       number = true;
