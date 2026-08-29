@@ -18,6 +18,18 @@
         isEssential = true;
         position = 2;
       };
+      "opencode" = {
+        id = "befeb72b-2bc0-40c1-aec6-5057b7739164";
+        url = "http://127.0.0.1:4096/";
+        isEssential = true;
+        position = 3;
+      };
+      "syncthing" = {
+        id = "dc24eb67-0213-41bc-b87e-8c9fdeb38f22";
+        url = "http://127.0.0.1:8384/";
+        isEssential = true;
+        position = 4;
+      };
     };
     mods = [
       "642854b5-88b4-4c40-b256-e035532109df"  # Transparent Zen
