@@ -29,6 +29,12 @@
                group = "users";
                mode = "0400";
             };
+            opencode-server-pass = {
+               file = ../../secrets/opencode-server-pass.age;
+               owner = "meher";
+               group = "users";
+               mode = "0400";
+            };
          };
    };
 

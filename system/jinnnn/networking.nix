@@ -9,6 +9,9 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # OpenCode web server, accessible from LAN devices
+  networking.firewall.allowedTCPPorts = [ 8384 ];
+
   # Enable Bluetooth
   hardware.bluetooth = {
      enable = true;

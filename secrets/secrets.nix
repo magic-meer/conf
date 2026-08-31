@@ -6,5 +6,6 @@ in {
    "github-token.age".publicKeys = [ meher ];
    "meher-default-pass.age".publicKeys = [ meher jinnnn ];
    "syncthing-pass.age".publicKeys = [ meher jinnnn ];
+   "opencode-server-pass.age".publicKeys = [ meher jinnnn ];
 }
 

@@ -15,6 +15,7 @@ imports = [
     # ./kitty
     ./fuzzel.nix
     # ./gtk.nix
+    ./opencode.nix
     ./swaylock.nix
     ./waybar
     ./swaync
