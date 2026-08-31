@@ -21,7 +21,7 @@ let
 
   blur = {
     passes = 4;
-    offset = 3;
+    offset = 6;
     noise = 0;
     saturation = 1;
   };

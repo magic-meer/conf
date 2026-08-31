@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   console = {
-    font = "ter-132b";
-    packages = [ pkgs.terminus_font ];
+    font = "spleen-16x32";
+    packages = [ pkgs.spleen ];
   };
 
   # System fonts available for applications.
@@ -11,6 +11,7 @@
     nafees
     noto-fonts
     nerd-fonts.jetbrains-mono
+    spleen
   ];
 
   # fontconfig: map Arabic script (lang=ar) to nafees Nastaliq font.
@@ -44,7 +45,7 @@
     '';
   };
 
-  # console-font: re-applies ter-132b after DRM GPU driver takeover on all VTs.
+  # console-font: re-applies spleen-16x32 after DRM GPU driver takeover on all VTs.
   # The initial sysinit application is omitted because the GPU driver's console
   # takeover resets the font back to the kernel default. The oneshot service runs
   # after the DRM device is ready, ensuring the font persists.
@@ -59,7 +60,7 @@
       StandardInput = "null";
       ExecStart = pkgs.writeShellScript "reapply-console-font" ''
         for tty in /dev/tty{1..12}; do
-          [ -e "$tty" ] && setfont ter-132b -C "$tty"
+          [ -e "$tty" ] && setfont spleen-16x32 -C "$tty"
         done
       '';
     };

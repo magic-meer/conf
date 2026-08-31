@@ -6,6 +6,7 @@
       enableFishIntegration = true;
 
    settings = {
+      font-family = [ "Spleen 16x32" "JetBrainsMono Nerd Font" ];
       background-opacity = 0;
       background-blur = true;
          scrollbar = "never";

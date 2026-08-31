@@ -10,11 +10,11 @@
             platform = lib.mkForce "gnome";
          };
       };
-      fonts = {
-       monospace = {
-          package = pkgs.ankacoder;
-          name = "Anka/Coder";
-          };
-       };
+fonts = {
+           monospace = {
+              package = pkgs.spleen;
+              name = "Spleen 16x32";
+           };
+        };
     };
  }

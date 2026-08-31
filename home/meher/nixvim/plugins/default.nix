@@ -4,7 +4,7 @@
          ./actions-preview.nix
          ./blink-indent.nix
          ./blink-cmp.nix
-         ./blink-pairs.nix
+         # ./blink-pairs.nix
          ./blink-ripgrep.nix
          ./bufferline.nix
          ./ccc.nix
@@ -20,9 +20,8 @@
          ./twilight.nix
          ./treesitter.nix
          ./telescope.nix
-         ./showkeys.nix
+./showkeys.nix
          ./rainbow.nix
-         # ./precognition.nix   
          ./lualine.nix
          ./neoscroll.nix
          # ./nix.nix
