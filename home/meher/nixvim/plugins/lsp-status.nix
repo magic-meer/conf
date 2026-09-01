@@ -1,4 +1,6 @@
-{ ... }: {
+{
+  ...
+}: {
    plugins.lsp-status = {
       enable = true;
       settings = {
@@ -19,4 +21,16 @@
          };
       };
    };
+
+   # lsp-status.nvim is unmaintained and still calls `vim.lsp.buf_get_clients()`,
+   # which was removed in Nvim 0.12. Shim it to the current API so the statusline
+   # renders without deprecation warnings/errors. Must run before the lualine
+   # component first renders, hence extraConfigLuaPre.
+   extraConfigLuaPre = ''
+      if vim.lsp.buf_get_clients == nil then
+        vim.lsp.buf_get_clients = function(bufnr)
+          return vim.lsp.get_clients({ bufnr = bufnr })
+        end
+      end
+   '';
 }

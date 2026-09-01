@@ -6,7 +6,7 @@
          ./blink-cmp.nix
          # ./blink-pairs.nix
          ./blink-ripgrep.nix
-         ./bufferline.nix
+         # ./bufferline.nix
          ./ccc.nix
          ./neo-tree.nix  # ./chadtree.nix
          ./transparent.nix
@@ -20,17 +20,20 @@
          ./twilight.nix
          ./treesitter.nix
          ./telescope.nix
-./showkeys.nix
+         ./showkeys.nix
          ./rainbow.nix
          ./lualine.nix
          ./neoscroll.nix
          # ./nix.nix
          ./notify.nix
          ./nui.nix
+         ./noice.nix
          ./opencode.nix
+         ./snacks.nix
          ./dashboard.nix
          ./lsp-status.nix
          ./luasnip.nix
+         ./srcery.nix
       ];
    };
 }

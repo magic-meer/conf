@@ -10,41 +10,86 @@
           statusline = [ "neo-tree" ];
         };
         component_separators = "";
-        section_separators = {
-          left = "\u{e0b4}";
-          right = "\u{e0b6}";
-        };
+        section_separators = "";
       };
       sections = {
         lualine_a = [
+          # Transparent left margin spacer
+          {
+            __unkeyed-1.__raw = "function() return '' end";
+            color.bg = "";
+            left_padding = 2;
+            right_padding = 1;
+          }
+          # Mode in its own bubble
           {
             __unkeyed-1 = "mode";
-            separator.left = "\u{e0b6}";
-            right_padding = 2;
+            separator.left = "";
+            separator.right = "";
           }
         ];
         lualine_b = [
-          "filename"
+          # File / VCS info in one bubble
+          {
+            __unkeyed-1 = "filename";
+            separator.left = "";
+          }
           "branch"
-          "diff"
+          {
+            __unkeyed-1 = "diff";
+            separator.right = "";
+          }
         ];
         lualine_c = [
-          (lib.nixvim.mkRaw "function() return require('lsp-status').status() end")
+          # LSP status in its own bubble
+          {
+            __unkeyed-1.__raw = "function() return require('lsp-status').status() end";
+            separator.left = "";
+            separator.right = "";
+          }
         ];
         lualine_x = [
-          "filetype"
+          # OpenCode agent server + status
+          {
+            __unkeyed-1.__raw = "function() return require('opencode').statusline() end";
+            separator.left = "";
+            separator.right = "";
+          }
+          # File metadata in one bubble
+          {
+            __unkeyed-1 = "filetype";
+            separator.left = "";
+          }
           "fileformat"
-          "encoding"
+          {
+            __unkeyed-1 = "encoding";
+            separator.right = "";
+          }
         ];
         lualine_y = [
-          "diagnostics"
-          "progress"
+          # Diagnostics + progress in one bubble
+          {
+            __unkeyed-1 = "diagnostics";
+            separator.left = "";
+          }
+          {
+            __unkeyed-1 = "progress";
+            separator.right = "";
+          }
         ];
         lualine_z = [
+          # Location in its own bubble
           {
             __unkeyed-1 = "location";
-            separator.right = "\u{e0b4}";
-            left_padding = 2;
+            separator.left = "";
+            separator.right = "";
+          }
+          # Transparent right margin spacer
+          {
+            __unkeyed-1.__raw = "function() return '' end";
+            color.bg = "";
+            left_padding = 1;
+            right_padding = 2;
           }
         ];
       };

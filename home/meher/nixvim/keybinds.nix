@@ -20,5 +20,49 @@
   in [
     # File explorer
     (nmap "<leader>e" "<cmd>Neotree toggle<CR>" "Toggle file tree")
+
+    # File management
+    (nmap "<leader>q" "<cmd>q<CR>" "Quit")
+    (nmap "<leader>w" "<cmd>w<CR>" "Write")
+
+    # System clipboard
+    (nmap "<leader>y" "\"+y" "Yank to system clipboard")
+    (vmap "<leader>y" "\"+y" "Yank to system clipboard")
+    (nmap "<leader>p" "\"+p" "Put from system clipboard")
+    (vmap "<leader>p" "\"+p" "Put from system clipboard")
+
+    # LSP info
+    # Hover: show details of the symbol under the cursor (VS Code hover)
+    (nmap "K" "<cmd>lua vim.lsp.buf_hover()<CR>" "LSP hover documentation")
+    # Signature help: show the function's parameter signature manually
+    (nmap "<C-Space>" "<cmd>lua vim.lsp.buf_signature_help()<CR>" "LSP signature help")
+    (imap "<C-Space>" "<cmd>lua vim.lsp.buf_signature_help()<CR>" "LSP signature help")
+
+    # === OpenCode (AI agent) — all under <leader>op ===
+    # Ask the agent, scoped to the current selection/range
+    (nmap "<leader>opa" "<cmd>lua require('opencode').ask('@this: ')<CR>" "OpenCode: ask (current scope)")
+    (vmap "<leader>opa" "<cmd>lua require('opencode').ask('@this: ')<CR>" "OpenCode: ask (selection)")
+    # Free-form new prompt. Deliberately NOT `<leader>op` alone: that would be a
+    # prefix of `<leader>opa`/`<leader>ops`/... and Neovim would wait `timeoutlen`
+    # then fire, blocking the longer binds. `<leader>op<CR>` is unambiguous.
+    (nmap "<leader>op<CR>" "<cmd>lua require('opencode').ask()<CR>" "OpenCode: ask (new)")
+    # Global picker: prompts / commands / servers
+    (nmap "<leader>ops" "<cmd>lua require('opencode').select()<CR>" "OpenCode: select prompt/command/server")
+    # Operator form (dot-repeatable): send a motion/range
+    (nmap "<leader>opp" "<cmd>lua require('opencode').operator('@this ')<CR>" "OpenCode: operator range")
+    # Session control
+    (nmap "<leader>opn" "<cmd>lua require('opencode').command('session.new')<CR>" "OpenCode: new session")
+    (nmap "<leader>opu" "<cmd>lua require('opencode').command('session.undo')<CR>" "OpenCode: undo")
+    (nmap "<leader>opr" "<cmd>lua require('opencode').command('session.redo')<CR>" "OpenCode: redo")
+    (nmap "<leader>opi" "<cmd>lua require('opencode').command('session.interrupt')<CR>" "OpenCode: interrupt")
+    (nmap "<leader>opc" "<cmd>lua require('opencode').command('session.compact')<CR>" "OpenCode: compact session")
+    (nmap "<leader>opl" "<cmd>lua require('opencode').command('session.last')<CR>" "OpenCode: jump to last message")
+    (nmap "<leader>opf" "<cmd>lua require('opencode').command('session.first')<CR>" "OpenCode: jump to first message")
+    # Scroll agent output
+    (nmap "<S-C-u>" "<cmd>lua require('opencode').command('session.half.page.up')<CR>" "OpenCode: scroll up")
+    (nmap "<S-C-d>" "<cmd>lua require('opencode').command('session.half.page.down')<CR>" "OpenCode: scroll down")
+
+    # Showkeys: toggle the keystroke screencaster
+    (nmap "<leader>sk" "<cmd>ShowkeysToggle<CR>" "Toggle showkeys")
   ];
 }
