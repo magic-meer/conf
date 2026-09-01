@@ -9,7 +9,7 @@
     };
 
     settings.server = {
-      port = 8384;
+      port = 4096;
       hostname = "0.0.0.0";
     };
 

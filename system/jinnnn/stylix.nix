@@ -9,6 +9,7 @@
             enable = true;
             platform = lib.mkForce "gnome";
          };
+         nixvim.enable = false;
       };
 fonts = {
            monospace = {

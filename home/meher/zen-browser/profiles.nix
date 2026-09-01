@@ -20,7 +20,7 @@
       };
       "opencode" = {
         id = "befeb72b-2bc0-40c1-aec6-5057b7739164";
-        url = "http://127.0.0.1:4096/";
+        url = "http://0.0.0.0:4096/";
         isEssential = true;
         position = 3;
       };

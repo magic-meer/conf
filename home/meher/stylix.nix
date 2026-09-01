@@ -21,6 +21,7 @@ in {
    };
    stylix = {
       targets = {
+         nixvim.enable = false;
          gtk = {
             enable = true;
             extraCss = ''
