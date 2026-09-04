@@ -20,7 +20,7 @@
       };
       "opencode" = {
         id = "befeb72b-2bc0-40c1-aec6-5057b7739164";
-        url = "http://0.0.0.0:4096/";
+        url = "http://localhost:4096/";
         isEssential = true;
         position = 3;
       };
@@ -45,7 +45,7 @@
   };
 
   programs.zen-browser.profiles.School = {
-    id = 2;
+    id = 1;
     pinsForce = true;
     pinsForceAction = "remove";
     pins = {

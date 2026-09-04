@@ -1,4 +1,4 @@
-{systemName, ...}: {
+{systemName, config, ...}: {
   networking.hostName = systemName; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -10,7 +10,7 @@
   networking.networkmanager.enable = true;
 
   # OpenCode web server, accessible from LAN devices
-  networking.firewall.allowedTCPPorts = [ 8384 ];
+  networking.firewall.allowedTCPPorts = [ config.services.opencode.port ];
 
   # Enable Bluetooth
   hardware.bluetooth = {

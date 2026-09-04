@@ -25,6 +25,7 @@ imports = [
     ./ghostty.nix
     ./starship.nix
     ./btop.nix
+      ./cliamp.nix
   ];
 
   programs.keepassxc = {

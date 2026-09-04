@@ -9,7 +9,7 @@
     };
 
     settings.server = {
-      port = 4096;
+      port = osConfig.services.opencode.port;
       hostname = "0.0.0.0";
     };
 

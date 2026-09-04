@@ -1,7 +1,6 @@
-{...}: {
-
-  system.stateVersion = "26.05"; ## leave this alone
-
+{lib, ...}: let
+  opencode-port = 4096;
+in {
   imports = [
     ./boot.nix
     ./docker.nix
@@ -13,41 +12,53 @@
     ./packages.nix
     ./users.nix
     ./windscribe.nix
-      ./openssh.nix
-      ./syncthing.nix
-      ./stylix.nix
+    ./openssh.nix
+    ./syncthing.nix
+    ./stylix.nix
   ];
 
-   #secrets
-   age = {
+  options.services.opencode.port = lib.mkOption {
+    type = lib.types.port;
+    default = opencode-port;
+    description = "OpenCode web server port";
+  };
+
+  config = {
+    services.opencode.port = opencode-port;
+
+    system.stateVersion = "26.05"; ## leave this alone
+
+    #secrets
+    age = {
       identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
       secrets = {
-            meher-default-pass.file = ../../secrets/meher-default-pass.age;
-            syncthing-pass = {
-               file = ../../secrets/syncthing-pass.age;
-               owner = "meher";
-               group = "users";
-               mode = "0400";
-            };
-            opencode-server-pass = {
-               file = ../../secrets/opencode-server-pass.age;
-               owner = "meher";
-               group = "users";
-               mode = "0400";
-            };
-         };
-   };
+        meher-default-pass.file = ../../secrets/meher-default-pass.age;
+        syncthing-pass = {
+          file = ../../secrets/syncthing-pass.age;
+          owner = "meher";
+          group = "users";
+          mode = "0400";
+        };
+        opencode-server-pass = {
+          file = ../../secrets/opencode-server-pass.age;
+          owner = "meher";
+          group = "users";
+          mode = "0400";
+        };
+      };
+    };
 
-  #Enabling flakes and nix command
-	 nix.settings.experimental-features = [
-	"nix-command"
-	"flakes"
-  ];
+    #Enabling flakes and nix command
+    nix.settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
 
-  # Auto-cleanup old generations after 15 days
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 15d";
+    # Auto-cleanup old generations after 15 days
+    nix.gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 15d";
+    };
   };
 }
