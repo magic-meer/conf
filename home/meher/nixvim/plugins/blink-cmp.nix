@@ -3,12 +3,28 @@
       enable = true;
       setupLspCapabilities = true;
       settings = {
+         cmdline = {
+            keymap = {
+               preset = "default";
+               "<Tab>" = [
+                  "accept"
+                  "fallback"
+               ];
+               "<S-Tab>" = [
+                  "select_prev"
+                  "fallback"
+               ];
+            };
+         };
          sources.default = [
             "lsp"
             "ripgrep"
             "path"
             "buffer"
+            "snippets"
          ];
+         # Expand LSP-provided snippets with LuaSnip (the snippet engine).
+         snippets.preset = "luasnip";
          # Enable LSP completion inside opencode.nvim's Ask prompt (so @context
          # placeholders and agent names autocomplete while typing a prompt).
          sources.per_filetype.opencode_ask = [

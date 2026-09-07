@@ -62,7 +62,30 @@
     (nmap "<S-C-u>" "<cmd>lua require('opencode').command('session.half.page.up')<CR>" "OpenCode: scroll up")
     (nmap "<S-C-d>" "<cmd>lua require('opencode').command('session.half.page.down')<CR>" "OpenCode: scroll down")
 
+    # Telescope (<leader>t prefix)
+    (nmap "<leader>tf" "<cmd>Telescope find_files<CR>" "Find files")
+    (nmap "<leader>tg" "<cmd>Telescope live_grep<CR>" "Live grep")
+    (nmap "<leader>tb" "<cmd>Telescope buffers<CR>" "Buffers")
+    (nmap "<leader>th" "<cmd>Telescope help_tags<CR>" "Help tags")
+    (nmap "<leader>tr" "<cmd>Telescope oldfiles<CR>" "Recent files")
+    (nmap "<leader>tgf" "<cmd>Telescope git_files<CR>" "Git files")
+    (nmap "<leader>ts" "<cmd>Telescope grep_string<CR>" "Grep word under cursor")
+    (nmap "<leader>td" "<cmd>Telescope diagnostics<CR>" "Diagnostics")
+    (nmap "<leader>tlr" "<cmd>Telescope lsp_references<CR>" "LSP references")
+    (nmap "<leader>tls" "<cmd>Telescope lsp_document_symbols<CR>" "Document symbols")
+    (nmap "<leader>tlw" "<cmd>Telescope lsp_workspace_symbols<CR>" "Workspace symbols")
+    (nmap "<leader>tc" "<cmd>Telescope commands<CR>" "Commands")
+    (nmap "<leader>tk" "<cmd>Telescope keymaps<CR>" "Keymaps")
+    (nmap "<leader>tp" "<cmd>Telescope colorscheme<CR>" "Colorscheme")
+    (nmap "<leader>tt" "<cmd>Telescope resume<CR>" "Resume last picker")
+
     # Showkeys: toggle the keystroke screencaster
     (nmap "<leader>sk" "<cmd>ShowkeysToggle<CR>" "Toggle showkeys")
+
+    # Git UI (fugit2) — full git GUI in a popup
+    (nmap "<leader>git" "<cmd>Fugit2<CR>" "Git (fugit2)")
+
+    # Color picker / highlighter (ccc)
+    (nmap "<leader>cp" "<cmd>lua require('ccc').picker()<CR>" "Color picker")
   ];
 }
