@@ -29,8 +29,13 @@
       pkgs.nixd
       pkgs.starship
       # qmlls
-      pkgs.cliamp
       pkgs.keepassxc
       pkgs.btop
-   ];
+
+       #Audio and Video Players/Provider/Deps
+       pkgs.cliamp pkgs.yt-dlp pkgs.mpv
+
+       #Terminal Apps
+       pkgs.peaclock pkgs.cava pkgs.cmatrix pkgs.pipes
+    ];
 }
