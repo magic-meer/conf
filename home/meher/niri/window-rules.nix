@@ -38,6 +38,9 @@ let
 
   rules = [
     (kdl.node "window-rule" [ ] [
+      (kdl.leaf "open-floating" true)
+    ])
+    (kdl.node "window-rule" [ ] [
       corners
       (kdl.leaf "clip-to-geometry" true)
       blur-behind
