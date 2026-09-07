@@ -33,10 +33,10 @@
 
     # LSP info
     # Hover: show details of the symbol under the cursor (VS Code hover)
-    (nmap "K" "<cmd>lua vim.lsp.buf_hover()<CR>" "LSP hover documentation")
+    (nmap "K" "<cmd>lua vim.lsp.buf.hover()<CR>" "LSP hover documentation")
     # Signature help: show the function's parameter signature manually
-    (nmap "<C-Space>" "<cmd>lua vim.lsp.buf_signature_help()<CR>" "LSP signature help")
-    (imap "<C-Space>" "<cmd>lua vim.lsp.buf_signature_help()<CR>" "LSP signature help")
+    (nmap "<C-Space>" "<cmd>lua vim.lsp.buf.signature_help()<CR>" "LSP signature help")
+    (imap "<C-Space>" "<cmd>lua vim.lsp.buf.signature_help()<CR>" "LSP signature help")
 
     # === OpenCode (AI agent) — all under <leader>op ===
     # Ask the agent, scoped to the current selection/range

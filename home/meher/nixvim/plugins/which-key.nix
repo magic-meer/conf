@@ -1,27 +1,18 @@
 { ... }: {
    plugins.which-key = {
       enable = true;
-      settings = {
-         # Single column, anchored in the bottom-right corner.
-         layout = {
-            # Narrow container = one column of bindings stacked vertically.
-            width = {
-               min = 40;
-               max = 60;
-            };
-            # Tall enough that entries stack vertically instead of wrapping into
-            # multiple columns spanning the whole bottom of the screen.
-            height = {
-               min = 20;
-               max = 30;
-            };
-            spacing = 3;
-         };
-         win = {
-            border = "rounded";
-            # Anchor the popup flush against the right edge (row stays bottom).
-            col.__raw = "math.huge";
-         };
-      };
+settings = {
+          layout = {
+             spacing = 3;
+          };
+          win = {
+             # Fixed container width → single-column popup. Without it, which-key
+             # 3.x splits the popup into N boxes that span the full editor width.
+             width = 60;
+             border = "rounded";
+             # Anchor the popup flush against the right edge (row stays bottom).
+             col.__raw = "math.huge";
+          };
+       };
    };
 }

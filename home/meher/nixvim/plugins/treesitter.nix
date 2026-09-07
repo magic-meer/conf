@@ -8,6 +8,7 @@
       settings = {
          ensure_installed = [
             "qmljs"
+            "nix"
          ];
       };
    };
