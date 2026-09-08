@@ -42,15 +42,25 @@
     "Mod+N".action.focus-window-down = [];
     "Mod+L".action.focus-column-right = [];
 
-    # Move windows (mirrors the focus keys)
-    "Mod+Ctrl+Left".action.move-column-left = [];
-    "Mod+Ctrl+Down".action.move-window-down = [];
-    "Mod+Ctrl+Up".action.move-window-up = [];
-    "Mod+Ctrl+Right".action.move-column-right = [];
-    "Mod+Ctrl+H".action.move-column-left = [];
-    "Mod+Ctrl+N".action.move-window-down = [];
-    "Mod+Ctrl+Y".action.move-window-up = [];
-    "Mod+Ctrl+L".action.move-column-right = [];
+    # Move windows (mirrors the focus keys) — Mod+Alt acts as the "window" layer
+    "Mod+Alt+Left".action.move-column-left = [];
+    "Mod+Alt+Down".action.move-window-down = [];
+    "Mod+Alt+Up".action.move-window-up = [];
+    "Mod+Alt+Right".action.move-column-right = [];
+    "Mod+Alt+H".action.move-column-left = [];
+    "Mod+Alt+J".action.move-window-down = [];
+    "Mod+Alt+K".action.move-window-up = [];
+    "Mod+Alt+L".action.move-column-right = [];
+
+    # Resize windows (Mod+Alt+Shift layer)
+    "Mod+Alt+Shift+Left".action.set-column-width = "-10%";
+    "Mod+Alt+Shift+Right".action.set-column-width = "+10%";
+    "Mod+Alt+Shift+Up".action.set-window-height = "+10%";
+    "Mod+Alt+Shift+Down".action.set-window-height = "-10%";
+    "Mod+Alt+Shift+H".action.set-column-width = "-10%";
+    "Mod+Alt+Shift+L".action.set-column-width = "+10%";
+    "Mod+Alt+Shift+K".action.set-window-height = "+10%";
+    "Mod+Alt+Shift+J".action.set-window-height = "-10%";
 
     # Column first/last
     "Mod+Home".action.focus-column-first = [];
