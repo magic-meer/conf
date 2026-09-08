@@ -51,22 +51,25 @@
    };
 
    nix-cursors.url = "github:LilleAila/nix-cursors";
+
+   hermes-agent.url = "github:NousResearch/hermes-agent";
 };
 
 
   outputs = {
-    self,
-    nixpkgs,
-    home-manager,
-    nixvim,
-    agenix,
-    zen-browser,
-    firefox-addons,
-    niri,
-    opencode,
-    windscribe-nixos,
-      stylix,
-    nix-cursors,
+       self,
+       nixpkgs,
+       home-manager,
+       nixvim,
+       agenix,
+       zen-browser,
+       firefox-addons,
+       niri,
+       opencode,
+       windscribe-nixos,
+       stylix,
+       nix-cursors,
+       hermes-agent,
     ...
   }@inputs:
     let
