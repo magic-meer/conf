@@ -7,5 +7,7 @@ in {
    "meher-default-pass.age".publicKeys = [ meher jinnnn ];
    "syncthing-pass.age".publicKeys = [ meher jinnnn ];
    "opencode-server-pass.age".publicKeys = [ meher jinnnn ];
+   "hermes-env.age".publicKeys = [ meher jinnnn ];
+   "hermes-dashboard-token.age".publicKeys = [ meher jinnnn ];
 }
 

@@ -45,6 +45,18 @@ in {
           group = "users";
           mode = "0400";
         };
+        hermes-env = {
+          file = ../../secrets/hermes-env.age;
+          owner = "meher";
+          group = "users";
+          mode = "0400";
+        };
+        hermes-dashboard-token = {
+          file = ../../secrets/hermes-dashboard-token.age;
+          owner = "meher";
+          group = "users";
+          mode = "0400";
+        };
       };
     };
 
