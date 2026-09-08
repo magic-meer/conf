@@ -26,6 +26,6 @@
     #     count = 65536;
     #   }
     # ];
-    # linger = true;
+    linger = true;
   };
 }
