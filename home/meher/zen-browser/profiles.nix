@@ -30,6 +30,12 @@
         isEssential = true;
         position = 4;
       };
+      "WhatsApp" = {
+        id = "1eb28d99-6100-4c6b-a087-8a574aa6bfeb";
+        url = "https://web.whatsapp.com";
+        isEssential = true;
+        position = 5;
+      };
     };
     mods = [
       "642854b5-88b4-4c40-b256-e035532109df"  # Transparent Zen

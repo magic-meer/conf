@@ -2,6 +2,7 @@
   imports = [
     ./policies.nix
     ./profiles.nix
+    ./bookmarks.nix
   ];
 
   programs.zen-browser = {
