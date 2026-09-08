@@ -3,6 +3,7 @@ imports = [
     inputs.nixvim.homeModules.nixvim  # Temporarily disabled due to keymaps format issue
     inputs.agenix.homeManagerModules.default
     inputs.zen-browser.homeModules.beta
+    inputs.hermes-agent.homeManagerModules.default
 
     ./packages.nix
     ./git.nix
@@ -15,7 +16,7 @@ imports = [
     # ./kitty
     ./fuzzel.nix
     # ./gtk.nix
-    ./opencode.nix
+    ./ai-agents
     ./swaylock.nix
     ./waybar
     ./swaync
