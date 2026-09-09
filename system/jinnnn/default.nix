@@ -10,6 +10,7 @@ in {
     ./locale.nix
     ./networking.nix
     ./packages.nix
+    ./android-dev.nix
     ./users.nix
     ./windscribe.nix
     ./openssh.nix

@@ -14,6 +14,7 @@ My very own NixOS configuration for the `jinnnn` host (x86_64-linux). Contains d
 
 - Boot, hardware, locale, networking, packages, and user modules
 - Auto-generated via `nixos-generate-config`
+- `android-dev.nix` — Kotlin Multiplatform toolchain (Android SDK via androidenv + `android-dev-env` FHS shell + device udev rules; no emulator/Android Studio). Guide: `docs/kotlin-multiplatform-dev.md`
 
 ### Home Manager (`home/meher/`)
 
