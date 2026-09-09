@@ -24,6 +24,7 @@ imports = [
     ./quickshell
     ./stylix.nix
     ./ghostty.nix
+    ./foot.nix
     ./starship.nix
     ./btop.nix
       # ./cliamp.nix

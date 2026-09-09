@@ -55,6 +55,32 @@ let
       (kdl.node "match" { namespace = "^waybar$"; } [ ])
       blur-behind
     ])
+
+    # terminal apps launched at startup: size + position them around the screen
+    (kdl.node "window-rule" [ ] [
+      (kdl.node "match" { app-id = "^peaclock$"; } [ ])
+      (kdl.node "default-column-width" [ ] [ (kdl.leaf "fixed" 500) ])
+      (kdl.node "default-window-height" [ ] [ (kdl.leaf "fixed" 300) ])
+      (kdl.node "default-floating-position" { x = 16; y = 16; relative-to = "top-left"; } [ ])
+    ])
+    (kdl.node "window-rule" [ ] [
+      (kdl.node "match" { app-id = "^cava$"; } [ ])
+      (kdl.node "default-column-width" [ ] [ (kdl.leaf "fixed" 500) ])
+      (kdl.node "default-window-height" [ ] [ (kdl.leaf "fixed" 300) ])
+      (kdl.node "default-floating-position" { x = 16; y = 16; relative-to = "top-right"; } [ ])
+    ])
+    (kdl.node "window-rule" [ ] [
+      (kdl.node "match" { app-id = "^cmatrix$"; } [ ])
+      (kdl.node "default-column-width" [ ] [ (kdl.leaf "fixed" 500) ])
+      (kdl.node "default-window-height" [ ] [ (kdl.leaf "fixed" 300) ])
+      (kdl.node "default-floating-position" { x = 16; y = 16; relative-to = "bottom-left"; } [ ])
+    ])
+    (kdl.node "window-rule" [ ] [
+      (kdl.node "match" { app-id = "^pipes$"; } [ ])
+      (kdl.node "default-column-width" [ ] [ (kdl.leaf "fixed" 500) ])
+      (kdl.node "default-window-height" [ ] [ (kdl.leaf "fixed" 300) ])
+      (kdl.node "default-floating-position" { x = 16; y = 16; relative-to = "bottom-right"; } [ ])
+    ])
   ];
 in {
   programs.niri.package = pkgs.niri;
