@@ -10,6 +10,7 @@
     description = "Meher Ali";
     extraGroups = [
       "wheel"
+      "kvm"
       "networkmanager"
       "docker"
     ];

@@ -20,6 +20,8 @@
       pkgs.kdePackages.okular
       pkgs.kdePackages.calligra
       pkgs.jdk
+      pkgs.android-tools
+      pkgs.direnv
       pkgs.steam-run
       pkgs.quickshell
       pkgs.gimp
