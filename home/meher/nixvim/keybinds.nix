@@ -37,6 +37,11 @@
     # Signature help: show the function's parameter signature manually
     (nmap "<C-Space>" "<cmd>lua vim.lsp.buf.signature_help()<CR>" "LSP signature help")
     (imap "<C-Space>" "<cmd>lua vim.lsp.buf.signature_help()<CR>" "LSP signature help")
+    # Code actions previewed with actions-preview (quick-fixes, imports, etc.)
+    (nmap "<leader>ca" "<cmd>lua require('actions-preview').code_actions()<CR>" "LSP code action (preview)")
+    (vmap "<leader>ca" "<cmd>lua require('actions-preview').code_actions()<CR>" "LSP code action (preview)")
+    # Rename symbol across the workspace (LSP)
+    (nmap "<leader>rn" "<cmd>lua vim.lsp.buf.rename()<CR>" "LSP rename symbol")
 
     # === OpenCode (AI agent) — all under <leader>op ===
     # Ask the agent, scoped to the current selection/range

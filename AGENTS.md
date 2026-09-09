@@ -15,6 +15,7 @@ sudo nixos-rebuild switch --flake ~/nixconfig#jinnnn
 ## Structure
 
 - `system/jinnnn/` — NixOS modules (boot, hardware, locale, networking, packages, users)
+- `system/jinnnn/android-dev.nix` — Kotlin Multiplatform Android toolchain: androidenv SDK composition + `android-dev-env` FHS shell (required for Gradle/AGP on NixOS) + android udev rules. No emulator, no Android Studio by design.
 - `home/meher/` — home-manager modules (one file per app)
 - Complex apps (niri, nixvim) get their own subdirectory under `home/meher/`
 - All user packages go in `home/meher/packages.nix` and nowhere else

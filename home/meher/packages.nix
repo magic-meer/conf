@@ -37,5 +37,14 @@
 
        #Terminal Apps
        pkgs.peaclock pkgs.cava pkgs.cmatrix pkgs.pipes
+
+       #Kotlin Multiplatform (Android + Linux desktop)
+       #NOTE: Gradle/AGP builds for Android must run inside `android-dev-env`
+       #(see system/jinnnn/android-dev.nix) — the FHS shell is required on NixOS.
+       pkgs.kotlin
+       pkgs.kotlin-language-server
+       pkgs.gradle
+       pkgs.ktlint
+       pkgs.jdk17
     ];
 }
