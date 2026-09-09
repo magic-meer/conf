@@ -36,6 +36,12 @@
         isEssential = true;
         position = 5;
       };
+      "Hermes" = {
+        id = "488dd2e3-9b75-4f9d-bd04-c6410722e124";
+        url = "http://127.0.0.1:9119/";
+        isEssential = true;
+        position = 6;
+      };
     };
     mods = [
       "642854b5-88b4-4c40-b256-e035532109df"  # Transparent Zen
