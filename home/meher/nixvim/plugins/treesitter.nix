@@ -9,6 +9,7 @@
          ensure_installed = [
             "qmljs"
             "nix"
+            "kotlin"
          ];
       };
    };
