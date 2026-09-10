@@ -14,14 +14,10 @@
       pkgs.swaynotificationcenter
       pkgs.brightnessctl
       pkgs.power-profiles-daemon
-      pkgs.python3
       pkgs.zip
       pkgs.unzip
       pkgs.kdePackages.okular
       pkgs.kdePackages.calligra
-      pkgs.jdk
-      pkgs.android-tools
-      pkgs.direnv
       pkgs.steam-run
       pkgs.quickshell
       pkgs.gimp
@@ -33,6 +29,10 @@
       # qmlls
       pkgs.keepassxc
       pkgs.btop
+
+      #Developers thigss
+      pkgs.python3 pkgs.jdk21 pkgs.kotlin
+      pkgs.direnv pkgs.android-tools pkgs.kotlin-language-server
 
        #Audio and Video Players/Provider/Deps
        pkgs.cliamp pkgs.yt-dlp pkgs.mpv
