@@ -6,6 +6,8 @@
       settings = {
          main = {
             font = lib.mkForce "Spleen 16x32:size=8, JetBrainsMono Nerd Font:size=8";
+            alpha = 0;
+            pad = "10x5";
          };
          scrollback = {
             lines = 0;
