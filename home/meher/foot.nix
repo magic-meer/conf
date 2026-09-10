@@ -6,7 +6,6 @@
       settings = {
          main = {
             font = lib.mkForce "Spleen 16x32:size=8, JetBrainsMono Nerd Font:size=8";
-            alpha = 0;
             pad = "10x5";
          };
          scrollback = {
@@ -14,6 +13,15 @@
          };
          cursor = {
             style = "beam";
+         };
+         csd = {
+            preferred = "none";
+         };
+         "colors-dark" = {
+            alpha = lib.mkForce 0;
+         };
+         "colors-light" = {
+            alpha = lib.mkForce 0;
          };
       };
    };
