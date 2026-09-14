@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-   plugins.lsp.servers.kotlin-language-server = {
+   plugins.lsp.servers.kotlin_language_server = {
       enable = true;
       package = pkgs.kotlin-language-server;
 

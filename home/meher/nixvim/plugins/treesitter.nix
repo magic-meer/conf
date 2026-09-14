@@ -10,6 +10,7 @@
             "qmljs"
             "nix"
             "kotlin"
+            "python"
          ];
       };
    };

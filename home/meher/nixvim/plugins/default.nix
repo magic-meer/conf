@@ -34,6 +34,7 @@
          ./lsp-status.nix
          ./luasnip.nix
          ./srcery.nix
+         ./python.nix
       ];
    };
 }
