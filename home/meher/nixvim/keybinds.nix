@@ -1,5 +1,6 @@
 { ... }: {
-  programs.nixvim.keymaps = let
+  programs.nixvim = rec {
+    keymaps = let
     # Helper function to create keymaps with less boilerplate
     # Usage: map "n" "<leader>e" ":Neotree toggle<CR>" "Toggle file tree"
     map = mode: key: action: desc:
@@ -36,8 +37,9 @@
     (vmap "<leader>p" "\"+p" "Put from system clipboard")
 
     # LSP info
-    # Hover: show details of the symbol under the cursor (VS Code hover)
-    (nmap "K" "<cmd>lua vim.lsp.buf.hover()<CR>" "LSP hover documentation")
+# Hover: toggleable docs popup (see Hover in extraConfigLua below). K opens the
+# docs AND moves the cursor into the popup; K again (or <Esc>/q inside) closes.
+     (nmap "K" "<cmd>lua Hover.toggle()<CR>" "LSP hover documentation")
     # Signature help: show the function's parameter signature manually
     (nmap "<C-Space>" "<cmd>lua vim.lsp.buf.signature_help()<CR>" "LSP signature help")
     (imap "<C-Space>" "<cmd>lua vim.lsp.buf.signature_help()<CR>" "LSP signature help")
@@ -91,5 +93,88 @@
 
     # Color picker / highlighter (ccc)
     (nmap "<leader>cp" "<cmd>lua require('ccc').picker()<CR>" "Color picker")
-  ];
+    ];
+
+    extraConfigLua = ''
+    -- Toggleable LSP hover:
+    --   * K opens the docs AND moves the cursor into the popup
+    --   * K again (or <Esc>/q inside) closes the whole popup
+    --   * it never auto-closes when the cursor moves in the source buffer
+    Hover = {}
+
+    function Hover.close()
+      if Hover.win and vim.api.nvim_win_is_valid(Hover.win) then
+        vim.api.nvim_win_close(Hover.win, true)
+      end
+      Hover.win, Hover.buf = nil, nil
+    end
+
+    function Hover.toggle()
+      if Hover.win and vim.api.nvim_win_is_valid(Hover.win) then
+        Hover.close()
+        return
+      end
+
+      local client = vim.lsp.get_clients({ bufnr = 0 })[1]
+      if not client then
+        return
+      end
+      local params = vim.lsp.util.make_position_params(0, client.offset_encoding)
+      vim.lsp.buf_request(0, 'textDocument/hover', params, function(err, result)
+        if err then
+          vim.notify(('Hover request failed: %s'):format(err.message), vim.log.levels.WARN)
+          return
+        end
+        if Hover.win and vim.api.nvim_win_is_valid(Hover.win) then
+          return
+        end
+        local contents = result and result.contents
+        if contents == nil or vim.tbl_isempty(contents) then
+          return
+        end
+
+        local lines = vim.lsp.util.convert_input_to_markdown_lines(contents)
+        lines = vim.lsp.util.trim_empty_lines(lines)
+        if vim.tbl_isempty(lines) then
+          return
+        end
+
+        local buf = vim.api.nvim_create_buf(false, true)
+        vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+        vim.bo[buf].modifiable = false
+        vim.bo[buf].wrap = true
+        pcall(function()
+          vim.bo[buf].syntax = 'markdown'
+        end)
+
+        local width = 20
+        for _, line in ipairs(lines) do
+          width = math.max(width, vim.fn.strdisplaywidth(line) + 4)
+        end
+        width = math.min(width, math.floor(vim.o.columns * 0.5))
+        local height = math.min(#lines + 2, 20)
+
+        local win = vim.api.nvim_open_win(buf, false, {
+          relative = 'cursor',
+          row = 1,
+          col = 0,
+          width = width,
+          height = height,
+          border = 'rounded',
+          style = 'minimal',
+          focusable = true,
+        })
+
+        local keymap = { silent = true, noremap = true, nowait = true }
+        vim.api.nvim_buf_set_keymap(buf, 'n', 'q', '<cmd>lua Hover.close()<CR>', keymap)
+        vim.api.nvim_buf_set_keymap(buf, 'n', '<Esc>', '<cmd>lua Hover.close()<CR>', keymap)
+        vim.api.nvim_buf_set_keymap(buf, 'i', '<Esc>', '<cmd>lua Hover.close()<CR>', keymap)
+
+        Hover.win, Hover.buf = win, buf
+        -- Move the cursor into the docs popup (j/k scroll it, K/q/<Esc> close).
+        vim.api.nvim_set_current_win(win)
+      end)
+    end
+  '';
+  };
 }

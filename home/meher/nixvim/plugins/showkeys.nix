@@ -11,8 +11,8 @@
          show_count = false;
          # Visible in insert mode too (good for demos/recordings)
          excluded_modes = [ ];
-         # Bottom-right, above the global lualine (matches your error/notification corner)
-         position = "bottom-right";
+# Top-right so it doesn't overlap the bottom-right notification stack.
+          position = "top-right";
          winopts = {
             relative = "editor";
             style = "minimal";

@@ -49,7 +49,7 @@
             auto_show = true;
             auto_show_delay_ms = 300;
             window = {
-               border = "padded";
+               border = "rounded";
                max_height = 20;
                max_width = 60;
             };
@@ -58,7 +58,7 @@
          signature = {
             enabled = true;
             window = {
-               border = "padded";
+               border = "rounded";
             };
          };
       };
