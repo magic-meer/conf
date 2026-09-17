@@ -10,7 +10,7 @@
     "Mod+Space".action.spawn-sh = "pkill -x fuzzel || fuzzel";
 
     # Terminal / browser / file manager (from env vars, with defaults)
-    "Mod+T".action.spawn-sh = "\${TERMINAL:-kitty}";
+    "Mod+T".action.spawn-sh = "\${TERMINAL:-kitty} +new-window";
     "Mod+B".action.spawn-sh = "\${BROWSER:-zen}";
     "Mod+E".action.spawn-sh = "\${TERMINAL:-kitty} -e \${FILE_MANAGER:-superfile}";
 
