@@ -35,6 +35,7 @@
          ./luasnip.nix
          ./srcery.nix
          ./python.nix
+         ./java.nix
       ];
    };
 }
