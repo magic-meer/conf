@@ -36,6 +36,7 @@
          ./srcery.nix
          ./python.nix
          ./java.nix
+         ./code-runner.nix
       ];
    };
 }

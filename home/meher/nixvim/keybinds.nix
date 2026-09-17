@@ -24,9 +24,10 @@
     # File management
     (nmap "<leader>q" "<cmd>q<CR>" "Quit")
     (nmap "<leader>w" "<cmd>w<CR>" "Write")
-    # Run the current file in a side-split terminal (real PTY, so input()
-    # prompts work); :q in the terminal kills the process
-    (nmap "<leader>r" "<cmd>lcd %:p:h | terminal python3 %<CR>" "Run current file")
+    # Run the current file with code_runner.nvim (floating snacks terminal);
+    # :q in the terminal closes it. Use <leader>rc to stop a running job.
+    (nmap "<leader>r" "<cmd>RunFile<CR>" "Run current file")
+    (nmap "<leader>rc" "<cmd>RunClose<CR>" "Close / stop runner")
 
     # System clipboard
     (nmap "<leader>y" "\"+y" "Yank to system clipboard")
