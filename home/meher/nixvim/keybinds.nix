@@ -24,6 +24,9 @@
     # File management
     (nmap "<leader>q" "<cmd>q<CR>" "Quit")
     (nmap "<leader>w" "<cmd>w<CR>" "Write")
+    # Run the current file in a side-split terminal (real PTY, so input()
+    # prompts work); :q in the terminal kills the process
+    (nmap "<leader>r" "<cmd>lcd %:p:h | terminal python3 %<CR>" "Run current file")
 
     # System clipboard
     (nmap "<leader>y" "\"+y" "Yank to system clipboard")
@@ -70,7 +73,7 @@
     (nmap "<leader>tr" "<cmd>Telescope oldfiles<CR>" "Recent files")
     (nmap "<leader>tgf" "<cmd>Telescope git_files<CR>" "Git files")
     (nmap "<leader>ts" "<cmd>Telescope grep_string<CR>" "Grep word under cursor")
-    (nmap "<leader>td" "<cmd>Telescope diagnostics<CR>" "Diagnostics")
+    (nmap "<leader>td" "<cmd>lua require('actions-preview').code_actions()<CR>" "Code actions (preview)")
     (nmap "<leader>tlr" "<cmd>Telescope lsp_references<CR>" "LSP references")
     (nmap "<leader>tls" "<cmd>Telescope lsp_document_symbols<CR>" "Document symbols")
     (nmap "<leader>tlw" "<cmd>Telescope lsp_workspace_symbols<CR>" "Workspace symbols")
