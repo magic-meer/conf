@@ -1,4 +1,7 @@
 {
+  # Twilight is installed and configured but NEVER auto-enabled: it only acts
+  # when you run `:Twilight` (toggle). Nothing dims on startup or on entering
+  # buffers.
   plugins.twilight = {
     enable = true;
 
@@ -14,9 +17,7 @@
   };
 
   extraConfigLua = ''
-    local twilight = require("twilight")
-
-    local function has_parser(buf)
+    local has_parser = function(buf)
       local ok, parser = pcall(vim.treesitter.get_parser, buf)
       return ok and parser ~= nil
     end
@@ -46,28 +47,20 @@
     -- Re-apply after any colorscheme change (twilight recolors first).
     vim.api.nvim_create_autocmd("ColorScheme", { callback = fix_twilight_hl })
 
-    -- Twilight assumes every buffer has a treesitter parser and crashes with
-    -- "attempt to index local 'parser' (a nil value)" otherwise (get_parser()
-    -- returns nil without error, defeating twilight's own pcall guard). Keep it
-    -- enabled per-window only while the buffer has a parser.
-    vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
-      callback = function(args)
-        local buf = args.buf
-        local enabled = require("twilight.view").enabled
-        if has_parser(buf) then
-          if not enabled then
-            twilight.enable()
-          end
-          fix_twilight_hl()
-        elseif enabled then
-          twilight.disable()
-        end
-      end,
-    })
-
-    if has_parser(vim.api.nvim_get_current_buf()) then
-      twilight.enable()
-      fix_twilight_hl()
-    end
+    -- `:Twilight` toggles dimming for the current buffer. Twilight assumes a
+    -- treesitter parser exists and crashes otherwise (get_parser() returns nil
+    -- without error, which defeats twilight's own pcall guard), so only enable
+    -- when the buffer actually has one.
+    vim.api.nvim_create_user_command("Twilight", function()
+      local twilight = require("twilight")
+      if require("twilight.view").enabled then
+        twilight.disable()
+      elseif has_parser(vim.api.nvim_get_current_buf()) then
+        twilight.enable()
+        fix_twilight_hl()
+      else
+        vim.notify("Twilight needs a treesitter parser in this buffer", vim.log.levels.WARN)
+      end
+    end, {})
   '';
 }
