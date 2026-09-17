@@ -8,7 +8,7 @@
    settings = {
       font-family = [ "Spleen 16x32" "JetBrainsMono Nerd Font" ];
       background-opacity = 0;
-      background-blur = true;
+      # background-blur = true;
          scrollbar = "never";
          window-decoration = "none";
          window-padding-x = 10;
