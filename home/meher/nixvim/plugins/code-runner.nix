@@ -1,16 +1,17 @@
 { pkgs, ... }: {
   # code_runner.nvim — run the current file/project for many languages, in a
   # floating Snacks terminal. Not packaged in nixpkgs, so we build it from a
-  # pinned commit via fetchFromGitHub.
+  # pinned commit. fetchgit (not fetchFromGitHub): GitHub regenerates its
+  # archive tarballs (gzip embeds a timestamp), so their hash changes on every
+  # re-download; a git fetch is content-addressed and stable for a pinned rev.
   extraPlugins = [
     (pkgs.vimUtils.buildVimPlugin {
       pname = "code_runner.nvim";
       version = "0-unstable-2026-09-17";
-      src = pkgs.fetchFromGitHub {
-        owner = "CRAG666";
-        repo = "code_runner.nvim";
+      src = pkgs.fetchgit {
+        url = "https://github.com/CRAG666/code_runner.nvim.git";
         rev = "ae11f6cb469ee5547cd0e076ecb41d74a7322cb8";
-        hash = "sha256-qGLlH6pOaz8UyLZwNAFF/cX9e9Fad9Pm0A0yUjhjKoc=";
+        hash = "sha256-BTd5gQgocJNygy2BeLHNxBnWl1kVsNAzFFG4Y0ucuJM=";
       };
       meta.homepage = "https://github.com/CRAG666/code_runner.nvim";
     })
