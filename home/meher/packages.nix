@@ -32,6 +32,7 @@
 
       #Developers thigss
       pkgs.python3 pkgs.jdk21 pkgs.kotlin
+      pkgs.stdenv.cc.libstdcxx # libstdc++.so.6 for numpy in python venvs
       pkgs.direnv pkgs.android-tools pkgs.kotlin-language-server
       pkgs.ruff
 
