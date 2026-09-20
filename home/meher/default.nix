@@ -54,7 +54,7 @@ imports = [
     stateVersion = "26.05";
 
     sessionVariables = {
-      TERMINAL = "ghostty";
+      TERMINAL = "foot";
       BROWSER = "zen-beta";
       FILE_MANAGER = "superfile";
       DISPLAY = ":0";
@@ -62,6 +62,8 @@ imports = [
       # Qt transparency and theming
       QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
       QT_AUTO_SCREEN_SCALE_FACTOR = "1";
+
+        KOTLIN_CLI_JAVA_HOME = "${pkgs.jdk25}/lib/openjdk";
     };
 
     sessionPath = [ "$HOME/.local/bin" ];
