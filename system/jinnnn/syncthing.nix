@@ -12,7 +12,7 @@
    settings = {
       gui.user = "meher";
    devices = {
-      "balail" = { id = "ZYGZK2F-3HFWTY4-7OOTCUB-N72WOUQ-YNCRGSR-ULKJMTR-V63HYGR-N23XYA5"; };
+      "balail" = { id = "LIZW3OF-4M55GVF-NUVOQYR-5PDBWAJ-FABKLVS-SNYUQH7-QENZ53C-N6X6KAZ"; };
       };
    folders = {
    "things" = {
