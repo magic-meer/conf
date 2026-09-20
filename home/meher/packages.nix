@@ -1,7 +1,9 @@
 {
    inputs,
    pkgs,
+   config,
    ... }: {
+   conig.allowUnfree = true;
    home.packages = [
       pkgs.fuzzel
       pkgs.waybar
