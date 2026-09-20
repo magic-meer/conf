@@ -3,7 +3,7 @@
    pkgs,
    config,
    ... }: {
-   conig.allowUnfree = true;
+   config.allowUnfree = true;
    home.packages = [
       pkgs.fuzzel
       pkgs.waybar
