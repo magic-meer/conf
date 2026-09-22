@@ -72,7 +72,6 @@
        niri,
         opencode,
         antigravity-nix,
-        windscribe-nixos,
        stylix,
        nix-cursors,
        hermes-agent,
@@ -93,7 +92,6 @@
         # nixpkgs.overlays = [ opencode.overlays.default ];
 
         modules = [
-          windscribe-nixos.nixosModules.windscribe
           ./system/${systemName}/default.nix
           home-manager.nixosModules.home-manager
           agenix.nixosModules.default
