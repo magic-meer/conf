@@ -1,5 +1,6 @@
 {
    inputs,
+   system,
   pkgs,
   ...
 }: {
@@ -21,8 +22,7 @@
     lm_sensors
     file
     psmisc
-      nautilus
-      inputs.agenix.packages.${pkgs.system}.default
+      inputs.agenix.packages.${system}.default
   ];
 
   programs.fish.enable = true;

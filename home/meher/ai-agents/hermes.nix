@@ -10,7 +10,7 @@
     # Provider + model (swap model freely here)
     settings.model = {
       base_url = "https://openrouter.ai/api/v1";
-      default = "deepseek/deepseek-chat-v3-0324:free";
+      default = "nvidia/nemotron-3-ultra-550b-a55b:free";
     };
 
     # Secrets -> ~/.hermes/.env (from agenix)

@@ -1,21 +1,23 @@
-{ osConfig, ... }: {
-  stylix.targets.opencode.enable = false;
-
-  programs.opencode = {
-    enable = true;
-
-    tui = {
-      theme = "system";
-    };
-
-    settings.server = {
-      port = osConfig.services.opencode.port;
-      hostname = "0.0.0.0";
-    };
-
-    web = {
+{ config, ... }: {
+   plugins.treesitter = {
       enable = true;
-      environmentFile = osConfig.age.secrets.opencode-server-pass.path;
-    };
-  };
+      # folding.enable = true;
+      highlight.enable = true;
+      indent.enable = true;
+
+      settings = {
+ensure_installed = [
+            "qmljs"
+            "nix"
+            "python"
+         ];
+      };
+   };
+
+
+
+   plugins.treesitter-context = {
+      enable = true;
+   };
 }
+

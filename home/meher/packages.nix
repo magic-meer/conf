@@ -1,9 +1,7 @@
 {
    inputs,
    pkgs,
-   config,
    ... }: {
-   config.allowUnfree = true;
    home.packages = [
       pkgs.fuzzel
       pkgs.waybar
@@ -44,5 +42,8 @@
 
        #Terminal Apps
        pkgs.peaclock pkgs.cava pkgs.cmatrix pkgs.pipes
-    ];
-}
+
+       # Antigravity
+       inputs.antigravity-nix.packages.x86_64-linux.google-antigravity-cli
+     ];
+ }

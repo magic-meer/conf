@@ -39,6 +39,11 @@
 
     opencode.url = "github:GutMutCode/opencode-nix";
 
+    antigravity-nix = {
+      url = "github:jacopone/antigravity-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     windscribe-nixos = {
       url = "github:Varmisanth/windscribe-nixos";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -52,8 +57,13 @@
 
    nix-cursors.url = "github:LilleAila/nix-cursors";
 
-   hermes-agent.url = "github:NousResearch/hermes-agent";
-};
+    hermes-agent.url = "github:NousResearch/hermes-agent";
+
+     superpowers = { url = "github:obra/superpowers"; flake = false; };
+     ponytail = { url = "github:DietrichGebert/ponytail"; flake = false; };
+     impeccable = { url = "github:pbakaus/impeccable"; flake = false; };
+     linkedin-agent = { url = "github:Jakeschincariol/linkedin-agent-skill"; flake = false; };
+   };
 
 
   outputs = {
@@ -65,8 +75,9 @@
        zen-browser,
        firefox-addons,
        niri,
-       opencode,
-       windscribe-nixos,
+        opencode,
+        antigravity-nix,
+        windscribe-nixos,
        stylix,
        nix-cursors,
        hermes-agent,
