@@ -1,23 +1,30 @@
-{ config, ... }: {
-   plugins.treesitter = {
-      enable = true;
-      # folding.enable = true;
-      highlight.enable = true;
-      indent.enable = true;
+{ osConfig, inputs, ... }: {
+  stylix.targets.opencode.enable = false;
 
-      settings = {
-ensure_installed = [
-            "qmljs"
-            "nix"
-            "python"
-         ];
+  programs.opencode = {
+    enable = true;
+
+    tui = {
+      theme = "system";
+    };
+
+    settings = {
+      server = {
+        port = osConfig.services.opencode.port;
+        hostname = "0.0.0.0";
       };
-   };
+      plugin = [
+        "${inputs.superpowers}/.opencode/plugins/superpowers.js"
+        "${inputs.ponytail}/.opencode/plugins/ponytail.mjs"
+      ];
+      skills = {
+        paths = [ "${inputs.impeccable}/.opencode/skills" "${inputs.linkedin-agent}/skills" ];
+      };
+    };
 
-
-
-   plugins.treesitter-context = {
+    web = {
       enable = true;
-   };
+      environmentFile = osConfig.age.secrets.opencode-server-pass.path;
+    };
+  };
 }
-

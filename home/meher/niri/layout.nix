@@ -29,26 +29,6 @@
         top = 0;
         bottom = 0;
       };
-
-      focus-ring = {
-        enable = true;
-        width = 2;
-        active = { color = "#9a9a9a"; };
-        inactive = { color = "#555555"; };
-        urgent = { color = "#fb4934"; };
-      };
-
-      border = {
-        enable = true;
-        width = 1;
-        active = { color = "#9a9a9a"; };
-        inactive = { color = "#555555"; };
-        urgent = { color = "#fb4934"; };
-      };
-
-      shadow = {
-        enable = true;
-      };
     };
 
     cursor = {
