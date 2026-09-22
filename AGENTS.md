@@ -25,7 +25,7 @@ sudo nixos-rebuild switch --flake ~/nixconfig#jinnnn
 
 - `home/meher/niri/statup.nix` is misnamed (typo); file on disk is `statup.nix` but `niri/default.nix` imports `./startup.nix` — this will fail at evaluation
 - `opencode` flake input is included but its overlay is commented out in `flake.nix`; opencode comes from nixpkgs (`home/meher/packages.nix`) and is configured via `programs.opencode` in `home/meher/opencode.nix` (web password via `age.secrets.opencode-server-pass`)
-- Still-empty placeholders: `niri/appearance.nix`, `niri/keybinds.nix`, `niri/layout.nix`
+- Still-empty placeholders: `niri/appearance.nix` (has focus-ring/border/shadow set to 0 width, overrides layout.nix)
 
 ## Conventions
 
