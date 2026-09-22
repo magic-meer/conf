@@ -1,10 +1,10 @@
-{
-  userName,
-  ...
-}: {
-  programs.windscribe = {
-    enable = true;
-    users = [ "${userName}" ];
-    app.autoStart = false;
-  };
-}
+# {
+#   userName,
+#   ...
+# }: {
+#   programs.windscribe = {
+#     enable = true;
+#     users = [ "${userName}" ];
+#     app.autoStart = false;
+#   };
+# }

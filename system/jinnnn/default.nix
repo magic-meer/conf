@@ -1,7 +1,7 @@
 {lib, ...}: let
-  opencode-port = 4096;
-in {
-  imports = [
+   opencode-port = 4096;
+ in {
+   imports = [
     ./boot.nix
     ./docker.nix
     ./fonts.nix
@@ -11,7 +11,7 @@ in {
     ./networking.nix
     ./packages.nix
     ./users.nix
-    ./windscribe.nix
+    # ./windscribe.nix
     ./openssh.nix
     ./syncthing.nix
     ./stylix.nix
