@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, lib, ... }:
 
 let
   sharedPlugins = {
@@ -12,10 +12,10 @@ let
   };
 
   mapPluginsToTool = basePath:
-    builtins.mapAttrs' (name: src: { name = "${basePath}/plugins/${name}"; value = { source = src; }; }) sharedPlugins;
+    lib.mapAttrs' (name: src: { name = "${basePath}/plugins/${name}"; value = { source = src; }; }) sharedPlugins;
 
   mapSkillsToTool = basePath:
-    builtins.mapAttrs' (name: src: { name = "${basePath}/skills/${name}"; value = { source = src; }; }) sharedSkills;
+    lib.mapAttrs' (name: src: { name = "${basePath}/skills/${name}"; value = { source = src; }; }) sharedSkills;
 
 in
 {
