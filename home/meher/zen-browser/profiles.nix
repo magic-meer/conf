@@ -1,8 +1,23 @@
-{ ... }: {
+{ pkgs, ... }: {
   programs.zen-browser.profiles.default = {
     id = 0;
     path = "tumg9xef.Default Profile";
     isDefault = true;
+    search = {
+      force = true;
+      engines = {
+        nixpkgs = {
+          name = "Nixpkgs Search";
+          urls = [
+            {
+              template = "https://search.nixos.org/packages?query={searchTerms}";
+            }
+          ];
+          icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+          definedAliases = ["@nix"];
+        };
+      };
+    };
     pinsForce = true;
     pinsForceAction = "remove";
     pins = {
