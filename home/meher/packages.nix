@@ -1,7 +1,8 @@
 {
    inputs,
    pkgs,
-   ... }: {
+   ... 
+}: {
    home.packages = [
       pkgs.snapshot
       pkgs.fuzzel
@@ -38,13 +39,14 @@
       pkgs.ruff
       pkgs.uv
 
-       #Audio and Video Players/Provider/Deps
-       pkgs.cliamp pkgs.yt-dlp pkgs.mpv
+      #Audio and Video Players/Provider/Deps
+      pkgs.cliamp pkgs.yt-dlp pkgs.mpv
 
-       #Terminal Apps
-       pkgs.peaclock pkgs.cava pkgs.cmatrix pkgs.pipes
+      #Terminal Apps
+      pkgs.peaclock pkgs.cava pkgs.cmatrix pkgs.pipes
 
-# Antigravity
-        inputs.antigravity-nix.packages.x86_64-linux.google-antigravity-cli
-      ];
+      #Ai agnets
+      inputs.antigravity-nix.packages.x86_64-linux.google-antigravity-cli
+      pkgs.kiro-cli
+   ];
  }
