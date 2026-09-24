@@ -5,9 +5,8 @@ imports = [
     inputs.zen-browser.homeModules.beta
     inputs.hermes-agent.homeManagerModules.default
 
-    ./packages.nix
     ./android.nix
-    ./git.nix
+    ./packages.nix
     ./fish.nix
     ./zed.nix
     ./zen-browser
@@ -64,8 +63,6 @@ imports = [
       # Qt transparency and theming
       QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
       QT_AUTO_SCREEN_SCALE_FACTOR = "1";
-
-        KOTLIN_CLI_JAVA_HOME = "${pkgs.jdk25}/lib/openjdk";
     };
 
     sessionPath = [ "$HOME/.local/bin" ];

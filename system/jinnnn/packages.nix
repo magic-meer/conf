@@ -6,6 +6,10 @@
    # Allow unfree packages
    nixpkgs.config.allowUnfree = true;
 
+   # Accept the Android SDK license (required by nixpkgs androidenv; without
+   # this every androidenv SDK fails to evaluate)
+   nixpkgs.config.android_sdk.accept_license = true;
+
    # List packages installed in system profile.
    environment.systemPackages = with pkgs; [
      vim
