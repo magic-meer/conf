@@ -1,4 +1,4 @@
-{lib, ...}: let
+{lib, pkgs, ...}: let
    opencode-port = 4096;
  in {
    imports = [
@@ -72,5 +72,13 @@
       dates = "weekly";
       options = "--delete-older-than 15d";
     };
+
+    # Allow generic dynamically linked binaries (Android SDK tools, Gradle-Tooling
+    # aapt2, Amper-provisioned JDKs, ...) to run outside the store (stub-ld).
+    programs.nix-ld.enable = true;
+    programs.nix-ld.libraries = with pkgs; [
+      stdenv.cc.cc.lib
+      zlib
+    ];
   };
 }

@@ -1,0 +1,57 @@
+{config, lib, pkgs, ...}:
+
+let
+  # home-manager gets its OWN pkgs (a different nixpkgs instance than the system
+  # flake's), and THAT instance's androidenv.composeAndroidPackages has a
+  # different API than the pinned one verified above. So Android components MUST
+  # come from the flake's locked nixpkgs. Since android.nix is evaluated inside
+  # the flake config, we grab the pinned source via the config's own pkgs.path
+  # (the exact store rev nixosConfiguration.jinnnn uses) and import it fresh.
+  pinnedNixpkgs = import config.system.build.toplevel.system.build.toplevel.??? 2>/dev/null ||
+    import "${pkgs.path}" { inherit (pkgs.stdenv.hostPlatform) system; config = { allowUnfree = true; }; }; # placeholder fallback
+
+  androidPkgs = pinnedNixpkgs.androidenv.composeAndroidPackages {
+    platformVersions = [ "37.0" ];
+    buildToolsVersions = [ "37.0.0" ];
+  };
+in {
+  home.packages = [ androidPkgs.androidsdk ];
+
+  # Store payload under libexec/android-sdk (read-only).
+  sdkStore = "${androidSdk}/libexec/android-sdk";
+
+  # Writable ANDROID_HOME farm. Amper/Amper/Gradle need cmdline-tools/latest
+  # (nixpkgs stores components read-only in the store; cmdline-tools come under
+  # cmdline-tools/<version>), and Amper's sdkmanager writes licenses — so we
+  # symlink each store component into a writable home dir and alias latest.
+  sdkHome = "$HOME/.android-sdk";
+in {
+  home.packages = [ androidSdk ];
+
+  home.sessionVariables = {
+    JAVA_HOME = "${pkgs.jdk25}/lib/openjdk";
+    ANDROID_HOME = sdkHome;
+    ANDROID_SDK_ROOT = sdkHome;
+    ANDROID_USER_HOME = "$HOME/.android";
+  };
+
+  # Mirror the read-only store SDK into a writable farm under $HOME (Amper needs
+  # cmdline-tools/latest; nixpkgs installs cmdline-tools/<version>). Licenses are
+  # already written into the store SDK by composeAndroidPackages.
+  home.activation.setupAndroidFarm = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    store="${sdkStore}"
+    farm="$HOME/.android-sdk"
+    mkdir -p "$farm"
+
+    for d in build-tools platforms platform-tools licenses tools licenses cmdline-tools; do
+      ln -sfn "$store/$d" "$farm/$d"
+    done
+
+    mkdir -p "$farm/cmdline-tools"
+    for d in "$store/cmdline-tools/"*/; do
+      dir="$farm/cmdline-tools/$(basename "$d")"
+      ln -sfn "$(readlink -f "$d")" "$dir"
+      ln -sfn "$(readlink -f "$d")" "$farm/cmdline-tools/latest"
+    done
+  '';
+}

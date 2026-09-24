@@ -122,7 +122,7 @@
         '';
         return-type = "json";
         interval = 60;
-        on-click = "kitty --class services -- systemctl --user list-units --state=running";
+        on-click = "foot --app-id services systemctl --user list-units --state=running";
         tooltip = false;
       };
 

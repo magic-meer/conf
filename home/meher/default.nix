@@ -6,6 +6,7 @@ imports = [
     inputs.hermes-agent.homeManagerModules.default
 
     ./packages.nix
+    ./android.nix
     ./git.nix
     ./fish.nix
     ./zed.nix
@@ -58,6 +59,7 @@ imports = [
       BROWSER = "zen-beta";
       FILE_MANAGER = "superfile";
       DISPLAY = ":0";
+      XDG_PICTURES_DIR = "$HOME/Pictures";
 
       # Qt transparency and theming
       QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";

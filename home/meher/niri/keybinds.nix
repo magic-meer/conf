@@ -10,9 +10,9 @@
     "Mod+Space".action.spawn-sh = "pkill -x fuzzel || fuzzel";
 
     # Terminal / browser / file manager (from env vars, with defaults)
-    "Mod+T".action.spawn-sh = "\${TERMINAL:-kitty} +new-window";
+    "Mod+T".action.spawn-sh = "\${TERMINAL:-foot}";
     "Mod+B".action.spawn-sh = "\${BROWSER:-zen}";
-    "Mod+E".action.spawn-sh = "\${TERMINAL:-kitty} -e \${FILE_MANAGER:-superfile}";
+    "Mod+E".action.spawn-sh = "\${TERMINAL:-foot} -e \${FILE_MANAGER:-superfile}";
 
     # Lock screen
     "Mod+Shift+L" = {
