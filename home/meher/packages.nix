@@ -3,6 +3,7 @@
    pkgs,
    ... }: {
    home.packages = [
+      pkgs.snapshot
       pkgs.fuzzel
       pkgs.waybar
       pkgs.superfile
