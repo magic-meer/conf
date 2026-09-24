@@ -736,6 +736,22 @@
         "type": "github"
       }
     },
+    "qpdf-pdf-ops": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1779596597,
+        "narHash": "sha256-n3m78e7408cIC9D6pnwn1qhB6jN3/THiOTBmR7Q74iM=",
+        "owner": "idinging",
+        "repo": "qpdf-pdf-ops",
+        "rev": "5c32dc97f95e4526c68e111eb9edfa7470e2bbf2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "idinging",
+        "repo": "qpdf-pdf-ops",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -752,6 +768,7 @@
         "nixvim": "nixvim",
         "opencode": "opencode",
         "ponytail": "ponytail",
+        "qpdf-pdf-ops": "qpdf-pdf-ops",
         "stylix": "stylix",
         "superpowers": "superpowers",
         "zen-browser": "zen-browser"

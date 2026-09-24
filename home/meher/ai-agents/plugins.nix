@@ -9,6 +9,7 @@ let
 
   sharedSkills = {
     "linkedin-agent" = inputs.linkedin-agent;
+    "qpdf-pdf-ops" = inputs.qpdf-pdf-ops;
   };
 
   mapPluginsToTool = basePath:
