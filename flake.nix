@@ -59,6 +59,7 @@
      impeccable = { url = "github:pbakaus/impeccable"; flake = false; };
      linkedin-agent = { url = "github:Jakeschincariol/linkedin-agent-skill"; flake = false; };
      qpdf-pdf-ops = { url = "github:idinging/qpdf-pdf-ops"; flake = false; };
+     emil-skills = { url = "github:emilkowalski/skills"; flake = false; };
    };
 
 

@@ -112,6 +112,22 @@
         "type": "github"
       }
     },
+    "emil-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1790205507,
+        "narHash": "sha256-Sk5EF7ou47ow2MFEq/5hC1gmlwM9QmSF4qdvipBVaGU=",
+        "owner": "emilkowalski",
+        "repo": "skills",
+        "rev": "d16ebe60d09a5ba2afcb7054ede9d0a10c9f6128",
+        "type": "github"
+      },
+      "original": {
+        "owner": "emilkowalski",
+        "repo": "skills",
+        "type": "github"
+      }
+    },
     "firefox-addons": {
       "inputs": {
         "nixpkgs": [
@@ -756,6 +772,7 @@
       "inputs": {
         "agenix": "agenix",
         "antigravity-nix": "antigravity-nix",
+        "emil-skills": "emil-skills",
         "firefox-addons": "firefox-addons",
         "hermes-agent": "hermes-agent",
         "home-manager": "home-manager_3",
