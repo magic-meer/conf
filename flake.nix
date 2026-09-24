@@ -60,6 +60,7 @@
      linkedin-agent = { url = "github:Jakeschincariol/linkedin-agent-skill"; flake = false; };
      qpdf-pdf-ops = { url = "github:idinging/qpdf-pdf-ops"; flake = false; };
      emil-skills = { url = "github:emilkowalski/skills"; flake = false; };
+     taste-skill = { url = "github:Leonxlnx/taste-skill"; flake = false; };
    };
 
 

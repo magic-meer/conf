@@ -788,6 +788,7 @@
         "qpdf-pdf-ops": "qpdf-pdf-ops",
         "stylix": "stylix",
         "superpowers": "superpowers",
+        "taste-skill": "taste-skill",
         "zen-browser": "zen-browser"
       }
     },
@@ -900,6 +901,22 @@
         "owner": "nix-systems",
         "ref": "future-26.11",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "taste-skill": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1790148375,
+        "narHash": "sha256-xRuNGRauEbAfix94/OthJfIHo+cbU3O/9zhat4AYKKo=",
+        "owner": "Leonxlnx",
+        "repo": "taste-skill",
+        "rev": "c184364c58658b2f131b4ae8bd3d206cabb3deee",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Leonxlnx",
+        "repo": "taste-skill",
         "type": "github"
       }
     },

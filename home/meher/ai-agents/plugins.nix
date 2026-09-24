@@ -2,15 +2,19 @@
 
 let
   sharedPlugins = {
-    "ponytail" = inputs.ponytail;
+    "ponytail"   = inputs.ponytail;
     "superpowers" = inputs.superpowers;
-    "impeccable" = inputs.impeccable;
+    "impeccable"  = inputs.impeccable;
+    # taste-skill: register repo root as a plugin so tools pick up .claude-plugin/
+    "taste-skill" = inputs.taste-skill;
   };
 
   sharedSkills = {
     "linkedin-agent" = inputs.linkedin-agent;
-    "qpdf-pdf-ops" = inputs.qpdf-pdf-ops;
-    "emil-skills" = inputs.emil-skills;
+    "qpdf-pdf-ops"   = inputs.qpdf-pdf-ops;
+    "emil-skills"    = inputs.emil-skills;
+    # taste-skill: also expose the skills/ subdir directly for tools that just scan skill folders
+    "taste-skill-skills" = "${inputs.taste-skill}/skills";
   };
 
   mapPluginsToTool = basePath:
