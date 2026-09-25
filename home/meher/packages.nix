@@ -5,6 +5,7 @@
 }: {
    home.packages = [
       pkgs.snapshot
+      pkgs.iwgtk
       pkgs.fuzzel
       pkgs.waybar
       pkgs.superfile
