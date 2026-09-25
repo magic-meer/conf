@@ -39,11 +39,11 @@
 
     opencode.url = "github:GutMutCode/opencode-nix";
 
-    antigravity-nix = {
-      url = "github:jacopone/antigravity-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
+    # antigravity-nix = {
+    #   url = "github:jacopone/antigravity-nix";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+    #
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -74,7 +74,7 @@
        firefox-addons,
        niri,
         opencode,
-        antigravity-nix,
+        # antigravity-nix,
        stylix,
        nix-cursors,
        hermes-agent,

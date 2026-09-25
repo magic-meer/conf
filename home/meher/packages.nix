@@ -47,7 +47,8 @@
       pkgs.peaclock pkgs.cava pkgs.cmatrix pkgs.pipes
 
       #Ai agnets
-      inputs.antigravity-nix.packages.x86_64-linux.google-antigravity-cli
-      pkgs.kiro-cli
+      # inputs.antigravity-nix.packages.x86_64-linux.google-antigravity-cli
+      pkgs.antigravity-fhs
+      pkgs.kiro-fhs
    ];
  }
