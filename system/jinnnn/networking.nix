@@ -8,6 +8,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.networkmanager.wifi.backend = "iwd";
 
   # OpenCode web server, accessible from LAN devices
   networking.firewall.allowedTCPPorts = [ config.services.opencode.port ];
