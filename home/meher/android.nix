@@ -6,7 +6,46 @@ let
   # system/jinnnn/packages.nix (nixpkgs config only exists at system level).
   androidEnv = pkgs.androidenv.androidPkgs;
 
-  buildTools = builtins.head androidEnv.build-tools;
+  buildToolsSrc = pkgs.fetchurl {
+    url = "https://dl.google.com/android/repository/build-tools_r37_linux.zip";
+    sha1 = "70954e99f4c3d9d46ee70fa32624672fe7cd6ebe";
+  };
+
+  # nixpkgs' own build-tools package links the legacy "tools" package, which
+  # links the emulator, which links every system image (18+ GiB). We only need
+  # aapt2/aidl/zipalign, so take the official zip and patchelf it ourselves.
+  buildTools = pkgs.stdenvNoCC.mkDerivation {
+    pname = "android-build-tools";
+    version = "37.0.0";
+    src = buildToolsSrc;
+    nativeBuildInputs = [
+      pkgs.autoPatchelfHook
+      pkgs.unzip
+    ];
+    buildInputs = [
+      pkgs.glibc
+      pkgs.zlib
+      pkgs.ncurses5
+      pkgs.libcxx
+    ];
+    autoPatchelfIgnoreMissingDeps = true;
+    dontConfigure = true;
+    dontBuild = true;
+    dontFixup = true;
+    installPhase = ''
+      runHook preInstall
+      unzip -q "$src" -d .
+      unpacked=$(echo android-*)
+      mkdir -p "$out"
+      cp -r "$unpacked"/* "$out"/
+      chmod -R +w "$out"
+      addAutoPatchelfSearchPath "$out/lib" "$out/lib64"
+      autoPatchelf --no-recurse "$out/lib64" || true
+      autoPatchelf --no-recurse "$out"
+      runHook postInstall
+    '';
+  };
+
   platform37 = builtins.head (builtins.filter (p: lib.hasPrefix "android-sdk-platforms-37" p.name) androidEnv.platforms);
   platformTools = androidEnv.platform-tools;
 
@@ -22,11 +61,10 @@ let
   # nixpkgs, so they run on NixOS. $out is the SDK root, so ANDROID_HOME can
   # point straight at it.
   androidSdk = pkgs.runCommand "android-sdk" { } ''
-    mkdir -p $out
-    cp -rl ${buildTools}/libexec/android-sdk/. $out/
-    cp -rl ${platform37}/libexec/android-sdk/. $out/
-    cp -rl ${platformTools}/libexec/android-sdk/. $out/
-    mkdir -p $out/licenses
+    mkdir -p $out/build-tools $out/licenses
+    cp -r ${buildTools} $out/build-tools/37.0.0
+    cp -r ${platform37}/libexec/android-sdk/. $out/
+    cp -r ${platformTools}/libexec/android-sdk/. $out/
     cp ${licenseFile} $out/licenses/android-sdk-license
   '';
 
