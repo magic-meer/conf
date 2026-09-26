@@ -69,6 +69,11 @@ let
   '';
 
   jdk = "${pkgs.jdk25}/lib/openjdk";
+
+  # The toolchain writes lock files (e.g. "platforms;android-37.0.lock") into
+  # ANDROID_HOME, so it cannot be a read-only /nix/store path. ANDROID_HOME is a
+  # writable directory of symlinks pointing at the immutable store SDK.
+  sdkHome = "$HOME/.local/share/android-sdk";
 in {
   home.packages = [
     platformTools
@@ -76,11 +81,22 @@ in {
   ];
 
   home.sessionVariables = {
-    ANDROID_HOME = toString androidSdk;
-    ANDROID_SDK_ROOT = toString androidSdk;
+    ANDROID_HOME = sdkHome;
+    ANDROID_SDK_ROOT = sdkHome;
     ANDROID_USER_HOME = "$HOME/.android";
     # Stops the Kotlin wrapper from provisioning its own JRE/JDK.
     KOTLIN_CLI_JAVA_HOME = jdk;
     JAVA_HOME = jdk;
   };
+
+  home.activation.setupAndroidSdkFarm = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    store="${toString androidSdk}"
+    farm="$HOME/.local/share/android-sdk"
+
+    mkdir -p "$farm/licenses"
+    for entry in build-tools platforms platform-tools; do
+      ln -sfn "$store/$entry" "$farm/$entry"
+    done
+    cp -f "$store/licenses/android-sdk-license" "$farm/licenses/android-sdk-license"
+  '';
 }
