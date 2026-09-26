@@ -89,57 +89,7 @@ let
   # The Kotlin Toolchain validates each SDK package by reading package.xml and
   # re-downloads the package if it is missing. nixpkgs ships one for platforms
   # and platform-tools; the raw build-tools zip does not, so provide it.
-  buildToolsPackageXml = pkgs.writeText "build-tools-package.xml" ''
-    <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-    <ns2:repository
-      xmlns:ns2="http://schemas.android.com/repository/android/common/02"
-      xmlns:ns3="http://schemas.android.com/repository/android/common/01"
-      xmlns:ns4="http://schemas.android.com/repository/android/generic/01"
-      xmlns:ns5="http://schemas.android.com/repository/android/generic/02"
-      xmlns:ns6="http://schemas.android.com/sdk/android/repo/addon2/01"
-      xmlns:ns7="http://schemas.android.com/sdk/android/repo/addon2/02"
-      xmlns:ns8="http://schemas.android.com/sdk/android/repo/addon2/03"
-      xmlns:ns9="http://schemas.android.com/sdk/android/repo/repository2/01"
-      xmlns:ns10="http://schemas.android.com/sdk/android/repo/repository2/02"
-      xmlns:ns11="http://schemas.android.com/sdk/android/repo/repository2/03"
-      xmlns:ns12="http://schemas.android.com/sdk/android/repo/sys-img2/03"
-      xmlns:ns13="http://schemas.android.com/sdk/android/repo/sys-img2/02"
-      xmlns:ns14="http://schemas.android.com/sdk/android/repo/sys-img2/01"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-      <localPackage path="build-tools;37.0.0" obsolete="false">
-        <type-details xsi:type="ns5:genericDetailsType"/>
-        <revision><major>37</major><minor>0</minor><micro>0</micro></revision>
-        <display-name>Android SDK Build-Tools 37</display-name>
-        <uses-license ref="android-sdk-license"/>
-      </localPackage>
-    </ns2:repository>
-  '';
 
-  cmdlineToolsPackageXml = pkgs.writeText "cmdline-tools-package.xml" ''
-    <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-    <ns2:repository
-      xmlns:ns2="http://schemas.android.com/repository/android/common/02"
-      xmlns:ns3="http://schemas.android.com/repository/android/common/01"
-      xmlns:ns4="http://schemas.android.com/repository/android/generic/01"
-      xmlns:ns5="http://schemas.android.com/repository/android/generic/02"
-      xmlns:ns6="http://schemas.android.com/sdk/android/repo/addon2/01"
-      xmlns:ns7="http://schemas.android.com/sdk/android/repo/addon2/02"
-      xmlns:ns8="http://schemas.android.com/sdk/android/repo/addon2/03"
-      xmlns:ns9="http://schemas.android.com/sdk/android/repo/repository2/01"
-      xmlns:ns10="http://schemas.android.com/sdk/android/repo/repository2/02"
-      xmlns:ns11="http://schemas.android.com/sdk/android/repo/repository2/03"
-      xmlns:ns12="http://schemas.android.com/sdk/android/repo/sys-img2/03"
-      xmlns:ns13="http://schemas.android.com/sdk/android/repo/sys-img2/02"
-      xmlns:ns14="http://schemas.android.com/sdk/android/repo/sys-img2/01"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-      <localPackage path="cmdline-tools;22.0" obsolete="false">
-        <type-details xsi:type="ns5:genericDetailsType"/>
-        <revision><major>22</major><minor>0</minor><micro>0</micro></revision>
-        <display-name>Android SDK Command-line Tools</display-name>
-        <uses-license ref="android-sdk-license"/>
-      </localPackage>
-    </ns2:repository>
-  '';
 
   androidSdk = pkgs.runCommand "android-sdk" { } ''
     mkdir -p $out/build-tools $out/licenses $out/cmdline-tools
@@ -152,9 +102,46 @@ let
       ln -sfn "$name" "$out/cmdline-tools/latest"
     done
     chmod -R u+w $out
-    cp ${buildToolsPackageXml} $out/build-tools/37.0.0/package.xml
-    cp ${cmdlineToolsPackageXml} $out/cmdline-tools/22.0/package.xml
     cp ${licenseFile} $out/licenses/android-sdk-license
+
+    # The toolchain parses each package's package.xml with JAXB and requires the
+    # <license id="android-sdk-license"> element that <uses-license> refers to.
+    # Reuse the exact block nixpkgs generates for platform-tools.
+    pt_xml="${platformTools}/libexec/android-sdk/platform-tools/package.xml"
+    license_block=$(sed -n '/<license id="android-sdk-license" type="text">/,/<\/license>/p' "$pt_xml")
+
+    write_package_xml() {
+      local dir=$1 pkg_path=$2 rev_major=$3 rev_minor=$4 rev_micro=$5 name=$6
+      cat > "$dir/package.xml" <<EOF
+    <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <ns2:repository
+      xmlns:ns2="http://schemas.android.com/repository/android/common/02"
+      xmlns:ns3="http://schemas.android.com/repository/android/common/01"
+      xmlns:ns4="http://schemas.android.com/repository/android/generic/01"
+      xmlns:ns5="http://schemas.android.com/repository/android/generic/02"
+      xmlns:ns6="http://schemas.android.com/sdk/android/repo/addon2/01"
+      xmlns:ns7="http://schemas.android.com/sdk/android/repo/addon2/02"
+      xmlns:ns8="http://schemas.android.com/sdk/android/repo/addon2/03"
+      xmlns:ns9="http://schemas.android.com/sdk/android/repo/repository2/01"
+      xmlns:ns10="http://schemas.android.com/sdk/android/repo/repository2/02"
+      xmlns:ns11="http://schemas.android.com/sdk/android/repo/repository2/03"
+      xmlns:ns12="http://schemas.android.com/sdk/android/repo/sys-img2/03"
+      xmlns:ns13="http://schemas.android.com/sdk/android/repo/sys-img2/02"
+      xmlns:ns14="http://schemas.android.com/sdk/android/repo/sys-img2/01"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    $license_block
+      <localPackage path="$pkg_path" obsolete="false">
+        <type-details xsi:type="ns5:genericDetailsType"/>
+        <revision><major>$rev_major</major><minor>$rev_minor</minor><micro>$rev_micro</micro></revision>
+        <display-name>$name</display-name>
+        <uses-license ref="android-sdk-license"/>
+      </localPackage>
+    </ns2:repository>
+    EOF
+    }
+
+    write_package_xml "$out/build-tools/37.0.0" "build-tools;37.0.0" 37 0 0 "Android SDK Build-Tools 37"
+    write_package_xml "$out/cmdline-tools/22.0" "cmdline-tools;22.0" 22 0 0 "Android SDK Command-line Tools"
   '';
 
   jdk = "${pkgs.jdk25}/lib/openjdk";
