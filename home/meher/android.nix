@@ -107,7 +107,7 @@ let
       xmlns:ns14="http://schemas.android.com/sdk/android/repo/sys-img2/01"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
       <localPackage path="build-tools;37.0.0" obsolete="false">
-        <type-details xsi:type="ns4:genericDetailsType"/>
+        <type-details xsi:type="ns5:genericDetailsType"/>
         <revision><major>37</major><minor>0</minor><micro>0</micro></revision>
         <display-name>Android SDK Build-Tools 37</display-name>
         <uses-license ref="android-sdk-license"/>
@@ -133,7 +133,7 @@ let
       xmlns:ns14="http://schemas.android.com/sdk/android/repo/sys-img2/01"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
       <localPackage path="cmdline-tools;22.0" obsolete="false">
-        <type-details xsi:type="ns4:genericDetailsType"/>
+        <type-details xsi:type="ns5:genericDetailsType"/>
         <revision><major>22</major><minor>0</minor><micro>0</micro></revision>
         <display-name>Android SDK Command-line Tools</display-name>
         <uses-license ref="android-sdk-license"/>
