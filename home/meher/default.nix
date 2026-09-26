@@ -6,6 +6,7 @@ imports = [
     inputs.hermes-agent.homeManagerModules.default
 
     ./android.nix
+    ./kotlin.nix
     ./packages.nix
     ./fish.nix
     ./zed.nix

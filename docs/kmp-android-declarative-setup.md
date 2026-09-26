@@ -28,10 +28,14 @@ cd ~/things/fyp/kmptest/TestProject
 |---|---|---|
 | Android SDK license acceptance | `system/jinnnn/packages.nix` | `nixpkgs.config.android_sdk.accept_license = true` |
 | `nix-ld` + libs | `system/jinnnn/default.nix` | lets AGP's aapt2 and the toolchain's JBR run |
-| SDK, cmdline-tools, env vars, SDK farm | `home/meher/android.nix` | per-user, imported from `home/meher/default.nix` |
+| SDK, cmdline-tools, adb, `ANDROID_*`, aapt2 override, SDK farm | `home/meher/android.nix` | per-user, imported from `home/meher/default.nix` |
+| JDK, `KOTLIN_CLI_JAVA_HOME`, Skiko renderer | `home/meher/kotlin.nix` | per-user, imported from `home/meher/default.nix` |
 
 The license flag must stay in the *system* module: nixpkgs config only exists
 there. Everything else is user-level.
+
+All of it is **session-wide**, so a freshly cloned or `kotlin init`-ed project
+anywhere on the machine picks it up with no per-project setup.
 
 ## Why each piece is needed
 
@@ -61,6 +65,14 @@ of symlinks pointing at the immutable store SDK. `cmdline-tools/` must itself be
 a real writable directory (the toolchain drops `*.flag` files in it) with
 symlinks to each version inside; `licenses/` is a real directory with a copied
 license file.
+
+**`SKIKO_RENDER_API=SOFTWARE` (`home/meher/kotlin.nix`)**
+Compose Desktop draws through Skiko, whose native library
+(`~/.skiko/libskiko-linux-x64-*.so`) is downloaded and therefore unpatched, so
+it fails with `libGL.so.1: cannot open shared object file`. Software rendering
+removes the OpenGL requirement entirely, which is what makes a fresh project run
+with no setup. Override per run (`SKIKO_RENDER_API=OPENGL ./kotlin run`) only
+after making the GL libraries visible to the JVM's own loader.
 
 **`KOTLIN_CLI_JAVA_HOME` / `JAVA_HOME` → store JDK 25**
 Stops the toolchain provisioning a JRE/JDK into `~/.cache`. Additionally, in the
@@ -121,6 +133,14 @@ unzip -p commandlinetools-linux-<BUILD>_latest.zip cmdline-tools/source.properti
   invisible to `nixos-rebuild`. For iterating without committing, evaluate with
   a path reference: `nix eval --impure --expr 'let f = builtins.getFlake
   "path:/home/meher/nixconfig"; …'`.
+
+## Running on a physical Android device
+
+```bash
+adb devices                                     # platform-tools is on PATH
+./kotlin run -m androidApp -d <device-id>       # builds, installs, launches
+./kotlin run -m androidApp -d <id> -v release
+```
 
 ## Expected noise (harmless)
 
