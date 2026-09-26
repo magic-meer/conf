@@ -4,7 +4,7 @@ let
   # We hardcode the flake checkout path on purpose: `./shell` would resolve
   # to the read-only nix store source at eval time, which breaks quickshell's
   # hot reload (it watches files for changes and store paths can't be edited).
-  liveShell = "${config.home.homeDirectory}/nixconfig/home/meher/quickshell/shell";
+  liveShell = "${config.home.homeDirectory}/projects/my_quickshell";
 in {
   # Symlink the config directly to the live source dir instead of copying it
   # into the nix store, so editing these files hot-reloads the shell via

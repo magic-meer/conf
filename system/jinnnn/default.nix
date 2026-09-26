@@ -73,12 +73,27 @@
       options = "--delete-older-than 15d";
     };
 
-    # Allow generic dynamically linked binaries (Android SDK tools, Gradle-Tooling
-    # aapt2, Amper-provisioned JDKs, ...) to run outside the store (stub-ld).
+    # Allow generic dynamically linked binaries (Android SDK tools, Gradle/AGP
+    # aapt2, the Kotlin Toolchain's JetBrains Runtime, ...) to run outside the
+    # store (stub-ld). The X11/graphics/font libs are what a downloaded JBR's
+    # AWT + Skia need on NixOS.
     programs.nix-ld.enable = true;
     programs.nix-ld.libraries = with pkgs; [
       stdenv.cc.cc.lib
       zlib
+      libX11
+      libXext
+      libXrender
+      libXtst
+      libXi
+      libXcursor
+      libXinerama
+      libXrandr
+      freetype
+      fontconfig
+      glib
+      libGL
+      ncurses
     ];
   };
 }

@@ -74,10 +74,7 @@
     "Mod+J".action.focus-workspace-down = [];
     "Mod+K".action.focus-workspace-up = [];
     "Mod+U".action.focus-workspace-down = [];
-    "Mod+I" = {
-      action.spawn = ["/etc/profiles/per-user/meher/bin/quickshell" "-c" "shell" "ipc" "call" "toggleSettings" "toggleSettings"];
-      repeat = false;
-    };
+    "Mod+I".action.spawn = ["quickshell" "-c" "shell" "ipc" "call" "toggleSettings" "toggleSettings"];
     "Mod+Ctrl+Page_Down".action.move-column-to-workspace-down = [];
     "Mod+Ctrl+Page_Up".action.move-column-to-workspace-up = [];
     "Mod+Ctrl+J".action.move-column-to-workspace-down = [];
