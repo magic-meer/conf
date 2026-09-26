@@ -29,7 +29,7 @@ cd ~/things/fyp/kmptest/TestProject
 | Android SDK license acceptance | `system/jinnnn/packages.nix` | `nixpkgs.config.android_sdk.accept_license = true` |
 | `nix-ld` + libs | `system/jinnnn/default.nix` | lets AGP's aapt2 and the toolchain's JBR run |
 | SDK, cmdline-tools, adb, `ANDROID_*`, aapt2 override, SDK farm | `home/meher/android.nix` | per-user, imported from `home/meher/default.nix` |
-| JDK, `KOTLIN_CLI_JAVA_HOME`, Skiko renderer | `home/meher/kotlin.nix` | per-user, imported from `home/meher/default.nix` |
+| JDK, `KOTLIN_CLI_JAVA_HOME`, GL libs for Compose Desktop | `home/meher/kotlin.nix` | per-user, imported from `home/meher/default.nix` |
 
 The license flag must stay in the *system* module: nixpkgs config only exists
 there. Everything else is user-level.
@@ -66,13 +66,26 @@ a real writable directory (the toolchain drops `*.flag` files in it) with
 symlinks to each version inside; `licenses/` is a real directory with a copied
 license file.
 
-**`SKIKO_RENDER_API=SOFTWARE` (`home/meher/kotlin.nix`)**
+**`LD_LIBRARY_PATH` + `LIBGL_DRIVERS_PATH` (`home/meher/kotlin.nix`)**
 Compose Desktop draws through Skiko, whose native library
-(`~/.skiko/libskiko-linux-x64-*.so`) is downloaded and therefore unpatched, so
-it fails with `libGL.so.1: cannot open shared object file`. Software rendering
-removes the OpenGL requirement entirely, which is what makes a fresh project run
-with no setup. Override per run (`SKIKO_RENDER_API=OPENGL ./kotlin run`) only
-after making the GL libraries visible to the JVM's own loader.
+(`~/.skiko/libskiko-linux-x64-*.so`) is downloaded and therefore unpatched. It
+fails with `libGL.so.1: cannot open shared object file`.
+
+nix-ld only covers *unpatched* executables. The toolchain's downloaded JBR is
+unpatched, so nix-ld resolves Skia's dependencies for it and GPU rendering works
+with Hot Reload. But when the app runs on the patched store JDK, the real loader
+searches RPATH / `ld.so.cache` and finds nothing — verified directly:
+
+| JVM | `System.load(libskiko…)` |
+|---|---|
+| downloaded JBR (unpatched → nix-ld) | `LOADED OK` |
+| store JDK (patched → real loader) | `UnsatisfiedLinkError: libGL.so.1: cannot open shared object file` |
+
+So `LD_LIBRARY_PATH` points the JVM at the store's GL/X11/font libraries, and
+`LIBGL_DRIVERS_PATH` at Mesa's DRI drivers. Verified: store JDK now reports
+`LOADED OK` with no `SKIKO_RENDER_API` override, i.e. GPU rendering in both
+modes. (`SKIKO_RENDER_API=SOFTWARE ./kotlin run` remains available as a
+fallback if you ever want CPU rendering.)
 
 **`KOTLIN_CLI_JAVA_HOME` / `JAVA_HOME` → store JDK 25**
 Stops the toolchain provisioning a JRE/JDK into `~/.cache`. Additionally, in the
