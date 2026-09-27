@@ -4,6 +4,7 @@
    ... 
 }: {
    home.packages = [
+      pkgs.openrgb
       pkgs.snapshot
       pkgs.iwgtk
       pkgs.fuzzel
