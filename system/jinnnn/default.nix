@@ -7,6 +7,7 @@
     ./fonts.nix
     ./hardware_configuration.nix
     ./kanata.nix
+    ./keyboard-rgb.nix
     ./locale.nix
     ./networking.nix
     ./packages.nix
