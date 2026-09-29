@@ -13,7 +13,6 @@
       pkgs.swaylock
       pkgs.overskride
       pkgs.zed-editor
-      pkgs.opencode
       pkgs.awww
       pkgs.swaynotificationcenter
       pkgs.brightnessctl
