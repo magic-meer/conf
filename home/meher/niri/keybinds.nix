@@ -5,9 +5,9 @@
     # Hotkey overlay
     "Mod+Shift+Slash".action.show-hotkey-overlay = [];
 
-    # Launcher (Mod+Space re-press exits fuzzel, acting as a toggle)
-    "Mod+D".action.spawn = "fuzzel";
-    "Mod+Space".action.spawn-sh = "pkill -x fuzzel || fuzzel";
+    # Launcher — built-in quickshell launcher
+    "Mod+D" = { action.spawn = ["/etc/profiles/per-user/meher/bin/quickshell" "-c" "shell" "ipc" "call" "toggleLauncher" "toggleLauncher"]; repeat = false; };
+    "Mod+Space" = { action.spawn = ["/etc/profiles/per-user/meher/bin/quickshell" "-c" "shell" "ipc" "call" "toggleLauncher" "toggleLauncher"]; repeat = false; };
 
     # Terminal / browser / file manager (from env vars, with defaults)
     "Mod+T".action.spawn-sh = "\${TERMINAL:-foot}";
