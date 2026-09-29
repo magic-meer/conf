@@ -75,33 +75,114 @@ byte  meaning                         writable?
 0     report id (0x0A)                —
 1     mode / effect index             NO  (see below)
 2     status flag                     mirrors 0x0B[0]; NOT the colour register
-3     brightness (0..4)               NO
-4     speed (0..5)                    YES
+3     speed (0..4)                    YES (readback = 4 - written)
+4     brightness (0..5)               YES (readback = written; 0=off 5=full)
+
+Read the register as 42 bytes (report id + 41 payload); write it with a
+41-byte payload (`reg[1:]`) — the two lengths are asymmetric.
 ```
 
 ### mode (`[1]`)
 
 - `0x00` = lights off.
 - `0x01..0x13` = 19 effects.
-- Changes **only** via the Fn key on the keyboard. Writing it has no effect.
+- Changed by the Fn key on the keyboard. **Writing it does have an
+  effect** — but not the one you asked for: the byte is a fixed
+  *permutation* of the 20 effect indices, so the board lands on
+  `MODE_FROM_WIRE[written]`, not on `written`. Echoing the value you
+  just read therefore moves the effect on **every** `0x0A` write, which
+  is what made the brightness/speed sliders cycle the keyboard's mode.
+- The permutation is deterministic, bijective and independent of the
+  previous state (measured twice across all 20 indices), so writing
+  `MODE_TO_WIRE[mode]` re-lands on `mode` exactly.
+  `rgbset.apply_settings()` always writes that inverted byte — 20/20
+  settings writes preserved the mode across four different effects.
 - Does **not** drift on its own — verified stable for 20 s with zero writes.
 - Earlier apparent "random jumping" during probing was caused by our own
   `0x0A` writes perturbing state, not by the device.
 
-Observed behaviour map (user descriptions, `readback mode` → what is shown):
+Write → read map:
 
-| mode | description |
-|---|---|
-| `0x03` | all keys same colour, cycling together (full lit) |
-| `0x06` | horizontal rainbow ripples L→R |
-| `0x08` | circular clockwise ripples |
-| `0x0a` | row RGB top→bottom (full lit) |
-| `0x0c` | circle out from centre (full lit) |
-| **`0x13`** | **STATIC PARTIAL — renders the `0x0B` frame buffer** |
-| others | currently dark (see §5) |
+| write | `00` | `01` | `02` | `03` | `04` | `05` | `06` | `07` | `08` | `09` |
+|---|---|---|---|---|---|---|---|---|---|---|
+| read  | `00` | `06` | `08` | `0A` | `0C` | `07` | `05` | `0F` | `0E` | `0D` |
+
+| write | `0A` | `0B` | `0C` | `0D` | `0E` | `0F` | `10` | `11` | `12` | `13` |
+|---|---|---|---|---|---|---|---|---|---|---|
+| read  | `10` | `0B` | `11` | `12` | `09` | `01` | `02` | `04` | `03` | `13` |
+
+Fixed points: `00`, `0B`, `13`.
+
+Observed behaviour map — all 20 named by eye on 2026-09-27 with
+`tool/mode_namer.py` (Fn-driven, read-only), recorded in
+`probes/mode-names.json`. "readback" is the value `0x0A[1]` shows.
+
+| readback | class | description |
+|---|---|---|
+| `0x00` | — | off |
+| `0x01` | blue | solid blue, full board, no animation |
+| `0x02` | blue | blue breathe — full board fades in/out smoothly |
+| `0x03` | **works** | colour cycle, all keys change together |
+| `0x04` | **reactive** | key lights on press, fades out over ~1.5–2 s |
+| `0x05` | **reactive** | row ripple outward from the pressed key |
+| `0x06` | **works** | horizontal rainbow ripples, L→R |
+| `0x07` | **reactive** | full ripple travelling in all directions |
+| `0x08` | **works** | circular ripples, counter-clockwise |
+| `0x09` | blue | zigzag / sine wave, width 1, right→left, always on |
+| `0x0A` | **works** | row RGB, top→bottom |
+| `0x0B` | blue | rain — random keys light and fade, no pattern |
+| `0x0C` | **works** | circle out from centre |
+| `0x0D` | blue | snake Esc→Pause, square to centre, spin, ripple out |
+| `0x0E` | blue | same as `0x0D`, mirrored (starts at Pause) |
+| `0x0F` | blue | dual snake from opposite corners, meet, spin, ripple |
+| `0x10` | blue | snake travels row-by-row across the board |
+| `0x11` | blue | two vertical trailing lines, crossing |
+| `0x12` | blue | diagonal trailing lines (Esc→opp, then Pause→opp) |
+| `0x13` | **works** | **STATIC PARTIAL — renders the `0x0B` frame buffer** |
+
+Three classes:
+
+- **works** (`03 06 08 0A 0C 13`) — never went dark, full colour.
+- **reactive** (`04 05 07`) — dark until a key is pressed. Lives in
+  `rgbset.REACTIVE`.
+- **blue** (`01 02 09 0B 0D 0E 0F 10 11 12`) — animate on their own
+  with no keypress, but render **only the blue channel**. Lives in
+  `rgbset.ALWAYS_ON_BLUE`.
+
+The split is exact: 6 / 3 / 10, no mode is ambiguous.
 
 Mode `0x13` is the important one: it is the static per-key mode that
 displays whatever is in `0x0B`.
+
+**All ten blue modes are otherwise perfect** — geometry, timing,
+trails and reactive response are correct on all 87 keys. Only colour
+is wrong, which is the signature of a degraded palette table rather
+than broken effect logic (see §5).
+
+### speed (`[3]`) and brightness (`[4]`)
+
+Both are **global** — there is no per-key brightness channel. Per-key
+brightness is simply a darker colour on the `0x0B` frame.
+
+- **brightness `[4]`**: write `v`, read back `v`, range 0..5 — 0 = off,
+  5 = full. Confirmed by eye; this is the control that visibly
+  brightens the board.
+- **speed `[3]`**: reads back `4 - written` (write 0 → reads 4, write 4
+  → reads 0, write 5 → reads 255). The tool decodes it as `4 - raw` and
+  encodes by writing the level directly, so set/get round-trip exactly
+  for 0..4. Static `0x13` ignores it — only the animated effects use it,
+  and which direction is "faster" has **not** been confirmed (needs an
+  Fn-cycled animated mode).
+
+Because `[3]` inverts on read, a read-modify-write of `0x0A` has to
+re-encode it: echoing the raw byte back flips it on every write, which
+used to drag the reported brightness along with it and make the
+brightness slider jump whenever the other field was touched.
+`rgbset.apply_settings()` writes both fields decoded, in one
+read-modify-write, to avoid that.
+
+`rgbset.py --brightness N` / `--speed N`, and `POST /api/settings` in
+the editor.
 
 ### byte `[2]`
 
@@ -319,19 +400,153 @@ reactive modes' path.
 Note: **`0x0B` writes are not the cause** — mode `0x13` reads `0x0B`
 happily and renders it. Whatever broke the reactive modes lives elsewhere.
 
+### The 13 dark modes were already dark during `survey.py`
+
+`probes/survey.json` holds a description for all 19 modes, recorded by
+pressing Fn and reading `0x0A[1]` back. Six lit, thirteen did not:
+
+| readback | lit | description recorded at survey time |
+|---|---|---|
+| `0x03` | yes | full-keyboard colour cycle, all keys change together |
+| `0x06` | yes | rainbow ripples, left → right |
+| `0x08` | yes | circular ripples, counter-clockwise |
+| `0x0A` | yes | row RGB, top → bottom (full lit) |
+| `0x0C` | yes | circle out from centre (full lit) |
+| `0x13` | yes | static partial — the specific lit key list |
+| `0x01 0x02 0x04 0x05 0x07 0x09 0x0B 0x0D 0x0E 0x0F 0x10 0x11 0x12` | **no** | "now i see no light at all" |
+
+So the thirteen `?` entries in `MODE_NAMES` are not unidentified — they
+are *unlit at the moment of survey*. That survey already sat inside our
+first session, so it cannot separate "killed by us" from "finished
+dying".
+
+### Why they look dead: nobody watched them while typing
+
+Every survey entry also carries `readback_after_typing` — the register
+bytes after typing on the board. They never moved. **That field only
+proves the register is inert; it never recorded whether light appeared
+while the keys were being pressed.**
+
+These are the modes RESEARCH.md calls *reactive effects*, and your own
+phrasing was "cool interactive animations". A reactive effect with an
+idle keyboard renders black, which is indistinguishable from broken.
+
+`tool/reactive_test.py` closes that gap: it lands on each of the
+thirteen dark modes with brightness forced to full, optionally sweeps
+speed (`byte [3]`, whose meaning is still unconfirmed), waits while you
+mash keys, then restores the original mode. It writes `0x0A` only.
+
+**Result: still dark.** Key presses, held keys, and every speed `0..4`
+produced nothing in `0x07`, `0x0D` or `0x12`, with brightness pinned at
+`5`. Replugging did not help either.
+
+### The 13 modes came alive on 2026-09-27 — and were lost again
+
+For ~16 hours after the first write probes, the 13 modes were dark.
+Then, with **no host writes happening at all**, they came back:
+
+| time | what happened | 13 modes |
+|---|---|---|
+| 09-26 19:15–20:10 | `hunt.py` / `round2.py` write black and white into `0x0B` | dark |
+| 09-26 21:28 | `survey.py` records "no light at all" ×13 | dark |
+| 09-27 11:29–12:41 | force-push, palette, latch and reactive probes | dark |
+| 09-27 12:41 | last write of the day | dark |
+| 09-27 ~12:45 | board moved to the 2.4G dongle — host cannot write | dark |
+| 09-27 ~13:00 | **cord plugged while the switch was still on dongle**, then Fn cycled — **all 13 lit** | **LIT** |
+| 09-27 13:08–14:05 | `mode_namer.py` runs read-only; all 13 named by eye | **LIT** |
+| 09-27 14:09–14:27 | `colour_source.py` + `mode_lab.py` write `0x0A`/`0x0B`/`0x0C` | dark |
+| 09-27 14:27–14:55 | 28 minutes with the server killed, zero writes | still dark |
+| 09-27 14:59–15:00 | `0x0C` restored to the exact lit-state image, and to zeros | still dark |
+
+While lit, all 10 `blue` modes ran **perfectly** — correct geometry,
+correct trails, correct reactive response — in **blue only**. The
+`reactive` trio lit on keypress as designed. So the effect engine and
+the animations are intact in firmware; only the palette is wrong.
+
+**This is not "dead modes".** It is two separate facts:
+
+1. **Palette: blue only.** Matches the user's original degradation
+   timeline (full RGB → red → orange → dark), i.e. a colour table in
+   flash losing channels. The always-lit modes were never affected.
+2. **Effect engine: switches off and does not come back.** Something
+   turns the 13 modes dark; nothing we can send brings them back.
+
+### What was ruled out after the revival
+
+All negative, on 2026-09-27 between 14:09 and 15:00. Recorded so they
+are not repeated.
+
+| suspect | test | result |
+|---|---|---|
+| `0x0B` feeds the colour | `mode_lab.py 2 3 4` — solid white, red, blue written **while inside** the mode, then Fn'd in to check | **inert.** Static mode changed correctly each time; the 13 stayed dark |
+| `0x0B` blue plane (hypothesis that black→dark / white→blue) | same three writes | **dead** — red and green did not darken them further; they were already dark |
+| `0x0C` content | `mode_lab.py 7` — restored byte-for-byte the image held at 13:08 while LIT (`0A 7A 01` + 1917×`FF`), tested **in-mode** and **on re-entry** | **no effect** |
+| `0x0C` factory image | `mode_lab.py 9` — 1920×`00`, in-mode and re-entry | **no effect** |
+| `0x0A` register contents | the 42-byte image at 13:08 (LIT) and at 14:18 (DARK) are **identical**: `0a 13 ff 03 05` | **cannot be the cause** — same state, different outcome |
+| time with no writes | 14:27 → 14:55, server killed, zero traffic | **still dark** — falsifies the "self-recovers after ~27 min" theory that the 12:41→13:08 gap suggested |
+| MCU power cycle | connection switch dongle→USB and back | **no effect** |
+| `0x09` key map | restored to the `snap.json` factory image | no effect (already recorded above) |
+| `0x0C` header variants | bare, `[0A 7D 07]`, `[0A 7A 01]` — and now again with re-entry | no effect (twice) |
+| `0x0A[2]` flag | swept `00/01/40/80/FF` inside a dark mode | no effect |
+| OUTPUT transport | `HIDIOCSOUTPUT` | `EPIPE` / `ETIMEDOUT` — does not exist |
+
+**A trap worth remembering:** a byte-for-byte echo of `0x0A` is *not* a
+no-op. `0x0A[3]` is stored as a *level*, so the register's raw `03`
+means level `1`; writing `03` back makes the device store level `3` and
+read back `01`. The first `mode_lab.py 5` silently changed the speed
+and therefore proved nothing. Use `rgbset.apply_settings(fd)` with no
+fields set — that is a genuine no-op write.
+
+Also note: `colour_source.py` was run with `--mode 10`, but parsed it as
+**decimal 10 = `0x0A`** rather than hex `0x10`, so its whole payload
+sweep happened inside a working mode. That run tested nothing. Both
+bugs are fixed.
+
+### Verdict on the 13 modes
+
+Every host-reachable write path is now closed, twice over:
+
+| report | state |
+|---|---|
+| `0x05` | write-only, **forbidden** (the ISP/bootloader report — see §8) |
+| `0x09` | restored to factory — no effect |
+| `0x0A` | fully decoded; bytes `5..41` zero in the factory image; register byte-identical between the LIT and DARK states, so its contents are exonerated |
+| `0x0B` | frame; white/red/blue pushed while inside a dark mode — inert for these modes |
+| `0x0C` | restored to both the lit-state image and zeros, in-mode and on re-entry — inert |
+
+The one remaining suspect is `0x05` — but that is the ISP bootloader
+report, not a lighting register, and writing it risks the bootloader.
+There is also exactly one thing never done: **read the firmware itself.**
+
+Not yet tried, and free: Fn long-press / Fn+arrow combos, and repeating
+the original revival sequence exactly (cord plugged *while* the switch
+still sits on dongle, Fn cycled there, *then* flipped to USB).
+
 ### Things we broke / changed along the way
 
 - Several runs left the board in mode `0` (all-dark) or at brightness `0`
   after restoring `0x0A`. Recover with the Fn lighting key.
 - `0x0B` and `0x0C` have been overwritten with test patterns many times.
   The original factory content of the mode-`0x13` pattern is **gone**.
+- `0x0C` was rewritten again (green/white/red/ramp/white, with and
+  without headers) during the palette and latch experiments, on
+  explicit request. Its factory content was already lost.
+- `0x09` was rewritten with the `snap.json` factory image. The
+  overwritten content is saved at `probes/map09-<ts>.bin`.
 
 ### Safety rules
 
 - **Never write report `0x05`.** It is the command/flash register.
+- `0x0C` cannot be backed up (no readback). It is also now known to be
+  inert, so do not write it unless a specific hypothesis is being
+  tested — and record what was written.
 - Always send `0x0B` at exactly 378 bytes (379 with report id).
 - Always send `0x0A` at exactly 41 bytes.
-- Restore `0x0A` to the value read at start when a probe finishes.
+- Run `tool/backup.py` before any experiment that writes `0x0A`, and
+  restore that image (mode byte encoded through `MODE_TO_WIRE`) when
+  the probe finishes.
+- Back up `0x09` before writing it; `tool/keymap_restore.py` does both
+  and saves the previous image to `probes/`.
 
 ---
 
@@ -358,6 +573,12 @@ Scripts touching the board need `sudo` until the udev rule below lands.
 | `finalmap.py` | last 9 untested slots → `finalmap.json` |
 | `layout.py` | validates + emits `docs/keyboard-layout.json`; imports `slot_of`/`key_of` |
 | `rgbset.py` | **the actual tool** — set per-key colours from a design file |
+| `watch.py` | polls `0x0A` and prints every byte that changes |
+| `backup.py` | read-only snapshot of all 42 `0x0A` bytes to `probes/` |
+| `reactive_test.py` | walk the 13 dark modes while you press keys, then restore |
+| `palette_test.py` | write candidate `0x0C` payloads, watch a working mode as the control |
+| `latch_test.py` | write `0x0B`/`0x0C` *inside* a dark mode, sweep the flag byte, re-enter |
+| `keymap_restore.py` | put `0x09` back to the `snap.json` factory image (revertible) |
 | `designs/*.json` | example designs for `rgbset.py` |
 
 Outputs are JSON alongside the scripts.
@@ -369,12 +590,28 @@ sudo python3 rgbset.py --status                 # mode, brightness, speed
 sudo python3 rgbset.py --list                   # key ids, slots, groups
 sudo python3 rgbset.py --solid '#ff8000'         # every key one colour
 sudo python3 rgbset.py --keys 'esc=red,wasd=white,frow=blue'
+sudo python3 rgbset.py --brightness 4           # 0..5, global (0=off)
+sudo python3 rgbset.py --speed 3                # 0..4, global
 sudo python3 rgbset.py designs/example.json
 ```
 
-It refuses to write unless `0x0A[1] == 0x13` (override with `--force`),
-writes only report `0x0B` (378 B, exact), and never touches `0x05` or
-`0x0A`.
+Colours refuse to write unless `0x0A[1] == 0x13` (override with
+`--force`) and go out on report `0x0B` (378 B, exact); `0x05` is never
+touched. `--brightness` / `--speed` write `0x0A` through
+`apply_settings()`, which encodes both fields decoded and inverts the
+mode byte so the effect does not move.
+
+### `watch.py`
+
+```bash
+python3 tool/watch.py                        # poll every 100 ms
+python3 tool/watch.py --interval 0.05 --seconds 30
+python3 tool/watch.py --out /tmp/opencode/watch.log
+```
+
+Read-only: prints one line per observed change, with the raw image and
+which byte moved. Use it while dragging the editor's sliders or pressing
+Fn.
 
 **Colourspace.** Colours in designs / `--solid` / `--keys` are sRGB and
 are converted to the board's **linear** wire format automatically. Use
@@ -409,6 +646,69 @@ Design file format:
 - `0x0B` is write-only, so a design defines the **whole** frame —
   anything not mentioned becomes `background` (or off)
 
+### `backup.py`
+
+```bash
+python3 tool/backup.py                    # probes/backup-0x0A-<ts>.json
+python3 tool/backup.py --tag before-probe
+```
+
+Read-only. Dumps all 42 `0x0A` bytes plus a decoded summary before an
+experiment, and reports which of bytes 5..41 are non-zero so you can
+tell at a glance whether there is any undiscovered state at stake.
+Measured so far, **bytes 5..41 are all zero** — the only live fields
+are mode, flag, speed and brightness.
+
+### `mode_namer.py`
+
+```bash
+python3 tool/mode_namer.py              # poll 0x0A, you press Fn
+python3 tool/mode_lab.py --redo 7,13    # re-ask specific modes
+```
+
+**Zero writes.** Opens the board, polls `0x0A[1]`, and every time the
+byte holds still for 0.6 s it asks what is on the screen: lit idle?
+reacts to keys? colour? description? Appends to
+`probes/mode-names.json` after *every* entry, so Ctrl-C loses nothing.
+
+This is what named all 20 modes on 2026-09-27 (§2 table). Because it
+never writes, it is also the only probe that can observe the board's
+natural state — which is how the 13 modes were caught alive.
+
+### `colour_source.py`
+
+Superseded by `mode_lab.py`. First attempt at finding where the blue
+modes get their colour. **Its results are void**: `--mode 10` was
+parsed as decimal `10` = `0x0A`, not hex `0x10`, so the entire payload
+sweep ran inside a working mode that reads neither `0x0B` nor `0x0C`.
+Kept for the hypothesis write-up in its docstring.
+
+### `mode_lab.py`
+
+```bash
+python3 tool/mode_lab.py 1         # read-only baseline
+python3 tool/mode_lab.py 2 3 4     # 0x0B white/red/blue, in place
+python3 tool/mode_lab.py 5         # true no-op write of 0x0A
+python3 tool/mode_lab.py 7         # 0x0C lit-state image, in + re-entry
+python3 tool/mode_lab.py r         # 0x0B back to solid white
+```
+
+One step per invocation, so a result is never ambiguous. **Never writes
+`0x0A` except in step 5**, whose whole purpose is to test whether the
+*act* of writing `0x0A` is what kills the effect engine. The mode is
+always chosen by your Fn key; the tool only reads the register to
+confirm which mode you reached, and **aborts if the mode moved during a
+write** so a result cannot be attributed to the wrong effect.
+
+Steps 7/8/9 reconstruct `latch_test.py`'s header variants exactly
+(`[0A 7A 01]`, `[0A 7D 07]` over a solid-white base) plus a 1920×`00`
+factory candidate, and test each **while inside** the mode and **after
+leaving and re-entering it**.
+
+> A raw byte-for-byte echo of `0x0A` is not a no-op — `0x0A[3]` is
+> stored as a level. Step 5 therefore uses `apply_settings(fd)` with no
+> fields set, which is the genuine no-op. See §5.
+
 ### Web app (`app/`)
 
 A stdlib-only editor — no framework, no build step, no `tkinter`.
@@ -433,12 +733,32 @@ API (`127.0.0.1:8787`):
 | GET | `/api/groups` | — |
 | GET | `/api/designs`, `/api/designs/<name>` | — |
 | POST | `/api/designs/<name>` | design JSON |
-| POST | `/api/apply` | design JSON → report `0x0B` |
+| GET | `/api/state` | last design pushed to the board |
+| GET | `/api/modes` | 20 modes with hex, name, `static` flag |
+| POST | `/api/apply` | design JSON → report `0x0B`, then persisted; `force: true` pushes in any mode |
+| POST | `/api/settings` | `{mode?: 0..19, brightness?: 0..5, speed?: 0..4}` → `0x0A` |
 | DELETE | `/api/designs/<name>` | renames to `.deleted` (never `rm`) |
 
 The apply path is `rgbset.py.frame()` + `rgbset.py.resolve()` — the
 board never sees a second implementation. It refuses unless
-`0x0A[1] == 0x13`, writes only `0x0B`, never touches `0x05`.
+`0x0A[1] == 0x13` (unless `force` is set), writes only `0x0B`, never
+touches `0x05`.
+
+**Mode switch.** The board group has a mode selector that replaces the
+Fn key: it posts `{mode}` to `/api/settings`, and `apply_settings()`
+writes `MODE_TO_WIRE[mode]` so the requested effect actually lands
+(verified 20/20). Switching to `0x13` enables editing; anything else
+disables apply unless the *push frame even in non-static modes* box is
+ticked — that flag exists to test whether any other effect reads
+`0x0B`.
+
+**State on reload.** `0x0B` cannot be read back (GET stalls with
+`EPIPE`), so the board's colours are unknowable from software. The
+server therefore records every applied design to
+`~/.local/state/keyboard_rgb/last.json` and the editor rehydrates from
+`GET /api/state` on load — it shows what *it* last pushed, not what the
+hardware reports. The `auto` toggle and colourspace live in
+`localStorage`.
 
 **hidraw access without sudo.** `system/jinnnn/keyboard-rgb.nix` in the
 nixconfig repo adds a udev rule (`GROUP="users" MODE="0660"
@@ -470,8 +790,78 @@ sudo nixos-rebuild switch --flake ~/nixconfig#jinnnn
    `python3 tool/hidtool.py resolve 0003:258A:0049`.
 3. Open `http://127.0.0.1:8787`, apply a design end-to-end from the
    browser (keyboard must be on **USB** — BT / 2.4G are unimplemented).
-4. Optional: investigate the degraded reactive modes (§5) — or treat
-   mode `0x13` + `0x0B` as sufficient, since it already gives full
-   per-key control of all 87 keys.
-5. Optional: read the vendor channel over BT (`000E:3412`) so the
+4. The 13 modes (§5) are **closed from the host side** — every
+   reachable register written and observed, both transports tried,
+   `0x09` restored to factory, the lit-state `0x0C` image restored,
+   and a 28-minute no-write window tried. Two free things remain
+   before the firmware route: Fn long-press / Fn+arrow combos, and
+   repeating the original revival sequence exactly (cord plugged
+   *while* the switch still sits on dongle, Fn cycled there, then
+   flipped to USB). **Do not write `0x05`.**
+5. **Dump the firmware** — see §8. This is the only remaining way to
+   find the palette those 10 modes read, and to see whether the
+   blue-only colour table is a flash fault or by design.
+6. Optional: read the vendor channel over BT (`000E:3412`) so the
    editor works wirelessly too.
+
+---
+
+## 8. Firmware dump via the ISP bootloader (planned)
+
+The `0x0B`/`0x0C`/`0x0A` routes are exhausted. The one thing never
+done is reading the flash itself.
+
+**Tool:** [`sinowisp`](https://github.com/carlossless/sinowisp)
+(formerly `sinowealth-kb-tool`), Rust, v2.1.0, actively maintained.
+Reads and writes flash on Sinowealth 8051 devices through the built-in
+ISP bootloader. Linux binary already downloaded to
+`/tmp/opencode/sinowisp`.
+
+> **This is where report `0x05` comes from.** The tool takes
+> `--isp_report_id 5`. So `0x05` is the *ISP bootloader's* report ID —
+> the long-standing "never write `0x05`" rule is not superstition:
+> writing it in normal operation hands the MCU to the in-system
+> programmer, which is where the bricking reports come from. The rule
+> stands, but `sinowisp` is the tool that is *supposed* to use it.
+
+**Exact command** (our device is not in the supported list, so custom
+mode is required; the keyboard must be on **USB**, not the dongle):
+
+```sh
+sinowisp read \
+    --platform sh68f90 \
+    --vendor_id 0x258a --product_id 0x0049 \
+    --isp_iface_num 1 --isp_report_id 5 \
+    -s full full.hex
+```
+
+Unknowns, in order of risk:
+
+- **MCU family.** `--platform` must be right. Candidates in the
+  supported list are `sh68f90` (most common — SH68F90/SH68F90A) and
+  `sh68f881`. Wrong platform means wrong `firmware_size` /
+  `bootloader_size` / `page_size`.
+- **Whether our board's bootloader matches a known ISP MD5.** If it
+  does not, the tool has no protocol for it.
+- **Entering ISP re-enumerates the device**, probably under a
+  different VID:PID (`0603:1020` and friends). Our udev rule only
+  covers `258a:0049`, so the read may need root or a new rule.
+- **Getting out.** If the read fails mid-way the board may sit in the
+  bootloader. The tool has `--reboot false` to avoid rebooting, and
+  `sinowisp write` can always put the image back — so take the dump
+  first, and keep the machine plugged in.
+
+Per the tool's own docs: a read sets an `LJMP` (`0x02`) at
+`<firmware_size-5>` if it is not already there, which should already be
+the case, so a read *should* be non-destructive. It also redirects
+`0x0001–0x0002`, so the produced hex differs from the true flash
+layout — remember that when disassembling.
+
+**What we are looking for in the dump:**
+
+1. the palette / colour table the 10 `blue` modes read — is it
+   physically blue-only, or does something gate it?
+2. the effect table, to confirm the mode permutation
+   (`MODE_FROM_WIRE`) is a firmware table and not a hash.
+3. whether there is a flag that turns the effect engine off — the
+   thing that put the 13 modes dark and never let them back.
