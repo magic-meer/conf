@@ -7,12 +7,20 @@
   services.hermes-agent = {
     enable = true;
 
-    # Register custom Groq endpoint without locking any default model (Nvidia is already built-in)
+    # Register providers (current format; not the legacy custom_providers key)
     settings = {
-      custom_providers = {
+      providers = {
         groq = {
           api = "https://api.groq.com/openai/v1";
           key_env = "GROQ_API_KEY";
+        };
+        nvidia = {
+          api = "https://integrate.api.nvidia.com/v1";
+          key_env = "NVIDIA_API_KEY";
+        };
+        openrouter = {
+          api = "https://openrouter.ai/api/v1";
+          key_env = "OPENROUTER_API_KEY";
         };
       };
 
