@@ -7,13 +7,33 @@
   services.hermes-agent = {
     enable = true;
 
-    # Provider + model (swap model freely here)
-    settings.model = {
-      base_url = "https://openrouter.ai/api/v1";
-      default = "nvidia/nemotron-3-ultra-550b-a55b:free";
+    # Register custom Groq endpoint without locking any default model (Nvidia is already built-in)
+    settings = {
+      custom_providers = {
+        groq = {
+          api = "https://api.groq.com/openai/v1";
+          key_env = "GROQ_API_KEY";
+        };
+      };
+
+      # Approvals / Permissions
+      approvals = {
+        mode = "manual"; # "manual" prompts on dangerous actions; "smart" uses guardian LLM; "off" auto-approves
+        timeout = 300;
+      };
+
+      # Toolsets
+      platform_toolsets = {
+        cli = [ "hermes-cli" ];
+      };
     };
 
-    # Secrets -> ~/.hermes/.env (from agenix)
+    # Export SHELL for subprocesses
+    environment = {
+      SHELL = "${pkgs.fish}/bin/fish";
+    };
+
+    # Secrets -> ~/.hermes/.env (from agenix, not globalized)
     environmentFiles = [
       osConfig.age.secrets.hermes-env.path
     ];
@@ -28,6 +48,7 @@
 
     # Minimal toolset for the agent
     extraPackages = with pkgs; [
+      fish
       git
       ripgrep
       fd
