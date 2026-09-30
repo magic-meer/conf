@@ -8,7 +8,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-  networking.networkmanager.wifi.backend = "iwd";
+  # networking.networkmanager.wifi.backend = "iwd"; # chaning to iwd causes serveral issue including low bandwidth and renadom disconnects on wifi
 
   # OpenCode web server, accessible from LAN devices
   networking.firewall.allowedTCPPorts = [ config.services.opencode.port ];
