@@ -10,6 +10,7 @@ imports = [
     ./packages.nix
     ./fish.nix
     ./zed.nix
+      ./git.nix
     ./zen-browser
     ./shell.nix
     ./nixvim
