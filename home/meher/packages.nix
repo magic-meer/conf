@@ -39,6 +39,7 @@
       pkgs.direnv pkgs.android-tools pkgs.kotlin-language-server
       pkgs.ruff
       pkgs.uv
+      pkgs.androidStudioPackages.dev
 
       #Audio and Video Players/Provider/Deps
       pkgs.cliamp pkgs.yt-dlp pkgs.mpv
