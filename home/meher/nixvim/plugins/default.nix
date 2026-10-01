@@ -31,7 +31,6 @@
          ./opencode.nix
          ./snacks.nix
          ./dashboard.nix
-         ./lsp-status.nix
          ./luasnip.nix
          ./srcery.nix
          ./python.nix

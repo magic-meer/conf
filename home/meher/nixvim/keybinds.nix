@@ -142,7 +142,6 @@
         local buf = vim.api.nvim_create_buf(false, true)
         vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
         vim.bo[buf].modifiable = false
-        vim.bo[buf].wrap = true
         pcall(function()
           vim.bo[buf].syntax = 'markdown'
         end)
@@ -164,6 +163,12 @@
           style = 'minimal',
           focusable = true,
         })
+
+        -- 'wrap' is a window-local option since Nvim 0.12, so it has to be set
+        -- on the window (vim.bo[buf].wrap raises "'buf' cannot be passed for
+        -- window-local option 'wrap'"). Likewise 'breakindent'/'number' would
+        -- have to move, but a minimal float already leaves them off.
+        vim.wo[win].wrap = true
 
         local keymap = { silent = true, noremap = true, nowait = true }
         vim.api.nvim_buf_set_keymap(buf, 'n', 'q', '<cmd>lua Hover.close()<CR>', keymap)

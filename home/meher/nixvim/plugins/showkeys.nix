@@ -20,7 +20,12 @@
             height = 1;
             zindex = 90;
          };
-         winhl = "Normal:Normal,FloatBorder:FloatBorder";
+         # Fully see-through: "Normal" is cleared by transparent.nvim, and
+         # FloatBorderTransparent is the border twin defined in transparent.nix.
+         # Pointing this at plain FloatBorder would paint two opaque bars above
+         # and below the (invisible) text row, which is what still looked like a
+         # solid background box.
+         winhl = "Normal:Normal,FloatBorder:FloatBorderTransparent,FloatTitle:FloatTitleTransparent";
          keyformat = {
             "<BS>" = "󰁮 ";
             "<CR>" = "󰘌";

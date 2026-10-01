@@ -28,6 +28,10 @@
 
       #scroll
       sidescrolloff = 8;
+      # Keep the cursor this many lines away from the top/bottom edge, so
+      # scrolling stops while context is still visible instead of only after
+      # the last visible line.
+      scrolloff = 10;
 
       #cursor line
       cursorline = true;
