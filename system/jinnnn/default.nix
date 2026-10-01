@@ -61,6 +61,9 @@
       };
     };
 
+    # KVM for Android Emulator acceleration
+    boot.kernelModules = [ "kvm-amd" ];
+
     #Enabling flakes and nix command
     nix.settings.experimental-features = [
       "nix-command"
