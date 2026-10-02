@@ -50,6 +50,8 @@
         webfetch = true;
         websearch = true;
       };
+
+      plugin = [ "@dietrichgebert/ponytail" ];
     };
 
     extraPackages = with pkgs; [

@@ -1,8 +1,45 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+let
+  # Thin passthrough for a signed AMO xpi. `pkgs.fetchFirefoxAddon` unpacks and
+  # re-zips the addon, which invalidates the AMO signature, so the file is
+  # copied byte for byte instead. The output layout is the one home-manager's
+  # `extensions.packages` expects: share/mozilla/extensions/<guid>/<addonId>.xpi
+  mkXpiAddon =
+    {
+      pname,
+      version,
+      addonId,
+      src,
+    }:
+    pkgs.runCommand "${pname}-${version}"
+      {
+        passthru.addonId = addonId;
+      }
+      ''
+        guid='{ec8030f7-c20a-464f-9b0e-13a3a9e97384}'
+        mkdir -p "$out/share/mozilla/extensions/$guid"
+        install -m444 ${src} "$out/share/mozilla/extensions/$guid/${addonId}.xpi"
+      '';
+
+  waWebPlus = mkXpiAddon {
+    pname = "wa-web-plus";
+    version = "1.7.2";
+    addonId = "{310f7d3e-ccd2-4f32-af1f-27a3f161eea7}";
+    src = pkgs.fetchurl {
+      url = "https://addons.mozilla.org/firefox/downloads/file/5001186/wa_web_plus_free-1.7.2.xpi";
+      hash = "sha256-AosiLvpdwV9zMnw43MOA3VYXKnu3TV54tRMWIppRHkw=";
+    };
+  };
+in
+{
   programs.zen-browser.profiles.default = {
     id = 0;
     path = "tumg9xef.Default Profile";
     isDefault = true;
+    # WA Web Plus is dropped into the profile rather than installed by policy,
+    # so without this it lands disabled and has to be toggled on by hand.
+    settings."extensions.autoDisableScopes" = 0;
+    extensions.packages = [ waWebPlus ];
     search = {
       force = true;
       engines = {

@@ -53,8 +53,16 @@
       };
 
       # Zen Internet
+      # The policy key is the add-on ID; only install_url takes the AMO slug,
+      # AMO's /downloads/latest/ endpoint 404s on a braced GUID.
       "{91aa3897-2634-4a8a-9092-279db23a7689}" = {
-        install_url = "https://addons.mozilla.org/firefox/downloads/latest/{91aa3897-2634-4a8a-9092-279db23a7689}/latest.xpi";
+        install_url = "https://addons.mozilla.org/firefox/downloads/latest/zen-internet/latest.xpi";
+        installation_mode = "force_installed";
+      };
+
+      # Ambient light for YouTube
+      "{60493d8c-aec8-448e-a247-5d2cfa047d69}" = {
+        install_url = "https://addons.mozilla.org/firefox/downloads/latest/ambient-light-for-youtube/latest.xpi";
         installation_mode = "force_installed";
       };
 
