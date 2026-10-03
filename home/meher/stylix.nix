@@ -132,10 +132,10 @@ in {
               }
             '';
          };
-          qt = {
-             enable = true;
-             platform = "adwaita";
-          };
+          # Off: see system/jinnnn/stylix.nix — this target only set
+          # QT_QPA_PLATFORMTHEME=adwaita (which matched no installed plugin)
+          # and QT_STYLE_OVERRIDE=adwaita-dark.
+          qt.enable = false;
       };
    };
 }

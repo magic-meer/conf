@@ -32,7 +32,6 @@
     };
 
     cursor = {
-      theme = "Adwaita";
       size = 24;
     };
 
