@@ -47,9 +47,16 @@
       #Terminal Apps
       pkgs.peaclock pkgs.cava pkgs.cmatrix pkgs.pipes
 
-      #Ai agnets
-      # inputs.antigravity-nix.packages.x86_64-linux.google-antigravity-cli
-      pkgs.antigravity-fhs
-      pkgs.kiro-fhs
-   ];
- }
+#Ai agnets
+       # inputs.antigravity-nix.packages.x86_64-linux.google-antigravity-cli
+       pkgs.antigravity-fhs
+       pkgs.kiro-fhs
+
+       # Minimal LaTeX: template packages + tables (tools: array/tabularx/longtable, multirow)
+       # + code (listings/minted) + latexmk. graphicx/fontenc/indentfirst come from scheme-small.
+       pkgs.texliveSmall.withPackages (ps: with ps; [
+         geometry graphics float fancyhdr setspace hyperref listings xcolor
+         titlesec booktabs lm tools multirow minted latexmk cm-super
+       ])
+    ];
+  }
